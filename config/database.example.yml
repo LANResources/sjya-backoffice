@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: SJYABackOffice_development
+  pool: 5
+  username:
+  password:
