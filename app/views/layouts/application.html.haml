@@ -1,0 +1,46 @@
+!!!
+%html{lang: "en"}
+  %head
+    %title= "#{yield(:title) || "Untitled"} · BackOffice · St. Joseph Youth Alliance"
+
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Lato:300", rel: "stylesheet", type: "text/css"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Lato:400", rel: "stylesheet", type: "text/css"}/
+    %link{href: "http://fonts.googleapis.com/css?family=Kaushan+Script", rel: "stylesheet", type: "text/css"}/
+    = stylesheet_link_tag "application", media: 'all', data: {'turbolinks-track' => true}
+
+    / The HTML5 shim, for IE6-8 support of HTML5 elements
+    /[if lt IE 9]
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      = stylesheet_link_tag 'ie'
+    /[if IE 9]
+      = stylesheet_link_tag 'ie9'
+
+    = javascript_include_tag "application", data: {'turbolinks-track' => true}
+    = csrf_meta_tag
+
+    = favicon_link_tag
+    -# %link{href: "apple-touch-icon-iphone.png", rel: "apple-touch-icon"}/
+    -# %link{href: "apple-touch-icon-ipad.png", rel: "apple-touch-icon", sizes: "72x72"}/
+    -# %link{href: "apple-touch-icon-iphone4.png", rel: "apple-touch-icon", sizes: "114x114"}/
+    -# %link{href: "apple-touch-icon-ipad3.png", rel: "apple-touch-icon", sizes: "144x144"}/
+  %body{"data-action" => params[:action], "data-controller" => controller.controller_name}
+    = render partial: 'layouts/navbar'
+
+    .container-fluid-full
+      .row-fluid
+        = render partial: 'layouts/menu'
+
+        #content.span10
+          = yield :breadcrumbs
+          -# = yield :page_header if show_title?
+          - flash.each do |name, msg|
+            .row-fluid
+              .span12
+                %div{class: "alert alert-#{name}"}= msg
+
+          .row-fluid
+            = yield
+
+      .clearfix
+      = render partial: 'layouts/footer'

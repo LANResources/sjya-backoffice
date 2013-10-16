@@ -1,0 +1,142 @@
+$blue: #36A9E1;
+$lightBlue: #67c2ef;
+$darkBlue: #1E6594;
+$green: #bdea74;
+$darkGreen: #78cd51;
+$forestGreen: #5F7C52;
+$pink: #e84c8a;
+$orange: #fa603d;
+$lightOrange: #fabb3d;
+$burntOrange: #da5f2f;
+$red: #ff5454;
+$darkRed: #C9402E;
+$yellow: #eae874;
+$inverse: #444;
+$lightGrey: #f9f9f9;
+$grey: #c7cbd5;
+$darkGrey: darken($grey, 55%);
+$borderGrey: #eee;
+
+$mainGreen: #549E54;
+
+$mainColor: $darkBlue;
+$bodyBackground: #F5F5F5;
+
+.blue { color: $blue; }
+.lightBlue { color: $lightBlue; }
+.darkBlue { color: $darkBlue; }
+.green { color: $green; }
+.darkGreen { color: $darkGreen; }
+.forestGreen { color: $forestGreen; }
+.pink { color: $pink; }
+.orange { color: $orange; }
+.lightOrange { color: $lightOrange; }
+.burntOrange { color: $burntOrange; }
+.red { color: $red; }
+.darkRed { color: $darkRed; }
+.yellow { color: $yellow; }
+.white { color: white; }
+.grey { color: $grey; }
+
+@mixin backgroundColor {
+
+  &.blue { background: $blue; }
+  &.lightBlue { background: $lightBlue; }
+  &.darkBlue { background: $darkBlue; }
+  &.green { background: $green; }
+  &.darkGreen { background: $darkGreen; }
+  &.forestGreen { background: $forestGreen; }
+  &.pink { background: $pink; }
+  &.orange { background: $orange; }
+  &.lightOrange { background: $lightOrange; }
+  &.burntOrange { background: $burntOrange; }
+  &.red { background: $red; }
+  &.darkRed { background: $darkRed; }
+  &.yellow { background: $yellow; }
+  &.white { background: white; }
+  &.grey { background: $grey; }
+
+}
+
+@mixin boxColor($boxColor) {
+  .box-header {
+    background: $boxColor;
+    h2 i, .box-icon { background: darken($boxColor, 10%); }
+  }
+  &.full-color {
+    .box-header {
+      background: darken($boxColor, 10%);
+    }
+    .box-content {
+      background: $boxColor;
+    }
+  }
+}
+
+@mixin boxColors {
+  &.blue { @include boxColor($blue); }
+  &.lightBlue { @include boxColor($lightBlue); }
+  &.darkBlue { @include boxColor($darkBlue); }
+  &.green { @include boxColor($green); }
+  &.darkGreen { @include boxColor($darkGreen); }
+  &.forestGreen { @include boxColor($forestGreen); }
+  &.pink { @include boxColor($pink); }
+  &.orange { @include boxColor($orange); }
+  &.lightOrange { @include boxColor($lightOrange); }
+  &.burntOrange { @include boxColor($burntOrange); }
+  &.red { @include boxColor($red); }
+  &.darkRed { @include boxColor($darkRed); }
+  &.yellow { @include boxColor($yellow); }
+  &.white { @include boxColor(white); }
+  &.grey { @include boxColor($grey); }
+}
+
+@mixin backgroundColorTitle {
+
+  &.blue {
+    .title { background: $blue; }
+  }
+  &.lightBlue {
+    .title { background: $lightBlue; }
+  }
+  &.darkBlue {
+    .title { background: $darkBlue; }
+  }
+  &.green {
+    .title { background: $green; }
+  }
+  &.darkGreen {
+    .title { background: $darkGreen; }
+  }
+  &.forestGreen {
+    .title { background: $forestGreen; }
+  }
+  &.pink {
+    .title { background: $pink; }
+  }
+  &.orange {
+    .title { background: $orange; }
+  }
+  &.lightOrange {
+    .title { background: $lightOrange; }
+  }
+  &.burntOrange {
+    .title { background: $burntOrange; }
+  }
+  &.red {
+    .title { background: $red; }
+  }
+  &.darkRed {
+    .title { background: $darkRed; }
+  }
+  &.yellow {
+    .title { background: $yellow; }
+  }
+  &.white {
+    .title { background: white; }
+  }
+  &.grey {
+    .title { background: $grey; }
+  }
+
+}

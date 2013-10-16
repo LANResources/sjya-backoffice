@@ -1,0 +1,23 @@
+// Notice alerts match alert-success
+.alert-notice {
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-notice h4 {
+  color: #468847;
+}
+
+// Table cell alignment classes
+td, th {
+  &.right {
+    text-align: right;
+  }
+  &.center {
+    text-align: center;
+  }
+  &.left {
+    text-align: left;
+  }
+}

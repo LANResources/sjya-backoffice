@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/LANResources/backoffice-theme.git
+  revision: 7f35a815f21f78dbddf0dbe1b48c66494be1f572
+  branch: master
+  specs:
+    lr-simpliq (0.0.7)
+      coffee-rails
+      rails (>= 3.1.0)
+      sass (~> 3.2)
+      sass-rails (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -228,6 +239,7 @@ DEPENDENCIES
   haml-rails
   jbuilder (~> 1.2)
   jquery-rails
+  lr-simpliq!
   pg
   rails (= 4.0.0)
   rspec-rails (= 2.14.0)

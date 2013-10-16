@@ -1,0 +1,10 @@
+#sidebar-left.span2
+  -# .row-fluid.actions
+  -#   %input.search.span12{placeholder: "...", type: "text"}/
+  .nav-collapse.sidebar-nav
+    %ul.nav.nav-tabs.nav-stacked.main-menu
+      %li{class: ('active' if controller.controller_name == 'static_pages' && params[:action] == 'about')}
+        = link_to root_url do
+          %i.icon-info
+          %span.hidden-tablet About Us
+
