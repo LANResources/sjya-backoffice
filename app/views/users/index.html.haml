@@ -1,0 +1,39 @@
+%h1 Listing users
+
+%table
+  %tr
+    %th First name
+    %th Last name
+    %th Email
+    %th Password digest
+    %th Title
+    %th Phone
+    %th Address
+    %th City
+    %th State
+    %th Zipcode
+    %th Avatar
+    %th
+    %th
+    %th
+
+  - @users.each do |user|
+    %tr
+      %td= user.first_name
+      %td= user.last_name
+      %td= user.email
+      %td= user.password_digest
+      %td= user.title
+      %td= user.phone
+      %td= user.address
+      %td= user.city
+      %td= user.state
+      %td= user.zipcode
+      %td= user.avatar
+      %td= link_to 'Show', user
+      %td= link_to 'Edit', edit_user_path(user)
+      %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New User', new_user_path

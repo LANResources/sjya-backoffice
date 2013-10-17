@@ -17,6 +17,7 @@
 /bin/*
 database.yml
 application.yml
+dropbox.yml
 .secret
 .rvmrc
 .powrc

@@ -9,6 +9,7 @@ Spork.prefork do
   require 'rspec/rails'
   require 'rspec/autorun'
   require 'capybara/rspec'
+  require 'factory_girl'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -46,6 +47,8 @@ Spork.prefork do
     #     --seed 1234
     config.order = "random"
 
+    config.include AuthMacros
+    config.include FactoryGirl::Syntax::Methods
     config.include Capybara::DSL
   end
 end

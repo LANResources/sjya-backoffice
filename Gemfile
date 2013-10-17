@@ -23,6 +23,13 @@ gem 'jbuilder', '~> 1.2'
 # Views
 gem 'haml-rails'
 
+# Files
+gem "paperclip"
+gem "paperclip-dropbox"
+
+# Encryption
+gem 'bcrypt-ruby', '~> 3.0.0'
+
 # Testing
 group :development, :test do
   gem 'rspec-rails', '2.14.0'

@@ -1,0 +1,44 @@
+!!!
+%html
+  %head
+    %title Sign in · BackOffice · BioZyme, Inc.
+
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+    = stylesheet_link_tag "application"
+    = stylesheet_link_tag "external", data: { 'turbolinks-track' => true }
+
+    /[if lte IE 7.0]
+      = stylesheet_link_tag 'ie'
+    /[if IE 8.0]
+      <style type="text/css">
+      form.fields fieldset {margin-top: -10px;}
+      </style>
+
+    = csrf_meta_tag
+    = favicon_link_tag
+    %link{href: "apple-touch-icon-iphone.png", rel: "apple-touch-icon"}/
+    %link{href: "apple-touch-icon-ipad.png", rel: "apple-touch-icon", sizes: "72x72"}/
+    %link{href: "apple-touch-icon-iphone4.png", rel: "apple-touch-icon", sizes: "114x114"}/
+    %link{href: "apple-touch-icon-ipad3.png", rel: "apple-touch-icon", sizes: "144x144"}/
+  %body#login{"data-action" => params[:action], "data-controller" => controller.controller_name}
+    .container-fluid-full
+      .row-fluid
+        .page-header.span12
+          %h1.text-center
+            %strong> YouthAlliance
+            BackOffice
+      .row-fluid
+        - if flash[:notice]
+          .row-fluid
+            .span6.offset3
+              .alert.alert-info
+                = flash[:notice]
+        - if flash[:alert]
+          .row-fluid
+            .span6.offset3
+              .alert.alert-warning
+                = flash[:alert]
+        = yield
+      -# - if Rails.env.development?
+      -#   .row-fluid
+      -#     .span12= debug(params)
