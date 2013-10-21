@@ -5,10 +5,16 @@ gem 'rails', '4.0.0'
 # Database
 gem 'pg'
 
+# Webserver
+gem 'thin', group: :development
+
 # Asset Compilation
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
+
+# Configuration
+gem 'figaro'
 
 # Theme
 gem 'lr-simpliq', git: 'https://github.com/LANResources/backoffice-theme.git', branch: 'master'

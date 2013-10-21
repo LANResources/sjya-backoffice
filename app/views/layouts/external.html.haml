@@ -28,16 +28,20 @@
             %strong> YouthAlliance
             BackOffice
       .row-fluid
-        - if flash[:notice]
+        -# - if flash[:notice]
+        -#   .row-fluid
+        -#     .span6.offset3
+        -#       .alert.alert-info
+        -#         = flash[:notice]
+        -# - if flash[:alert]
+        -#   .row-fluid
+        -#     .span6.offset3
+        -#       .alert.alert-warning
+        -#         = flash[:alert]
+        - flash.each do |name, msg|
           .row-fluid
             .span6.offset3
-              .alert.alert-info
-                = flash[:notice]
-        - if flash[:alert]
-          .row-fluid
-            .span6.offset3
-              .alert.alert-warning
-                = flash[:alert]
+              %div{class: "alert alert-#{name}"}= msg
         = yield
       -# - if Rails.env.development?
       -#   .row-fluid

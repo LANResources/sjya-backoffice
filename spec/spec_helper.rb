@@ -27,6 +27,7 @@ Spork.prefork do
     # config.mock_with :mocha
     # config.mock_with :flexmock
     # config.mock_with :rr
+    config.mock_with :rspec
 
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
     # config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -47,14 +48,17 @@ Spork.prefork do
     #     --seed 1234
     config.order = "random"
 
-    config.include AuthMacros
+    # config.before(:suite) { FactoryGirl.reload }
+
     config.include FactoryGirl::Syntax::Methods
     config.include Capybara::DSL
+    config.include AuthMacros
+    ActiveSupport::Dependencies.clear
   end
 end
 
 Spork.each_run do
-
+  FactoryGirl.reload
 end
 
 

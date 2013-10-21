@@ -24,7 +24,11 @@ module SessionsHelper
 
   def deny_access
     store_location
-    redirect_to login_path, :notice => "Please sign in to access this site."
+    if signed_in?
+      redirect_to root_url, notice: 'You are not authorized to view that page.'
+    else
+      redirect_to login_path, notice: 'Please sign in to access this site.'
+    end
   end
 
   def current_user?(user)
@@ -34,10 +38,6 @@ module SessionsHelper
   def redirect_back_or(default)
     redirect_to(session[:return_to] || default)
     clear_return_to
-  end
-
-  def authenticate
-    deny_access unless signed_in?
   end
 
   private

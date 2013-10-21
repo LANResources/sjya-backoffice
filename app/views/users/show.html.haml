@@ -1,39 +1,41 @@
-%p#notice= notice
+- title "#{@user.full_name}'s Profile"
 
-%p
-  %b First name:
-  = @user.first_name
-%p
-  %b Last name:
-  = @user.last_name
-%p
-  %b Email:
-  = @user.email
-%p
-  %b Password digest:
-  = @user.password_digest
-%p
-  %b Title:
-  = @user.title
-%p
-  %b Phone:
-  = @user.phone
-%p
-  %b Address:
-  = @user.address
-%p
-  %b City:
-  = @user.city
-%p
-  %b State:
-  = @user.state
-%p
-  %b Zipcode:
-  = @user.zipcode
-%p
-  %b Avatar:
-  = @user.avatar
+- breadcrumbs ['Employees', users_path], @user.full_name
 
-= link_to 'Edit', edit_user_path(@user)
-\|
-= link_to 'Back', users_path
+.row-fluid
+  .box.span12
+    .box-header
+      %h2
+        %i.icon-user
+      -# - if can?(:update, @user)
+      .box-icon
+        = link_to edit_user_path(@user), title: 'Edit' do
+          %i.icon-pencil
+
+    .box-content
+      .row-fluid
+        .span2
+          = image_tag(@user.avatar.url(:small), class: "img-rounded")
+        .span5
+          %h4
+            %span.label.label-info= styled_user_status @user.status
+          %p
+            %strong Title
+            %br/
+            = @user.title
+          %p
+            %address
+              %strong Address
+              %br/
+              - unless @user.address.blank?
+                = @user.address
+                %br/
+              = city_state_zip @user.city, @user.state, @user.zipcode
+          %p
+            %strong Phone
+            %br/
+            = @user.phone.present? ? format_as_phone_number(@user.phone) : 'Unknown'
+          %p
+            %strong Email
+            %br/
+            = @user.email.present? ? mail_to(@user.email) : 'Unknown'

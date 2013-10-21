@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
-  layout 'external', only: :new
-  skip_before_filter :authenticate, except: :destroy
+  layout 'external', only: [:new, :create]
+  # skip_before_filter :authorize, except: :destroy
 
   def new
   end
@@ -18,6 +18,6 @@ class SessionsController < ApplicationController
 
   def destroy
     sign_out
-    redirect_to new_session_path
+    redirect_to login_path
   end
 end

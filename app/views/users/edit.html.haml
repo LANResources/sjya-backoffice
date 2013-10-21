@@ -1,7 +1,10 @@
-%h1 Editing user
+- title "Edit Profile"
 
-= render 'form'
-
-= link_to 'Show', @user
-\|
-= link_to 'Back', users_path
+.row-fluid
+  .box.span12
+    .box-header
+      %h2
+        %i.icon-user
+        = @user.full_name
+    .box-content
+      = render 'form'

@@ -22,23 +22,23 @@
 
           %li.dropdown
             %a.btn.account.dropdown-toggle{data: {toggle: "dropdown"}, href: "#"}
-              -# .avatar= image_tag(current_user.photo.url(:tiny))
+              .avatar= image_tag(current_user.avatar.url(:tiny))
               .user
                 %span.hello Welcome!
-                -# %span.name= current_user.full_name
+                %span.name= current_user.full_name
             %ul.dropdown-menu
               %li.dropdown-menu-title
               %li
-                -# = link_to user_path(current_user) do
-                -#   %i.icon-user
-                -#   View Profile
+                = link_to user_path(current_user) do
+                  %i.icon-user
+                  View Profile
               %li
-                -# = link_to edit_user_path(current_user) do
-                -#   %i.icon-pencil
-                -#   Edit Profile
+                = link_to edit_user_path(current_user) do
+                  %i.icon-pencil
+                  Edit Profile
               %li
-                -# = link_to destroy_user_session_path do
-                -#   %i.icon-off
-                -#   Logout
+                = link_to logout_path, method: :delete do
+                  %i.icon-off
+                  Logout
 
           -# = render partial: 'layouts/admin_dropdown', locals: { phone: true }

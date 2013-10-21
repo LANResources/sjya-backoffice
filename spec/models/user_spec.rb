@@ -16,10 +16,17 @@ describe User do
   it { should respond_to(:zipcode) }
   it { should respond_to(:avatar) }
   it { should respond_to(:status) }
+  it { should respond_to(:role) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:contact?) }
+  it { should respond_to(:invited_user?) }
+  it { should respond_to(:registered_user?) }
+  it { should respond_to(:organization_manager?) }
+  it { should respond_to(:site_manager?) }
+  it { should respond_to(:administrator?) }
 
   it { should be_valid }
 
@@ -83,6 +90,28 @@ describe User do
 
     it "should reject invalid statuses" do
       @user.status = "invalid"
+      expect(@user).not_to be_valid
+    end
+  end
+
+  describe "role" do
+    it "should set proper defaults based on status" do
+      {contact: 'contact', invited_user: 'invited_user', registered_user: 'registered_user' }.each do |type, role|
+        user = create(type.to_sym)
+        expect(user.role).to eq(role)
+      end
+    end
+
+    it "should accept valid roles" do
+      @user = build(:registered_user)
+      User::ROLES.each do |valid_role|
+        @user.role = valid_role
+        expect(@user).to be_valid
+      end
+    end
+
+    it "should reject invalid roles" do
+      @user.role = "invalid"
       expect(@user).not_to be_valid
     end
   end

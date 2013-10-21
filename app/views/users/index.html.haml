@@ -1,39 +1,35 @@
-%h1 Listing users
+- title "Directory"
 
-%table
-  %tr
-    %th First name
-    %th Last name
-    %th Email
-    %th Password digest
-    %th Title
-    %th Phone
-    %th Address
-    %th City
-    %th State
-    %th Zipcode
-    %th Avatar
-    %th
-    %th
-    %th
+.row-fluid
+  .span12
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th
+          %th Name
+          %th Address
+          %th Phone
+          %th Actions
+      %tbody
+        - @users.each do |user|
+          %tr
+            %td.photo= link_to image_tag(user.avatar.url(:tiny), alt: "No Photo", class: 'img-rounded'), user
+            %td= link_to user.full_name, user
+            %td
+              %address
+                = user.address
+                %br/
+                = city_state_zip user.city, user.state, user.zipcode
+            %td= user.phone
+            %td
+              .btn-group
+                -# - if can? :update, user
+                = link_to edit_user_path(user), title: "Edit User", class: "btn btn-small btn-warning" do
+                  %i.icon-pencil
+                -# - if can? :destroy, user
+                = link_to user, title: "Delete User", class: "btn btn-small btn-danger", confirm: 'Are you sure?', method: :delete do
+                  %i.icon-trash
 
-  - @users.each do |user|
-    %tr
-      %td= user.first_name
-      %td= user.last_name
-      %td= user.email
-      %td= user.password_digest
-      %td= user.title
-      %td= user.phone
-      %td= user.address
-      %td= user.city
-      %td= user.state
-      %td= user.zipcode
-      %td= user.avatar
-      %td= link_to 'Show', user
-      %td= link_to 'Edit', edit_user_path(user)
-      %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New User', new_user_path
+-# - if can? :create, User
+.row-fluid
+  = link_to "Add User", new_user_path, class: 'btn btn-primary'
