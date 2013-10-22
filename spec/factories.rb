@@ -2,29 +2,45 @@ FactoryGirl.define do
   factory :user do
     first_name "Nick"
     last_name  "Reed"
-    email "nickreed@example.com"
-  end
+    sequence(:email) { |n| "#{first_name.downcase}_#{last_name.downcase}_#{n}@example.com" }
 
-  factory :contact, class: User do
-    first_name "Contact"
-    last_name  "User"
-    email "contact@example.com"
-    status "contact_only"
-  end
+    trait :password do
+      password 'testing'
+      password_confirmation 'testing'
+    end
+    trait :contact_only_status do
+      status 'contact_only'
+    end
+    trait :invited_status do
+      status 'invited'
+    end
+    trait :registered_status do
+      status 'registered'
+    end
+    trait :contact_role do
+      role 'contact'
+    end
+    trait :invited_user_role do
+      role 'invited_user'
+    end
+    trait :registered_user_role do
+      role 'registered_user'
+    end
+    trait :organization_manager_role do
+      role 'organization_manager'
+    end
+    trait :site_manager_role do
+      role 'site_manager'
+    end
+    trait :administrator_role do
+      role 'administrator'
+    end
 
-  factory :invited_user, class: User do
-    first_name "Invited"
-    last_name  "User"
-    email "invited@example.com"
-    status "invited"
-  end
-
-  factory :registered_user, class: User do
-    first_name "Registered"
-    last_name  "User"
-    email "registered@example.com"
-    status "registered"
-    password "testing"
-    password_confirmation "testing"
+    factory :contact,               traits: [:contact_only_status, :contact_role]
+    factory :invited_user,          traits: [:invited_status, :invited_user_role]
+    factory :registered_user,       traits: [:registered_status, :registered_user_role, :password]
+    factory :organization_manager,  traits: [:registered_status, :organization_manager_role, :password]
+    factory :site_manager,          traits: [:registered_status, :site_manager_role, :password]
+    factory :administrator,         traits: [:registered_status, :administrator_role, :password]
   end
 end

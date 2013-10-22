@@ -11,6 +11,7 @@ describe Permissions::NullPermission do
 
   it 'allows users' do
     should_not allow_page(:users, :index)
+    should_not allow_page(:users, :show)
     should_not allow_page(:users, :new)
     should_not allow_page(:users, :create)
     should_not allow_page(:users, :edit)

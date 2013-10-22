@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe UsersController do
 
-  before { @logged_in_user = create(:registered_user) }
+  before { @logged_in_user = create(:administrator) }
 
   let(:valid_attributes) { { first_name: 'Nick', last_name: 'Reed', email: 'nreed@example.com' } }
 
