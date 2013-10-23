@@ -12,6 +12,15 @@ describe Permissions::InvitedUserPermission do
     should allow_page(:sessions, :destroy)
   end
 
+  it 'allows invites' do
+    should_not allow_page(:invites, :create)
+    should allow_page(:invites, :edit, user)
+    should_not allow_page(:invites, :edit, other_user)
+    should allow_page(:invites, :update, user)
+    should_not allow_page(:invites, :update, other_user)
+    should_not allow_page(:invites, :destroy)
+  end
+
   it 'allows users' do
     should_not allow_page(:users, :index)
     should_not allow_page(:users, :show)
@@ -35,6 +44,9 @@ describe Permissions::InvitedUserPermission do
     should allow_param(:user, :avatar)
     should_not allow_param(:user, :role)
     should_not allow_param(:user, :status)
+    should_not allow_param(:user, :invite_token)
+    should_not allow_param(:user, :invited_at)
+    should_not allow_param(:user, :invited_by)
   end
 
   it 'allows static pages' do

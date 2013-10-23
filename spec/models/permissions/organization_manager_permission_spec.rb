@@ -2,12 +2,22 @@ require 'spec_helper'
 
 describe Permissions::OrganizationManagerPermission do
   let(:user){ create(:registered_user, role: 'organization_manager') }
+  let(:other_user){ create(:registered_user, role: 'organization_manager') }
   subject { Permissions.permission_for(user) }
 
   it 'allows sessions' do
     should allow_page(:sessions, :new)
     should allow_page(:sessions, :create)
     should allow_page(:sessions, :destroy)
+  end
+
+  it 'allows invites' do
+    should allow_page(:invites, :create)
+    should allow_page(:invites, :edit, user)
+    should_not allow_page(:invites, :edit, other_user)
+    should allow_page(:invites, :update, user)
+    should_not allow_page(:invites, :update, other_user)
+    should allow_page(:invites, :destroy)
   end
 
   it 'allows users' do
@@ -33,6 +43,9 @@ describe Permissions::OrganizationManagerPermission do
     should allow_param(:user, :avatar)
     should allow_param(:user, :role)
     should allow_param(:user, :status)
+    should_not allow_param(:user, :invite_token)
+    should_not allow_param(:user, :invited_at)
+    should_not allow_param(:user, :invited_by)
   end
 
   it 'allows static pages' do

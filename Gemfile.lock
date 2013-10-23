@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/LANResources/backoffice-theme.git
-  revision: 7f35a815f21f78dbddf0dbe1b48c66494be1f572
+  revision: 91fd923afbdf22bcb2722dc75b07daa42ab8ae0f
   branch: master
   specs:
-    lr-simpliq (0.0.7)
+    lr-simpliq (0.0.8)
       coffee-rails
       rails (>= 3.1.0)
       sass (~> 3.2)
@@ -36,7 +36,7 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
-    arel (4.0.0)
+    arel (4.0.1)
     atomic (1.1.14)
     bcrypt-ruby (3.0.1)
     builder (3.1.4)
@@ -55,9 +55,9 @@ GEM
     cocaine (0.5.2)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.0.9)
-    coffee-rails (4.0.0)
+    coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0.beta, < 5.0)
+      railties (>= 4.0.0, < 5.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs

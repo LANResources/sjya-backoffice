@@ -9,6 +9,13 @@ describe Permissions::NullPermission do
     should allow_page(:sessions, :destroy)
   end
 
+  it 'allows invites' do
+    should_not allow_page(:invites, :create)
+    should allow_page(:invites, :edit)
+    should_not allow_page(:invites, :update)
+    should_not allow_page(:invites, :destroy)
+  end
+
   it 'allows users' do
     should_not allow_page(:users, :index)
     should_not allow_page(:users, :show)
@@ -31,6 +38,9 @@ describe Permissions::NullPermission do
     should_not allow_param(:users, :avatar)
     should_not allow_param(:users, :role)
     should_not allow_param(:users, :status)
+    should_not allow_param(:users, :invite_token)
+    should_not allow_param(:users, :invited_by)
+    should_not allow_param(:users, :invited_at)
   end
 
   it 'allows static pages' do
