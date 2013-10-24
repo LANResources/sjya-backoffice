@@ -33,8 +33,22 @@ gem 'haml-rails'
 gem "paperclip"
 gem "paperclip-dropbox"
 
+# Mail
+gem 'letter_opener', group: :development
+
 # Encryption
 gem 'bcrypt-ruby', '~> 3.0.0'
+
+# Debugging
+gem 'exception_notification'
+group :development do
+  gem "pry"
+  gem 'meta_request'
+  gem 'rails-erd'
+  gem 'hirb'
+  gem 'awesome_print'
+  gem 'methodfinder'
+end
 
 # Testing
 group :development, :test do
