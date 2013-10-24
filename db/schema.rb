@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 20131022210811) do
     t.string   "state"
     t.string   "zipcode"
     t.string   "avatar"
-    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar_file_name"

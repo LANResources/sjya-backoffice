@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", http: { equiv: "Content-Type" } }
+
+  %body
+    %h2 St. Joseph Youth Alliance BackOffice
+    %p= "Dear #{@user.full_name},"
+    %p
+      = "#{@user.inviter.full_name} "
+      has invited you to become a registered user of the
+      = " #{link_to 'St. Joseph Youth Alliance BackOffice', root_url}. "
+      Follow the link below to create your account.
+      %br/
+      %br/
+      = link_to "Register!", rsvp_user_url(@user.id, @user.invite_token)

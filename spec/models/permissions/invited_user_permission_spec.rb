@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Permissions::InvitedUserPermission do
-  let(:user){ create(:invited_user) }
-  let(:other_user){ create(:invited_user) }
+  let(:user){ create(:invited_registered_user) }
+  let(:other_user){ create(:invited_registered_user) }
 
   subject { Permissions.permission_for(user) }
 
@@ -43,7 +43,6 @@ describe Permissions::InvitedUserPermission do
     should allow_param(:user, :zipcode)
     should allow_param(:user, :avatar)
     should_not allow_param(:user, :role)
-    should_not allow_param(:user, :status)
     should_not allow_param(:user, :invite_token)
     should_not allow_param(:user, :invited_at)
     should_not allow_param(:user, :invited_by)

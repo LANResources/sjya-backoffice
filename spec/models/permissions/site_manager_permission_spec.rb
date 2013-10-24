@@ -42,7 +42,6 @@ describe Permissions::SiteManagerPermission do
     should allow_param(:user, :zipcode)
     should allow_param(:user, :avatar)
     should allow_param(:user, :role)
-    should allow_param(:user, :status)
     should_not allow_param(:user, :invite_token)
     should_not allow_param(:user, :invited_at)
     should_not allow_param(:user, :invited_by)

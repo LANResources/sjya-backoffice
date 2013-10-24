@@ -12,7 +12,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :state
       t.string :zipcode
       t.string :avatar
-      t.string :status
 
       t.timestamps
     end

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   STATUSES = %w[registered invited contact_only]
-  ROLES = %w[contact invited_user registered_user organization_manager site_manager administrator]
+  ROLES = %w[contact registered_user organization_manager site_manager administrator]
 
   has_secure_password validations: false
   has_attached_file :avatar,
@@ -12,13 +12,14 @@ class User < ActiveRecord::Base
       url: "SJYABackOffice/#{DropboxConfig::SUBFOLDER}/users/:id/:style/:escaped_filename",
       default_url: "https://dl.dropboxusercontent.com/u/#{DropboxConfig::USER_ID}/SJYABackOffice/#{DropboxConfig::SUBFOLDER}/users/default/:style/missing.jpg"
 
+  has_many :invitees, class_name: 'User', foreign_key: 'invited_by', dependent: :nullify
+  belongs_to :inviter, class_name: 'User', foreign_key: 'invited_by'
+
   validates :first_name,            presence: true
   validates :last_name,             presence: true
   validates :email,                 presence: true,
                                     format: { with: VALID_EMAIL_REGEX },
                                     uniqueness: { case_sensitive: false }
-  validates :status,                presence: true,
-                                    inclusion: { in: STATUSES }
   validates :role,                  presence: true,
                                     inclusion: { in: ROLES }
   validates :password,              presence: { on: :create },
@@ -27,7 +28,7 @@ class User < ActiveRecord::Base
                                     if: :password_required?
   validates :password_confirmation, presence: { if: lambda { |m| m.password.present? } }
 
-  after_initialize :set_status
+  # after_initialize :set_status
   before_validation :set_role, if: :new_record?
   before_create :check_password
   before_save { self.email = email.downcase }
@@ -48,29 +49,47 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def status
+    if invite_token.nil?
+      if role == 'contact' || password_digest.nil?
+        'contact_only'
+      else
+        'registered'
+      end
+    else
+      'invited'
+    end
+  end
+
+  def invited?; status == 'invited'; end
+  def registered?; status == 'registered'; end
   def contact?; role.nil? || role == 'contact'; end
-  def invited_user?; role == 'invited_user'; end
   def registered_user?; role == 'registered_user'; end
   def organization_manager?; role == 'organization_manager'; end
   def site_manager?; role == 'site_manager'; end
   def administrator?; role == 'administrator'; end
 
-  private
-
-  def set_status
-    self.status ||= 'contact_only'
+  def send_invite(invitee)
+    invitee.update_attributes!  role: invitee.contact? ? 'registered_user' : invitee.role,
+                                invite_token: User.generate_token(:invite_token),
+                                invited_by: self.id,
+                                invited_at: Time.zone.now
   end
 
+  private
+
   def set_role
-    self.role ||= case self.status
-                  when 'registered' then 'registered_user'
-                  when 'invited' then 'invited_user'
-                  when 'contact_only' then 'contact'
-                  else 'contact'
-                  end
+    self.role ||= self.status == 'contact_only' ? 'contact' : 'registered_user'
   end
 
   def check_password
     raise "Password digest missing on new record" if password_required? && password_digest.blank?
+  end
+
+  def self.generate_token(column)
+    begin
+      token = SecureRandom.urlsafe_base64
+    end while User.exists?(column => token)
+    token
   end
 end
