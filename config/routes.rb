@@ -2,9 +2,9 @@ SJYABackOffice::Application.routes.draw do
   resources :users do
     member do
       post 'invite', to: 'invites#create', as: :invite
-      delete 'invite', to: 'invites#destroy', as: :uninvite
+      delete 'uninvite', to: 'invites#destroy', as: :uninvite
       get 'register/:invite_code', to: 'invites#edit', as: :rsvp
-      put 'register', to: 'invites#update', as: :register
+      match 'register', to: 'invites#update', via: [:patch, :put], as: :register
     end
   end
 

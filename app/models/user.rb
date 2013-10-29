@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_many :invitees, class_name: 'User', foreign_key: 'invited_by', dependent: :nullify
   belongs_to :inviter, class_name: 'User', foreign_key: 'invited_by'
 
+  attr_accessor :signing_up
+
   validates :first_name,            presence: true
   validates :last_name,             presence: true
   validates :email,                 presence: true,
@@ -26,9 +28,9 @@ class User < ActiveRecord::Base
                                     confirmation: { if: lambda { |m| m.password.present? } },
                                     length: { minimum: 6, if: lambda { |m| m.password.present? } },
                                     if: :password_required?
+  validates :password,              presence: { on: :update }, if: :signing_up
   validates :password_confirmation, presence: { if: lambda { |m| m.password.present? } }
 
-  # after_initialize :set_status
   before_validation :set_role, if: :new_record?
   before_create :check_password
   before_save { self.email = email.downcase }
@@ -74,6 +76,25 @@ class User < ActiveRecord::Base
                                 invite_token: User.generate_token(:invite_token),
                                 invited_by: self.id,
                                 invited_at: Time.zone.now
+    UserMailer.invitation(invitee).deliver
+  end
+
+  def uninvite(invitee)
+    invitee.update_attributes!  role: 'contact',
+                                invite_token: nil,
+                                invited_by: nil,
+                                invited_at: nil
+  end
+
+  def register(token, user_params)
+    self.signing_up = true
+
+    if invite_token == token && update(user_params)
+      self.invite_token = nil
+      save!
+    else
+      false
+    end
   end
 
   private

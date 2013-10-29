@@ -8,6 +8,11 @@
           %i.icon-info
           %span.hidden-tablet About Us
 
+      %li{class: ('active' if controller.controller_name == 'users')}
+        = link_to users_path do
+          %i.icon-group
+          %span.hidden-tablet Users
+
       %li{class: ('active' if controller.controller_name == '' && params[:action] == '')}
         = link_to root_url do
           %i.icon-bullhorn

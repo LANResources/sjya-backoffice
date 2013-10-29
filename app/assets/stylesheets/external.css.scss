@@ -59,3 +59,26 @@ body {
     -o-background-size: cover;
   }
 }
+
+.content {
+  background-color: rgba(255,255,255,0.5);
+  margin-bottom: 25px;
+  .hero-unit {
+    background-color: transparent;
+    h1 {
+      color: #1F3C68;
+      text-align: center;
+    }
+  }
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="file"] {
+    background-color: rgba(255,255,255,0.7);
+  }
+  .form-actions, legend {
+    border-color: rgba(30, 101, 148, 0.5);
+    background-color: transparent;
+  }
+}

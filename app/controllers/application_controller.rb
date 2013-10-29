@@ -10,11 +10,6 @@ class ApplicationController < ActionController::Base
   delegate :allow_param?, to: :current_permission
   helper_method :allow_param?
 
-  def permitted_params
-    @permitted_params ||= PermittedParams.new(params, current_user)
-  end
-  helper_method :permitted_params
-
   private
 
   def current_permission

@@ -9,10 +9,10 @@
       .controls
         = f.text_field :email, class: 'input-xxlarge'
 
-    .control-group
-      = f.label :status, class: 'control-label'
-      .controls
-        = f.collection_select :status, User::STATUSES, :to_s, :humanize
+    -# .control-group
+    -#   = f.label :status, class: 'control-label'
+    -#   .controls
+    -#     = f.collection_select :status, User::STATUSES, :to_s, :humanize
 
     - if @user == current_user
       .control-group

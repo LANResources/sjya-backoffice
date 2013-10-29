@@ -249,5 +249,18 @@ describe User do
       its(:invited_by) { should == inviter.id }
       its(:invited_at) { should be_within(1.minute).of(Time.zone.now) }
     end
+
+    describe '#uninvite' do
+      before do
+        inviter.send_invite invitee
+        inviter.uninvite invitee
+      end
+
+      its(:status) { should == 'contact_only' }
+      its(:role) { should == 'contact' }
+      its(:invite_token) { should be_nil }
+      its(:invited_by) { should be_nil }
+      its(:invited_at) { should be_nil }
+    end
   end
 end

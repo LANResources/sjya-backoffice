@@ -18,7 +18,8 @@
           = image_tag(@user.avatar.url(:small), class: "img-rounded")
         .span5
           %h4
-            %span.label.label-info= styled_user_status @user.status
+            %span.label.label-info= @user.role.titleize
+            = user_status_link @user
           %p
             %strong Title
             %br/

@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Sign in · BackOffice · St. Joseph Youth Alliance
+    %title Register · BackOffice · St. Joseph Youth Alliance
 
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
     = stylesheet_link_tag "application"
@@ -14,6 +14,7 @@
       form.fields fieldset {margin-top: -10px;}
       </style>
 
+    = javascript_include_tag "application", data: { 'turbolinks-track' => true }
     = csrf_meta_tag
     = favicon_link_tag
     %link{href: "apple-touch-icon-iphone.png", rel: "apple-touch-icon"}/
@@ -28,8 +29,11 @@
             %strong> YouthAlliance
             BackOffice
       .row-fluid
-        - flash.each do |name, msg|
+        .span8.offset2.content
           .row-fluid
-            .span6.offset3
-              %div{class: "alert alert-#{name}"}= msg
-        = yield
+            .span10.offset1
+              - flash.each do |name, msg|
+                .row-fluid
+                  .span6.offset3
+                    %div{class: "alert alert-#{name}"}= msg
+              = yield

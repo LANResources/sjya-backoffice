@@ -7,7 +7,7 @@ module ApplicationHelper
         end
       end
     end
-    content_for(:title){ page_title.to_s }
+    content_for(:title){ page_title.to_s.html_safe }
     @show_title = show_title
   end
 

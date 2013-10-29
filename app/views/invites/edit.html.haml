@@ -1,2 +1,80 @@
-%h1 Invites#edit
-%p Find me in app/views/invites/edit.html.haml
+.hero-unit
+  %h1 Welcome!
+
+= form_for @user, url: register_user_path(@user), html: { class: 'form-horizontal', multipart: true } do |f|
+  = render partial: 'shared/form_errors', locals: { resource: @user }
+  = f.hidden_field :invite_token
+
+  %fieldset
+    %legend Login Information
+
+    .control-group
+      = f.label :email, class: 'control-label'
+      .controls
+        = f.text_field :email, class: 'span8'
+
+    .control-group
+      = f.label :password, class: 'control-label'
+      .controls
+        = f.password_field :password, class: 'span8'
+
+    .control-group
+      = f.label :password_confirmation, class: 'control-label'
+      .controls
+        = f.password_field :password_confirmation, class: 'span8'
+
+  %fieldset
+    %legend Personal Information
+
+    .control-group
+      = f.label :first_name, class: 'control-label'
+      .controls
+        = f.text_field :first_name, class: 'span8'
+
+    .control-group
+      = f.label :last_name, class: 'control-label'
+      .controls
+        = f.text_field :last_name, class: 'span8'
+
+    .control-group
+      = f.label :title, class: 'control-label'
+      .controls
+        = f.text_field :title, class: 'span8'
+
+    .control-group
+      = f.label :address, class: 'control-label'
+      .controls
+        = f.text_field :address, class: 'span8'
+
+    .control-group
+      = f.label :city, class: 'control-label'
+      .controls
+        = f.text_field :city, class: 'span6'
+
+    .control-group
+      = f.label :state, class: 'control-label'
+      .controls
+        = f.select :state,
+          ActionView::Helpers::States::US.zip(ActionView::Helpers::States::US_SHORT),
+          prompt: "Select State...", class: 'span6'
+
+    .control-group
+      = f.label :zipcode, class: 'control-label'
+      .controls
+        = f.text_field :zipcode, class: 'span6'
+
+    .control-group
+      = f.label :phone, class: 'control-label'
+      .controls
+        = f.text_field :phone, class: 'span6'
+        %span.help-inline ###-###-####
+
+    .control-group
+      = f.label :avatar, 'Profile Picture', class: 'control-label'
+      .controls
+        = f.file_field :avatar
+
+  .form-actions
+    = f.submit 'Register', class: 'btn btn-large btn-primary'
+
+
