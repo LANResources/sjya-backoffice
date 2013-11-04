@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/LANResources/backoffice-theme.git
-  revision: 91fd923afbdf22bcb2722dc75b07daa42ab8ae0f
+  revision: 62e227ea998cc8b8f1473ce82c324a7a3fa1b411
   branch: master
   specs:
-    lr-simpliq (0.0.8)
+    lr-simpliq (0.0.9)
       coffee-rails
       rails (>= 3.1.0)
       sass (~> 3.2)
