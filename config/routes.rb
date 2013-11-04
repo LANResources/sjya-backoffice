@@ -1,4 +1,6 @@
 SJYABackOffice::Application.routes.draw do
+  resources :organizations
+
   resources :users do
     member do
       post 'invite', to: 'invites#create', as: :invite

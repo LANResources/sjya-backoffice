@@ -27,7 +27,7 @@
                 = link_to edit_user_path(user), title: "Edit User", class: "btn btn-small btn-warning" do
                   %i.icon-pencil
                 -# - if can? :destroy, user
-                = link_to user, title: "Delete User", class: "btn btn-small btn-danger", confirm: 'Are you sure?', method: :delete do
+                = link_to user, title: "Delete User", class: "btn btn-small btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
                   %i.icon-trash
 
 -# - if can? :create, User
