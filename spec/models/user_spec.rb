@@ -224,6 +224,33 @@ describe User do
     end
   end
 
+  describe '#assignable_roles' do
+    describe 'for administrators' do
+      subject { create(:administrator) }
+      its(:assignable_roles) { should == %w(contact registered_user organization_manager site_manager administrator) }
+    end
+
+    describe 'for site managers' do
+      subject { create(:site_manager) }
+      its(:assignable_roles) { should == %w(contact registered_user organization_manager site_manager) }
+    end
+
+    describe 'for organization managers' do
+      subject { create(:organization_manager) }
+      its(:assignable_roles) { should == %w(contact registered_user) }
+    end
+
+    describe 'for registered users' do
+      subject { create(:registered_user) }
+      its(:assignable_roles) { should == [] }
+    end
+
+    describe 'for contacts' do
+      subject { create(:contact) }
+      its(:assignable_roles) { should == [] }
+    end
+  end
+
   describe 'invitations' do
     let(:inviter) { create(:site_manager) }
     let(:invitee) { create(:contact) }

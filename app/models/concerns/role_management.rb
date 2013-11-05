@@ -51,6 +51,19 @@ module RoleManagement
     role == 'administrator'
   end
 
+  def assignable_roles
+    case self.role
+    when "administrator"
+      ROLES
+    when "site_manager"
+      ROLES[0..3]
+    when "organization_manager"
+      ROLES[0..1]
+    else
+      []
+    end
+  end
+
   private
     def set_role
       self.role ||= self.status == 'contact_only' ? 'contact' : 'registered_user'
