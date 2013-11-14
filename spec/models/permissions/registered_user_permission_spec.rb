@@ -50,6 +50,18 @@ describe Permissions::RegisteredUserPermission do
     should_not allow_param(:user, :invited_by)
   end
 
+  it 'allows organizations' do
+    should allow_page(:organizations, :index)
+    should allow_page(:organizations, :show)
+    should_not allow_page(:organizations, :new)
+    should_not allow_page(:organizations, :create)
+    should_not allow_page(:organizations, :edit)
+    should_not allow_page(:organizations, :update)
+    should_not allow_page(:organizations, :destroy)
+    should_not allow_param(:organizations, :name)
+    should_not allow_param(:organizations, :logo)
+  end
+
   it 'allows static pages' do
     should allow_page(:static_pages, :about)
   end

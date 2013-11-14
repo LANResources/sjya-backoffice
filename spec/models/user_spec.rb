@@ -251,6 +251,166 @@ describe User do
     end
   end
 
+  describe 'hierarchy' do
+    describe 'based on roles' do
+      let(:contact) { create(:contact) }
+      let(:registered_user) { create(:registered_user) }
+      let(:organization_manager) { create(:organization_manager) }
+      let(:site_manager) { create(:site_manager) }
+      let(:administrator) { create(:administrator) }
+
+      context 'for administrator' do
+        subject { create(:administrator) }
+
+        it 'should compare to other roles' do
+          expect(subject > contact).to be_true
+          expect(subject > registered_user).to be_true
+          expect(subject > organization_manager).to be_true
+          expect(subject > site_manager).to be_true
+          expect(subject > administrator).to be_false
+
+          expect(subject >= contact).to be_true
+          expect(subject >= registered_user).to be_true
+          expect(subject >= organization_manager).to be_true
+          expect(subject >= site_manager).to be_true
+          expect(subject >= administrator).to be_true
+
+          expect(subject < contact).to be_false
+          expect(subject < registered_user).to be_false
+          expect(subject < organization_manager).to be_false
+          expect(subject < site_manager).to be_false
+          expect(subject < administrator).to be_false
+
+          expect(subject <= contact).to be_false
+          expect(subject <= registered_user).to be_false
+          expect(subject <= organization_manager).to be_false
+          expect(subject <= site_manager).to be_false
+          expect(subject <= administrator).to be_true
+        end
+      end
+
+      context 'for site manager' do
+        subject { create(:site_manager) }
+
+        it 'should compare to other roles' do
+          expect(subject > contact).to be_true
+          expect(subject > registered_user).to be_true
+          expect(subject > organization_manager).to be_true
+          expect(subject > site_manager).to be_false
+          expect(subject > administrator).to be_false
+
+          expect(subject >= contact).to be_true
+          expect(subject >= registered_user).to be_true
+          expect(subject >= organization_manager).to be_true
+          expect(subject >= site_manager).to be_true
+          expect(subject >= administrator).to be_false
+
+          expect(subject < contact).to be_false
+          expect(subject < registered_user).to be_false
+          expect(subject < organization_manager).to be_false
+          expect(subject < site_manager).to be_false
+          expect(subject < administrator).to be_true
+
+          expect(subject <= contact).to be_false
+          expect(subject <= registered_user).to be_false
+          expect(subject <= organization_manager).to be_false
+          expect(subject <= site_manager).to be_true
+          expect(subject <= administrator).to be_true
+        end
+      end
+
+      context 'for organization manager' do
+        subject { create(:organization_manager) }
+
+        it 'should compare to other roles' do
+          expect(subject > contact).to be_true
+          expect(subject > registered_user).to be_true
+          expect(subject > organization_manager).to be_false
+          expect(subject > site_manager).to be_false
+          expect(subject > administrator).to be_false
+
+          expect(subject >= contact).to be_true
+          expect(subject >= registered_user).to be_true
+          expect(subject >= organization_manager).to be_true
+          expect(subject >= site_manager).to be_false
+          expect(subject >= administrator).to be_false
+
+          expect(subject < contact).to be_false
+          expect(subject < registered_user).to be_false
+          expect(subject < organization_manager).to be_false
+          expect(subject < site_manager).to be_true
+          expect(subject < administrator).to be_true
+
+          expect(subject <= contact).to be_false
+          expect(subject <= registered_user).to be_false
+          expect(subject <= organization_manager).to be_true
+          expect(subject <= site_manager).to be_true
+          expect(subject <= administrator).to be_true
+        end
+      end
+
+      context 'for registered user' do
+        subject { create(:registered_user) }
+
+        it 'should compare to other roles' do
+          expect(subject > contact).to be_true
+          expect(subject > registered_user).to be_false
+          expect(subject > organization_manager).to be_false
+          expect(subject > site_manager).to be_false
+          expect(subject > administrator).to be_false
+
+          expect(subject >= contact).to be_true
+          expect(subject >= registered_user).to be_true
+          expect(subject >= organization_manager).to be_false
+          expect(subject >= site_manager).to be_false
+          expect(subject >= administrator).to be_false
+
+          expect(subject < contact).to be_false
+          expect(subject < registered_user).to be_false
+          expect(subject < organization_manager).to be_true
+          expect(subject < site_manager).to be_true
+          expect(subject < administrator).to be_true
+
+          expect(subject <= contact).to be_false
+          expect(subject <= registered_user).to be_true
+          expect(subject <= organization_manager).to be_true
+          expect(subject <= site_manager).to be_true
+          expect(subject <= administrator).to be_true
+        end
+      end
+
+      context 'for contact' do
+        subject { create(:contact) }
+
+        it 'should compare to other roles' do
+          expect(subject > contact).to be_false
+          expect(subject > registered_user).to be_false
+          expect(subject > organization_manager).to be_false
+          expect(subject > site_manager).to be_false
+          expect(subject > administrator).to be_false
+
+          expect(subject >= contact).to be_true
+          expect(subject >= registered_user).to be_false
+          expect(subject >= organization_manager).to be_false
+          expect(subject >= site_manager).to be_false
+          expect(subject >= administrator).to be_false
+
+          expect(subject < contact).to be_false
+          expect(subject < registered_user).to be_true
+          expect(subject < organization_manager).to be_true
+          expect(subject < site_manager).to be_true
+          expect(subject < administrator).to be_true
+
+          expect(subject <= contact).to be_true
+          expect(subject <= registered_user).to be_true
+          expect(subject <= organization_manager).to be_true
+          expect(subject <= site_manager).to be_true
+          expect(subject <= administrator).to be_true
+        end
+      end
+    end
+  end
+
   describe 'invitations' do
     let(:inviter) { create(:site_manager) }
     let(:invitee) { create(:contact) }

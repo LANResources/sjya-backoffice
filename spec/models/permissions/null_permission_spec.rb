@@ -43,6 +43,18 @@ describe Permissions::NullPermission do
     should_not allow_param(:users, :invited_at)
   end
 
+  it 'allows organizations' do
+    should_not allow_page(:organizations, :index)
+    should_not allow_page(:organizations, :show)
+    should_not allow_page(:organizations, :new)
+    should_not allow_page(:organizations, :create)
+    should_not allow_page(:organizations, :edit)
+    should_not allow_page(:organizations, :update)
+    should_not allow_page(:organizations, :destroy)
+    should_not allow_param(:organizations, :name)
+    should_not allow_param(:organizations, :logo)
+  end
+
   it 'allows static pages' do
     should_not allow_page(:static_pages, :about)
   end

@@ -64,6 +64,30 @@ module RoleManagement
     end
   end
 
+  def <(other)
+    return false unless other.kind_of?(self.class)
+    return true if self.role.nil?
+    ROLES.index(self.role) < ROLES.index(other.role)
+  end
+
+  def <=(other)
+    return false unless other.kind_of?(self.class)
+    return true if self.role.nil?
+    ROLES.index(self.role) <= ROLES.index(other.role)
+  end
+
+  def >(other)
+    return false unless other.kind_of?(self.class)
+    return false if self.role.nil?
+    ROLES.index(self.role) > ROLES.index(other.role)
+  end
+
+  def >=(other)
+    return false unless other.kind_of?(self.class)
+    return false if self.role.nil?
+    ROLES.index(self.role) >= ROLES.index(other.role)
+  end
+
   private
     def set_role
       self.role ||= self.status == 'contact_only' ? 'contact' : 'registered_user'

@@ -47,6 +47,18 @@ describe Permissions::SiteManagerPermission do
     should_not allow_param(:user, :invited_by)
   end
 
+  it 'allows organizations' do
+    should allow_page(:organizations, :index)
+    should allow_page(:organizations, :show)
+    should allow_page(:organizations, :new)
+    should allow_page(:organizations, :create)
+    should allow_page(:organizations, :edit)
+    should allow_page(:organizations, :update)
+    should_not allow_page(:organizations, :destroy)
+    should allow_param(:organizations, :name)
+    should allow_param(:organizations, :logo)
+  end
+
   it 'allows static pages' do
     should allow_page(:static_pages, :about)
   end

@@ -1,7 +1,20 @@
 FactoryGirl.define do
+  factory :organization do
+    sequence(:name) { |n| "Test Organization #{n}" }
+
+    factory :lan_resources_org do
+      name 'LAN Resources'
+    end
+
+    factory :sjya_org do
+      name 'St. Joseph Youth Alliance'
+    end
+  end
+
   factory :user do
     first_name "Nick"
     last_name  "Reed"
+    association :organization
     sequence(:email) { |n| "#{first_name.downcase}_#{last_name.downcase}_#{n}@example.com" }
 
     trait :password do
