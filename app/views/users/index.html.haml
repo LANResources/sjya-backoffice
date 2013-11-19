@@ -9,7 +9,8 @@
           %th Name
           %th Address
           %th Phone
-          %th Actions
+          - if allow? :users, :edit, current_user
+            %th Actions
       %tbody
         - @users.each do |user|
           %tr
@@ -21,15 +22,16 @@
                 %br/
                 = city_state_zip user.city, user.state, user.zipcode
             %td= user.phone
-            %td
-              .btn-group
-                -# - if can? :update, user
-                = link_to edit_user_path(user), title: "Edit User", class: "btn btn-small btn-warning" do
-                  %i.icon-pencil
-                -# - if can? :destroy, user
-                = link_to user, title: "Delete User", class: "btn btn-small btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
-                  %i.icon-trash
+            - if allow? :users, :edit, current_user
+              %td
+                .btn-group
+                  - if allow? :users, :edit, user
+                    = link_to edit_user_path(user), title: "Edit User", class: "btn btn-small btn-warning" do
+                      %i.icon-pencil
+                  - if allow? :users, :destroy, user
+                    = link_to user, title: "Delete User", class: "btn btn-small btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
+                      %i.icon-trash
 
--# - if can? :create, User
-.row-fluid
-  = link_to "Add User", new_user_path, class: 'btn btn-primary'
+- if allow? :users, :create
+  .row-fluid
+    = link_to "Add User", new_user_path, class: 'btn btn-primary'

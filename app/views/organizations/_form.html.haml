@@ -1,0 +1,19 @@
+= form_for @organization, html: { class: 'form-horizontal', multipart: true } do |f|
+  = render partial: 'shared/form_errors', locals: { resource: @organization }
+
+  %fieldset
+    %legend Login Information
+
+    .control-group
+      = f.label :name, class: 'control-label'
+      .controls
+        = f.text_field :name, class: 'input-xxlarge'
+
+    .control-group
+      = f.label :logo, 'Logo', class: 'control-label'
+      .controls
+        = f.file_field :logo
+
+  .form-actions
+    = f.submit class: 'btn btn-primary'
+    = link_to 'Cancel', organizations_path, class: 'btn btn-inverse'

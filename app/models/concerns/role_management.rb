@@ -65,31 +65,35 @@ module RoleManagement
   end
 
   def <(other)
-    return false unless other.kind_of?(self.class)
+    return false unless comparable? other
     return true if self.role.nil?
-    ROLES.index(self.role) < ROLES.index(other.role)
+    ROLES.index(self.role) < ROLES.index(other.try(:role) || other.try(:to_s))
   end
 
   def <=(other)
-    return false unless other.kind_of?(self.class)
+    return false unless comparable? other
     return true if self.role.nil?
-    ROLES.index(self.role) <= ROLES.index(other.role)
+    ROLES.index(self.role) <= ROLES.index(other.try(:role) || other.try(:to_s))
   end
 
   def >(other)
-    return false unless other.kind_of?(self.class)
+    return false unless comparable? other
     return false if self.role.nil?
-    ROLES.index(self.role) > ROLES.index(other.role)
+    ROLES.index(self.role) > ROLES.index(other.try(:role) || other.try(:to_s))
   end
 
   def >=(other)
-    return false unless other.kind_of?(self.class)
+    return false unless comparable? other
     return false if self.role.nil?
-    ROLES.index(self.role) >= ROLES.index(other.role)
+    ROLES.index(self.role) >= ROLES.index(other.try(:role) || other.try(:to_s))
   end
 
   private
     def set_role
       self.role ||= self.status == 'contact_only' ? 'contact' : 'registered_user'
+    end
+
+    def comparable?(obj)
+      obj.kind_of?(self.class) || obj.try(:to_s).in?(ROLES)
     end
 end

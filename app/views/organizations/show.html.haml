@@ -1,0 +1,19 @@
+- title @organization.name
+
+- breadcrumbs ['Organizations', organizations_path], @organization.name
+
+.row-fluid
+  .box.span12
+    .box-header
+      %h2
+        %i.icon-globe
+      .box-icon
+        = link_to edit_organization_path(@organization), title: 'Edit' do
+          %i.icon-pencil
+
+    .box-content
+      .row-fluid
+        .span2
+          = image_tag(@organization.logo.url(:small), class: "img-rounded")
+        .span5
+          %h4= "#{@organization.users.count} members"

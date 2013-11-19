@@ -42,6 +42,15 @@ module UsersHelper
     end
   end
 
+  def show_role_select?(user)
+    user.new_record? || current_user > user
+  end
+
+  def show_organization_select?(user)
+    return false if user == current_user
+    (user <= current_user) && (current_user >= :site_manager)
+  end
+
   def city_state_zip(city, state, zipcode)
    [city.blank? ? '' : "#{city},", state, zipcode].join(' ')
   end

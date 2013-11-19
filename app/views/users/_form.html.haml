@@ -9,10 +9,17 @@
       .controls
         = f.text_field :email, class: 'input-xxlarge'
 
-    -# .control-group
-    -#   = f.label :status, class: 'control-label'
-    -#   .controls
-    -#     = f.collection_select :status, User::STATUSES, :to_s, :humanize
+    - if show_organization_select? @user
+      .control-group
+        = f.label :organization, class: 'control-label'
+        .controls
+          = f.collection_select :organization, Organization.all, :id, :name, class: 'input-xlarge'
+
+    - if show_role_select? @user
+      .control-group
+        = f.label :role, class: 'control-label'
+        .controls
+          = f.collection_select :role, current_user.assignable_roles, :to_s, :humanize, class: 'input-xlarge'
 
     - if @user == current_user
       .control-group

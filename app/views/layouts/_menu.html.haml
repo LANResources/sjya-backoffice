@@ -8,6 +8,11 @@
           %i.icon-info
           %span.hidden-tablet About Us
 
+      %li{class: ('active' if controller.controller_name == 'organizations')}
+        = link_to organizations_path do
+          %i.icon-globe
+          %span.hidden-tablet Organizations
+
       %li{class: ('active' if controller.controller_name == 'users')}
         = link_to users_path do
           %i.icon-group
