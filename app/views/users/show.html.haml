@@ -1,6 +1,6 @@
 - title "#{@user.full_name}'s Profile"
 
-- breadcrumbs ['Employees', users_path], @user.full_name
+- breadcrumbs ['People', users_path], @user.full_name
 
 .row-fluid
   .box.span12
@@ -16,6 +16,7 @@
         .span2
           = image_tag(@user.avatar.url(:small), class: "img-rounded")
         .span5
+          %h2= @user.organization.name
           %h4
             %span.label.label-info= @user.role.titleize
             = user_status_link @user

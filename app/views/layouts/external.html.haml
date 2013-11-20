@@ -20,7 +20,7 @@
     %link{href: "apple-touch-icon-ipad.png", rel: "apple-touch-icon", sizes: "72x72"}/
     %link{href: "apple-touch-icon-iphone4.png", rel: "apple-touch-icon", sizes: "114x114"}/
     %link{href: "apple-touch-icon-ipad3.png", rel: "apple-touch-icon", sizes: "144x144"}/
-  %body#login{"data-action" => params[:action], "data-controller" => controller.controller_name}
+  %body#login{data: {action: params[:action], controller: controller.controller_name}}
     .container-fluid-full
       .row-fluid
         .page-header.span12

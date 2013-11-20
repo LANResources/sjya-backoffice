@@ -24,7 +24,7 @@
     -# %link{href: "apple-touch-icon-ipad.png", rel: "apple-touch-icon", sizes: "72x72"}/
     -# %link{href: "apple-touch-icon-iphone4.png", rel: "apple-touch-icon", sizes: "114x114"}/
     -# %link{href: "apple-touch-icon-ipad3.png", rel: "apple-touch-icon", sizes: "144x144"}/
-  %body{"data-action" => params[:action], "data-controller" => controller.controller_name}
+  %body{data: {action: params[:action], controller: controller.controller_name}}
     = render partial: 'layouts/navbar'
 
     .container-fluid-full

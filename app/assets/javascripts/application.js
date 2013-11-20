@@ -13,5 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require nprogress
 //= require lr.simpliq
 //= require_tree .

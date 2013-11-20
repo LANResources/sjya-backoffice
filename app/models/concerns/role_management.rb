@@ -64,6 +64,10 @@ module RoleManagement
     end
   end
 
+  def assignable_organizations
+    Organization.assignable_for self
+  end
+
   def <(other)
     return false unless comparable? other
     return true if self.role.nil?

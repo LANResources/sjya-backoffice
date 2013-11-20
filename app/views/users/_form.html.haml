@@ -13,7 +13,7 @@
       .control-group
         = f.label :organization, class: 'control-label'
         .controls
-          = f.collection_select :organization, Organization.all, :id, :name, class: 'input-xlarge'
+          = f.collection_select :organization_id, current_user.assignable_organizations.to_a, :id, :name, class: 'input-xlarge'
 
     - if show_role_select? @user
       .control-group
