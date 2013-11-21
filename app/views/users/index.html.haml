@@ -7,6 +7,7 @@
         %tr
           %th
           %th Name
+          %th Organization
           %th Address
           %th Phone
           - if allow? :users, :edit, current_user
@@ -16,6 +17,7 @@
           %tr
             %td.photo= link_to image_tag(user.avatar.url(:tiny), alt: "No Photo", class: 'img-rounded'), user
             %td= link_to user.full_name, user
+            %td= user.organization.try(:name)
             %td
               %address
                 = user.address

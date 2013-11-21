@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Permissions::SiteManagerPermission do
   let(:user){ create(:registered_user, role: 'site_manager') }
   let(:other_user){ create(:registered_user, role: 'site_manager') }
+  let(:admin){ create(:registered_user, role: 'administrator') }
+  let(:org_manager){ create(:registered_user, role: 'organization_manager') }
   subject { Permissions.permission_for(user) }
 
   it 'allows sessions' do
@@ -25,9 +27,21 @@ describe Permissions::SiteManagerPermission do
     should allow_page(:users, :show)
     should allow_page(:users, :new)
     should allow_page(:users, :create)
-    should allow_page(:users, :edit)
-    should allow_page(:users, :update)
-    should allow_page(:users, :destroy)
+
+    should allow_page(:users, :edit, user)
+    should allow_page(:users, :edit, org_manager)
+    should_not allow_page(:users, :edit, other_user)
+    should_not allow_page(:users, :edit, admin)
+
+    should allow_page(:users, :update, user)
+    should allow_page(:users, :update, org_manager)
+    should_not allow_page(:users, :update, other_user)
+    should_not allow_page(:users, :update, admin)
+
+    should allow_page(:users, :destroy, org_manager)
+    should_not allow_page(:users, :destroy, user)
+    should_not allow_page(:users, :destroy, other_user)
+    should_not allow_page(:users, :destroy, admin)
 
     should allow_param(:user, :first_name)
     should allow_param(:user, :last_name)

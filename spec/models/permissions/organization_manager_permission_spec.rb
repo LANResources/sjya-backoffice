@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 describe Permissions::OrganizationManagerPermission do
-  let(:user){ create(:registered_user, role: 'organization_manager') }
-  let(:other_user){ create(:registered_user, role: 'organization_manager') }
+  let(:org){ create(:organization) }
+  let(:user){ create(:registered_user, role: 'organization_manager', organization: org) }
+  let(:other_user){ create(:registered_user, role: 'organization_manager', organization: org) }
+  let(:site_manager){ create(:registered_user, role: 'site_manager', organization: org) }
+  let(:contact){ create(:contact, organization: org) }
   subject { Permissions.permission_for(user) }
 
   it 'allows sessions' do
@@ -25,9 +28,21 @@ describe Permissions::OrganizationManagerPermission do
     should allow_page(:users, :show)
     should allow_page(:users, :new)
     should allow_page(:users, :create)
-    should allow_page(:users, :edit)
-    should allow_page(:users, :update)
-    should allow_page(:users, :destroy)
+
+    should allow_page(:users, :edit, user)
+    should_not allow_page(:users, :edit, other_user)
+    should_not allow_page(:users, :edit, site_manager)
+    should allow_page(:users, :edit, contact)
+
+    should allow_page(:users, :update, user)
+    should_not allow_page(:users, :update, other_user)
+    should_not allow_page(:users, :update, site_manager)
+    should allow_page(:users, :update, contact)
+
+    should_not allow_page(:users, :destroy, user)
+    should_not allow_page(:users, :destroy, other_user)
+    should_not allow_page(:users, :destroy, site_manager)
+    should allow_page(:users, :destroy, contact)
 
     should allow_param(:user, :first_name)
     should allow_param(:user, :last_name)

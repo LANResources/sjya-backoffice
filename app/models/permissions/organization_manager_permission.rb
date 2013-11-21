@@ -4,7 +4,13 @@ module Permissions
       super(user)
 
       # Users
-      allow :users, [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow :users, [:index, :show, :new, :create]
+      allow :users, [:edit, :update] do |other_user|
+        user == other_user || (user > other_user && user.organization == other_user.organization)
+      end
+      allow :users, :destroy do |other_user|
+        user > other_user
+      end
       allow_param :user, [:role, :status]
 
       # Invites
