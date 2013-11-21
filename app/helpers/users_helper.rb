@@ -19,7 +19,7 @@ module UsersHelper
   end
 
   def invite_link(user)
-    if allow? :invites, :create
+    if policy(Invite).create?
       link_to 'Invite', invite_user_path(user), method: :post, class: 'btn btn-mini btn-info'
     else
       content_tag :span, 'Contact', class: 'label label-info'
@@ -27,7 +27,7 @@ module UsersHelper
   end
 
   def uninvite_link(user)
-    if allow? :invites, :destroy
+    if policy(Invite).destroy?
       link_to 'Uninvite', uninvite_user_path(user), method: :delete, class: 'btn btn-mini btn-info'
     else
       content_tag :span, "Invited (#{user.invited_on.strftime('%-m/%-d/%y')})", class: 'label label-info'
@@ -35,7 +35,7 @@ module UsersHelper
   end
 
   def revoke_link(user)
-    if allow_param? :user, :role
+    if true #allow_param? :user, :role
       'Revoke'
     else
       content_tag :span, "Registered", class: 'label label-info'

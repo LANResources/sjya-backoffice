@@ -10,7 +10,7 @@
           %th Organization
           %th Address
           %th Phone
-          - if allow? :users, :edit, current_user
+          - if policy(current_user).edit?
             %th Actions
       %tbody
         - @users.each do |user|
@@ -24,16 +24,16 @@
                 %br/
                 = city_state_zip user.city, user.state, user.zipcode
             %td= user.phone
-            - if allow? :users, :edit, current_user
+            - if policy(current_user).edit?
               %td
                 .btn-group
-                  - if allow? :users, :edit, user
+                  - if policy(user).edit?
                     = link_to edit_user_path(user), title: "Edit User", class: "btn btn-small btn-warning" do
                       %i.icon-pencil
-                  - if allow? :users, :destroy, user
+                  - if policy(user).destroy?
                     = link_to user, title: "Delete User", class: "btn btn-small btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
                       %i.icon-trash
 
-- if allow? :users, :create
+- if policy(User).create?
   .row-fluid
     = link_to "Add User", new_user_path, class: 'btn btn-primary'

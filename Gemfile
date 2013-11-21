@@ -16,6 +16,9 @@ gem 'coffee-rails', '~> 4.0.0'
 # Configuration
 gem 'figaro'
 
+# Authorization
+gem 'pundit'
+
 # Theme
 gem 'lr-simpliq', git: 'https://github.com/LANResources/backoffice-theme.git', branch: 'master'
 

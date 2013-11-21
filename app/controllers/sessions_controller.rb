@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   layout 'external', only: [:new, :create]
-  # skip_before_filter :authorize, except: :destroy
+  skip_before_filter :verify_authenticated, except: :destroy
 
   def new
   end

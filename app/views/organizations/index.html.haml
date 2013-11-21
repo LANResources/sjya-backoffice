@@ -8,7 +8,7 @@
           %th
           %th Name
           %th Members
-          - if allow? :organizations, :edit, current_user.organization
+          - if policy(current_user.organization).edit?
             %th Actions
       %tbody
         - @organizations.each do |org|
@@ -16,16 +16,16 @@
             %td.photo= link_to image_tag(org.logo.url(:tiny), alt: "No Photo", class: 'img-rounded'), org
             %td= link_to org.name, org
             %td= org.users.count
-            - if allow? :organizations, :edit, current_user.organization
+            - if policy(current_user.organization).edit?
               %td
                 .btn-group
-                  - if allow? :organizations, :edit, org
+                  - if policy(org).edit?
                     = link_to edit_organization_path(org), title: "Edit Organization", class: "btn btn-small btn-warning" do
                       %i.icon-pencil
-                  - if allow? :organizations, :destroy, org
+                  - if policy(org).destroy?
                     = link_to org, title: "Delete Organization", class: "btn btn-small btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
                       %i.icon-trash
 
-- if allow? :organizations, :create
+- if policy(Organization).create?
   .row-fluid
     = link_to "Add Organization", new_organization_path, class: 'btn btn-primary'

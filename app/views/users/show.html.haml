@@ -7,9 +7,10 @@
     .box-header
       %h2
         %i.icon-user
-      .box-icon
-        = link_to edit_user_path(@user), title: 'Edit' do
-          %i.icon-pencil
+      - if policy(@user).edit?
+        .box-icon
+          = link_to edit_user_path(@user), title: 'Edit' do
+            %i.icon-pencil
 
     .box-content
       .row-fluid

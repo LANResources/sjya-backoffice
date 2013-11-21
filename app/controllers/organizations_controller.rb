@@ -5,18 +5,22 @@ class OrganizationsController < ApplicationController
 
   def show
     @organization = current_resource
+    authorize! @organization
   end
 
   def new
     @organization = Organization.new
+    authorize! @organization
   end
 
   def edit
     @organization = current_resource
+    authorize! @organization
   end
 
   def create
-    @organization = Organization.new(params[:organization])
+    @organization = Organization.new organization_attributes
+    authorize! @organization
 
     respond_to do |format|
       if @organization.save
@@ -31,9 +35,10 @@ class OrganizationsController < ApplicationController
 
   def update
     @organization = current_resource
+    authorize! @organization
 
     respond_to do |format|
-      if @organization.update(params[:organization])
+      if @organization.update(organization_attributes)
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
         format.json { head :no_content }
       else
@@ -45,6 +50,8 @@ class OrganizationsController < ApplicationController
 
   def destroy
     @organization = current_resource
+    authorize! @organization
+
     @organization.destroy
     respond_to do |format|
       format.html { redirect_to organizations_url }
@@ -54,10 +61,10 @@ class OrganizationsController < ApplicationController
 
   private
     def current_resource
-      if params[:action] == 'create'
-        @current_resource ||= params[:organization] if params[:organization]
-      else
-        @current_resource ||= Organization.find(params[:id]) if params[:id]
-      end
+      @current_resource ||= Organization.find(params[:id]) if params[:id]
+    end
+
+    def organization_attributes
+      params.require(:organization).permit *policy(@organization || Organization).permitted_attributes
     end
 end
