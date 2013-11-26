@@ -33,8 +33,9 @@ gem 'jbuilder', '~> 1.2'
 gem 'haml-rails'
 
 # Files
-gem "paperclip"
-gem "paperclip-dropbox"
+gem "carrierwave"
+gem "carrierwave-dropbox"
+gem 'mini_magick'
 
 # Mail
 gem 'letter_opener', group: :development

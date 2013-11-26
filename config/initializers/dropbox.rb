@@ -18,3 +18,12 @@ class DropboxConfig
     }
   end
 end
+
+CarrierWave.configure do |config|
+  config.dropbox_app_key = DropboxConfig::APP_KEY
+  config.dropbox_app_secret = DropboxConfig::APP_SECRET
+  config.dropbox_access_token = DropboxConfig::ACCESS_TOKEN
+  config.dropbox_access_token_secret = DropboxConfig::ACCESS_TOKEN_SECRET
+  config.dropbox_user_id = DropboxConfig::USER_ID
+  config.dropbox_access_type = "dropbox"
+end
