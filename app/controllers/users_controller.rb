@@ -6,18 +6,22 @@ class UsersController < ApplicationController
 
   def show
     @user = current_resource
+    authorize! @user
   end
 
   def new
     @user = User.new
+    authorize! @user
   end
 
   def edit
     @user = current_resource
+    authorize! @user
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new user_attributes
+    authorize! @user
 
     respond_to do |format|
       if @user.save
@@ -33,7 +37,9 @@ class UsersController < ApplicationController
 
   def update
     @user = current_resource
-    user_params = params[:user][:password].blank? ? params[:user].except!(:password, :password_confirmation) : params[:user]
+    authorize! @user
+
+    user_params = params[:user][:password].blank? ? user_attributes.except!(:password, :password_confirmation) : user_attributes
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -47,6 +53,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user = current_resource
+    authorize! @user
+
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url }
@@ -61,5 +69,9 @@ class UsersController < ApplicationController
       else
         @current_resource ||= User.find(params[:id]) if params[:id]
       end
+    end
+
+    def user_attributes
+      params.require(:user).permit *policy(@user || User).permitted_attributes
     end
 end

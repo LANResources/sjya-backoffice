@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
                                     if: :password_required?
   validates :password,              presence: { on: :update }, if: :signing_up
   validates :password_confirmation, presence: { if: lambda { |m| m.password.present? } }
-
+  validates :organization_id,       presence: true
 
   before_create :check_password
   before_save { self.email = email.downcase }
@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def organization_name
+    organization.try(:name) || ''
   end
 
   private

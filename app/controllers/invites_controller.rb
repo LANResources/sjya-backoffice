@@ -1,5 +1,5 @@
 class InvitesController < ApplicationController
-  skip_before_filter :verify_authentication, only: [:edit, :update]
+  skip_before_filter :verify_authenticated, only: [:edit, :update]
   before_filter :verify_invitation, only: :edit
   before_filter :verify_and_authorize_registration, only: :update
   layout 'registration', only: [:edit, :update]
@@ -21,14 +21,13 @@ class InvitesController < ApplicationController
 
   def edit
     @user = current_resource
-    authorize_invite
   end
 
   def update
     authorize_invite
 
     respond_to do |format|
-      if @user.register(@token, params[:user])
+      if @user.register(@token, user_attributes)
         format.html { redirect_to root_url, notice: 'Success! You are now a registered user of the Youth Alliance BackOffice.' }
         format.json { head :no_content }
       else
@@ -39,6 +38,7 @@ class InvitesController < ApplicationController
     end
   rescue
     sign_out
+    render action: 'edit'
   end
 
   def destroy
@@ -69,10 +69,14 @@ class InvitesController < ApplicationController
     sign_in current_resource if current_resource
     @user = current_user
     @token = params[:user][:invite_token]
-    verify_authentication
+    verify_authenticated
   end
 
   def authorize_invite
     raise Pundit::NotAuthorizedError unless InvitePolicy.new(current_user, @user).send("#{params[:action]}?")
+  end
+
+  def user_attributes
+    params.require(:user).permit *policy(@user || User).permitted_attributes
   end
 end

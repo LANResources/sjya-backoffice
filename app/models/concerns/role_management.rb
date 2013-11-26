@@ -69,27 +69,31 @@ module RoleManagement
   end
 
   def <(other)
+    return false if other == User
     return false unless comparable? other
     return true if self.role.nil?
-    ROLES.index(self.role) < ROLES.index(other.try(:role) || other.try(:to_s))
+    ROLES.index(self.role) < ROLES.index(other.try(:role) || other.try(:to_s)).to_i
   end
 
   def <=(other)
+    return false if other == User
     return false unless comparable? other
     return true if self.role.nil?
-    ROLES.index(self.role) <= ROLES.index(other.try(:role) || other.try(:to_s))
+    ROLES.index(self.role) <= ROLES.index(other.try(:role) || other.try(:to_s)).to_i
   end
 
   def >(other)
+    return true if other == User
     return false unless comparable? other
     return false if self.role.nil?
-    ROLES.index(self.role) > ROLES.index(other.try(:role) || other.try(:to_s))
+    ROLES.index(self.role) > ROLES.index(other.try(:role) || other.try(:to_s)).to_i
   end
 
   def >=(other)
+    return true if other == User
     return false unless comparable? other
     return false if self.role.nil?
-    ROLES.index(self.role) >= ROLES.index(other.try(:role) || other.try(:to_s))
+    ROLES.index(self.role) >= ROLES.index(other.try(:role) || other.try(:to_s)).to_i
   end
 
   private

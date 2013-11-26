@@ -27,6 +27,10 @@ ApplicationPolicy = Struct.new(:user, :resource) do
     false
   end
 
+  def permitted_attributes
+    []
+  end
+  
   def scope
     Pundit.policy_scope!(user, resource.class)
   end

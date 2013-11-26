@@ -4,7 +4,7 @@ describe UsersController do
 
   before { @logged_in_user = create(:administrator) }
 
-  let(:valid_attributes) { { first_name: 'Nick', last_name: 'Reed', email: 'nreed@example.com' } }
+  let(:valid_attributes) { { first_name: 'Nick', last_name: 'Reed', email: 'nreed@example.com', organization_id: @logged_in_user.organization_id, role: 'registered_user' } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -76,7 +76,7 @@ describe UsersController do
         post :create, {:user => { "first_name" => "invalid value" }}, valid_session
         response.should render_template("new")
       end
-    end
+    end  
   end
 
   describe "PUT update" do
