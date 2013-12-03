@@ -1,0 +1,30 @@
+- title @document.name
+
+- breadcrumbs ['Documents', documents_path], @document.filename
+
+.row-fluid
+  .span12
+    %div
+      %small Title
+      %br/
+      %strong= @document.title
+
+    %div
+      %small File
+      %br/
+      %strong= @document.filename
+
+    %br/
+
+    .btn-group
+      = link_to download_document_path(@document), title: "Download", class: 'btn btn-small btn-success', data: { 'no-turbolink' => true } do
+        %i.icon-download-alt
+        = ' Download'
+      - if policy(@document).edit?
+        = link_to edit_document_path(@document), title: "Edit Document", class: "btn btn-small btn-warning" do
+          %i.icon-pencil
+          = ' Edit'
+      - if policy(@document).destroy?
+        = link_to @document, title: "Remove", class: "btn btn-small btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
+          %i.icon-trash
+          = ' Remove'

@@ -10,6 +10,10 @@ SJYABackOffice::Application.routes.draw do
     end
   end
 
+  resources :documents do
+    get 'download', on: :member, as: :download
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
 
   get "static_pages/about"

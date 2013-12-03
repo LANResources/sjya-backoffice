@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader, mount_on: :avatar_file_name
 
   belongs_to :organization
+  has_many :documents
 
   validates :first_name,            presence: true
   validates :last_name,             presence: true

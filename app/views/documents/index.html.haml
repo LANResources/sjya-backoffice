@@ -1,0 +1,37 @@
+- title 'Documents'
+
+.row-fluid
+  %table.table.table-striped.table-condensed
+    %thead
+      %tr
+        %th
+        %th.c Size
+        %td.c Owner
+        %th.r
+
+    %tbody
+      - @documents.each do |document|
+        %tr
+          %td
+            = file_type_label document.item.file.content_type
+            = "&nbsp;".html_safe
+            = link_to document.name, document
+          %td.c= document.item.file.size
+          %td.c= document.owner_name
+          %td.r
+            .btn-group
+              = link_to download_document_path(document), title: "Download", class: 'btn btn-small btn-success', data: { 'no-turbolink' => true } do
+                %i.icon-download-alt
+              - if policy(document).edit?
+                = link_to edit_document_path(document), title: "Edit Document", class: "btn btn-small btn-warning" do
+                  %i.icon-pencil
+              - if policy(document).destroy?
+                = link_to document, title: "Remove", class: "btn btn-small btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
+                  %i.icon-trash
+
+%br
+
+.row-fluid
+  = link_to new_document_path, class: 'btn btn-primary' do
+    %i.icon-plus
+    = "&nbsp;New Document".html_safe

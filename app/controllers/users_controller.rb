@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
     @users = User.all
   end
 
   def show
-    @user = current_resource
     authorize! @user
   end
 
@@ -15,7 +15,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_resource
     authorize! @user
   end
 
@@ -36,7 +35,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_resource
     authorize! @user
 
     user_params = params[:user][:password].blank? ? user_attributes.except!(:password, :password_confirmation) : user_attributes
@@ -52,7 +50,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = current_resource
     authorize! @user
 
     @user.destroy
@@ -63,6 +60,10 @@ class UsersController < ApplicationController
   end
 
   private
+    def set_user
+      @user = current_resource
+    end
+
     def current_resource
       if params[:action] == 'create'
         @current_resource ||= params[:user] if params[:user]

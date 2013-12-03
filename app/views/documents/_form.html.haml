@@ -1,0 +1,13 @@
+= form_for @document, html: { multipart: true } do |f|
+  = render partial: 'shared/form_errors', locals: { resource: @document }
+
+  %fieldset
+    = f.label :title
+    = f.text_field :title, class: 'input-xxlarge'
+
+    = f.label :item, 'File'
+    = f.file_field :item
+
+    .form-actions
+      = f.submit class: 'btn btn-primary'
+      = link_to 'Cancel', documents_path, class: 'btn btn-inverse'

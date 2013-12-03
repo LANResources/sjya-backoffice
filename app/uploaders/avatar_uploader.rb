@@ -7,7 +7,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   storage :dropbox
 
   def store_dir
-    "SJYABackOffice/#{DropboxConfig::SUBFOLDER}/#{model.class.to_s.underscore}/#{model.id}"
+    ['SJYABackOffice', DropboxConfig::SUBFOLDER, model.class.to_s.pluralize.underscore, model.id].join '/'
   end
 
   def default_url
@@ -28,15 +28,15 @@ class AvatarUploader < CarrierWave::Uploader::Base
   version :thumb do
     resize_to_limit 100, 100
   end
-  
-  version :medium do 
+
+  version :medium do
     resize_to_limit 200, 200
   end
-  
+
   version :tiny do
     resize_to_limit 42, 42
   end
-  
+
   def extension_white_list
     %w(jpg jpeg gif png)
   end
