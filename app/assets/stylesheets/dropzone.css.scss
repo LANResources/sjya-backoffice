@@ -1,0 +1,72 @@
+.dropzone {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.dropzone {
+  position: relative;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: rgba(0,0,0,0.02);
+  padding: 1em;
+}
+.dropzone.dz-clickable {
+  cursor: pointer;
+}
+.dropzone.dz-clickable .dz-message,
+.dropzone.dz-clickable .dz-message span {
+  cursor: pointer;
+}
+.dropzone.dz-clickable * {
+  cursor: default;
+}
+.dropzone .dz-message {
+  opacity: 1;
+  -ms-filter: none;
+  filter: none;
+}
+.dropzone.dz-drag-hover {
+  border-color: rgba(0,0,0,0.15);
+  background: rgba(0,0,0,0.04);
+}
+.dropzone.dz-started .dz-message {
+  display: none;
+}
+.dropzone-previews {
+  .media-object-container {
+    position: relative;
+  }
+  .media-heading {
+    .separator {
+      padding-left: 3px;
+      padding-right: 3px;
+      display: inline-block;
+    }
+  }
+  .dz-status {
+    font-variant: small-caps;
+  }
+  .dz-error .dz-queued-status,
+  .dz-success .dz-queued-status,
+  .dz-processing .dz-queued-status,
+  .dz-processing.dz-success .dz-uploading-status,
+  .dz-processing.dz-error .dz-uploading-status,
+  .dz-success-status,
+  .dz-uploading-status,
+  .dz-error-status {
+    display: none;
+  }
+  .dz-queued-status,
+  .dz-processing .dz-uploading-status,
+  .dz-error .dz-error-status,
+  .dz-success .dz-success-status {
+    display: inline-block;
+  }
+  .dz-progress {
+    display: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .dz-processing .dz-progress {
+    display: block;
+  }
+}

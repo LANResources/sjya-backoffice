@@ -4,7 +4,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
   storage :dropbox
 
   def store_dir
-    ['SJYABackOffice', DropboxConfig::SUBFOLDER, model.class.to_s.pluralize.underscore, model.user_id].join '/'
+    ['SJYABackOffice', DropboxConfig::SUBFOLDER, model.class.to_s.pluralize.underscore, model.user_id, model.id].join '/'
   end
 
   def extension_white_list

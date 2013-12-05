@@ -41,9 +41,6 @@
 
           .row-fluid
             = yield
-          - if Rails.env.development?
-            .row-fluid
-              .span12= debug(params)
 
       .clearfix
       = render partial: 'layouts/footer'

@@ -4,6 +4,8 @@ class CreateDocuments < ActiveRecord::Migration
       t.references :user, index: true
       t.string :title
       t.string :item
+      t.string :item_size
+      t.string :content_type
 
       t.timestamps
     end

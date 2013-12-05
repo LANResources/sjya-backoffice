@@ -20,4 +20,14 @@ class ApplicationController < ActionController::Base
     flash[:error] = "You are not authorized to perform this action."
     deny_access
   end
+
+  def sort_column(columns, default)
+    columns.include?(params[:sort]) ? params[:sort] : default
+  end
+  helper_method :sort_column
+
+  def sort_direction(default = 'asc')
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : default
+  end
+  helper_method :sort_direction
 end

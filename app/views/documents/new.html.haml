@@ -1,6 +1,59 @@
-%h1 New document
+- title 'Document Uploader'
 
 .row-fluid
   .span12
-    = render 'form'
+    = form_for @document, html: { multipart: true, class: 'dropzone', data: { accepts: @document.item.extension_white_list.map{ |ext| ".#{ext}" } }} do |f|
+      = render partial: 'shared/form_errors', locals: { resource: @document }
+
+      %fieldset
+        .row-fluid
+          %ul.media-list.dropzone-previews
+
+        .fallback
+          = f.label :title
+          = f.text_field :title, class: 'input-xxlarge'
+
+          = f.label :item, 'File'
+          = f.file_field :item
+
+        %br/
+        .well.well-large.text-center.dropzone-activator
+          %h1 Drop files to upload
+          %h4 (or click)
+
+        .form-actions
+          = f.submit 'Upload', class: 'btn btn-primary'
+          = link_to 'Cancel', documents_path, class: 'btn btn-inverse'
+
+        %span.badge.dz-message
+
+%script{type: 'text/template', id: 'dz-preview-template'}
+  %li.media.dz-preview.dz-file-preview
+    .pull-left.media-object-container
+      = image_tag 'file.png', size: "64x64", class: 'media-object', "data-dz-thumbnail" => true
+
+    .media-body
+      %h3.media-heading
+        %span.dz-filename{"data-dz-name" => true}
+        %small
+          %span.separator= '|'
+          %span.dz-size{"data-dz-size" => true}
+          %span.separator= '|'
+        %strong.dz-status.dz-queued-status.text-warning queued
+        %strong.dz-status.dz-uploading-status.text-info uploading...
+        %strong.dz-status.dz-success-status.text-success uploaded ✔
+        %strong.dz-status.dz-error-status.text-error failed ✘
+        %small
+          %span.separator= '|'
+          %a.remove-file{href: '#'} remove
+
+      .controls
+        %input.title-input.input-xxlarge{type: 'text', placeholder: 'Title'}
+
+        .progress.progress-striped.progress-info.dz-progress.input-xxlarge
+          %span.bar.dz-upload{"data-dz-uploadprogress" => true}
+
+        .dz-error-message.text-error{"data-dz-errormessage" => true}
+
+
 

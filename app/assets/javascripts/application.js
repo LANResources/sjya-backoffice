@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require nprogress
+//= require mustache
+//= require dropzone
 //= require lr.simpliq
 //= require_tree .

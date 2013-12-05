@@ -2,7 +2,7 @@ class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :download, :edit, :update, :destroy]
 
   def index
-    @documents = Document.all
+    @documents = Document.includes(:user).order("#{sort_column} #{sort_direction}").page(params[:page]).per_page(15)
   end
 
   def show
@@ -34,7 +34,7 @@ class DocumentsController < ApplicationController
         format.json { render action: 'show', status: :created, location: @document }
       else
         format.html { render action: 'new' }
-        format.json { render json: @document.errors, status: :unprocessable_entity }
+        format.json { render json: @document.errors.messages.values.flatten, status: :unprocessable_entity }
       end
     end
   end
@@ -75,5 +75,9 @@ class DocumentsController < ApplicationController
 
     def document_attributes
       params.require(:document).permit *policy(@document || Document).permitted_attributes
+    end
+
+    def sort_column
+      super(Document.column_names + ['users.last_name'], 'updated_at')
     end
 end

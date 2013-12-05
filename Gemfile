@@ -25,12 +25,15 @@ gem 'lr-simpliq', git: 'https://github.com/LANResources/backoffice-theme.git', b
 # JavaScript
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'dropzonejs-rails'
 
 # JSON
 gem 'jbuilder', '~> 1.2'
 
 # Views
 gem 'haml-rails'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 # Files
 gem "carrierwave"
