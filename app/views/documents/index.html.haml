@@ -1,43 +1,44 @@
 - title 'Documents'
 
-.row-fluid
-  %table.table.table-striped.table-condensed
-    %thead
-      %tr
-        %th= sortable 'title', 'File'
-        %th.c= sortable 'users.last_name', 'Owner'
-        %th.c= sortable 'updated_at', 'Updated'
-        %th.r
-
-    %tbody
-      - @documents.each do |document|
+.row
+  .col-md-12
+    %table.table.table-striped.table-condensed
+      %thead
         %tr
-          %td
-            = file_type_label document.content_type
-            = "&nbsp;".html_safe
-            = link_to document.name, document
-            %small
-              %i= " (#{number_to_human_size document.item_size})"
-          %td.c= link_to document.owner_name, document.user
-          %td.c
-            = document.updated_at.strftime '%-m/%-d/%Y %-I:%M %p'
-          %td.r
-            .btn-group
-              = link_to download_document_path(document), title: "Download", class: 'btn btn-small btn-success', data: { 'no-turbolink' => true } do
-                %i.icon-download-alt
-              - if policy(document).edit?
-                = link_to edit_document_path(document), title: "Edit Document", class: "btn btn-small btn-warning" do
-                  %i.icon-pencil
-              - if policy(document).destroy?
-                = link_to document, title: "Remove", class: "btn btn-small btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
-                  %i.icon-trash
+          %th= sortable 'title', 'File'
+          %th.c= sortable 'users.last_name', 'Owner'
+          %th.c= sortable 'updated_at', 'Updated'
+          %th.r
 
-  .pagination
+      %tbody
+        - @documents.each do |document|
+          %tr
+            %td
+              = file_type_label document.content_type
+              = "&nbsp;".html_safe
+              = link_to document.name, document
+              %small
+                %i= " (#{number_to_human_size document.item_size})"
+            %td.c= link_to document.owner_name, document.user
+            %td.c
+              = document.updated_at.strftime '%-m/%-d/%Y %-I:%M %p'
+            %td.r
+              .btn-group
+                = link_to download_document_path(document), title: "Download", class: 'btn btn-sm btn-success', data: { 'no-turbolink' => true } do
+                  %i.fa.fa-download
+                - if policy(document).edit?
+                  = link_to edit_document_path(document), title: "Edit Document", class: "btn btn-sm btn-warning" do
+                    %i.fa.fa-pencil
+                - if policy(document).destroy?
+                  = link_to document, title: "Remove", class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
+                    %i.fa.fa-trash-o
+
     = will_paginate @documents
 
 %br
 
-.row-fluid
-  = link_to new_document_path, class: 'btn btn-primary' do
-    %i.icon-plus
-    = "&nbsp;New Document".html_safe
+.row
+  .col-md-12
+    = link_to new_document_path, class: 'btn btn-primary' do
+      %i.fa.fa-plus
+      = "&nbsp;New Document".html_safe

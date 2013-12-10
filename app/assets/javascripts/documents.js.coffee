@@ -10,6 +10,7 @@ Dropzone.autoDiscover = false
 
 initDocumentUploadForm = ->
   Dropzone.options.newDocument =
+    # forceFallback: true
     paramName: "document[item]"
     autoProcessQueue: false
     clickable: '.dropzone-activator'
@@ -22,6 +23,8 @@ initDocumentUploadForm = ->
     thumbnailWidth: 64
     thumbnailHeight: 64
     acceptedFiles: $('.dropzone').data('accepts').join(',')
+    fallback: ->
+      $('.dropzone-activator').remove()
     sending: (file, xhr, formData) ->
       title = $(file.previewElement).find('.title-input').val()
       formData.append 'document[title]', title

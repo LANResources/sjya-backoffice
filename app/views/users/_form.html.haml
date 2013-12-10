@@ -4,86 +4,87 @@
   %fieldset
     %legend Login Information
 
-    .control-group
-      = f.label :email, class: 'control-label'
-      .controls
-        = f.text_field :email, class: 'input-xxlarge'
+    .form-group
+      = f.label :email, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :email, class: 'form-control'
 
     - if show_organization_select? @user
-      .control-group
-        = f.label :organization, class: 'control-label'
-        .controls
-          = f.collection_select :organization_id, current_user.assignable_organizations.to_a, :id, :name, class: 'input-xlarge'
+      .form-group
+        = f.label :organization, class: 'control-label col-sm-2'
+        .col-sm-10
+          = f.collection_select :organization_id, current_user.assignable_organizations.to_a, :id, :name, {}, class: 'form-control'
 
     - if show_role_select? @user
-      .control-group
-        = f.label :role, class: 'control-label'
-        .controls
-          = f.collection_select :role, current_user.assignable_roles, :to_s, :humanize, class: 'input-xlarge'
+      .form-group
+        = f.label :role, class: 'control-label col-sm-2'
+        .col-sm-10
+          = f.collection_select :role, current_user.assignable_roles, :to_s, :humanize, {}, class: 'form-control'
 
     - if @user == current_user
-      .control-group
-        = f.label :password, class: 'control-label'
-        .controls
-          = f.password_field :password, class: 'input-xxlarge'
+      .form-group
+        = f.label :password, class: 'control-label col-sm-2'
+        .col-sm-10
+          = f.password_field :password, class: 'form-control'
           - unless @user.new_record?
             %span.help-inline Leave blank if you don't want to change it
 
-      .control-group
-        = f.label :password_confirmation, class: 'control-label'
-        .controls
-          = f.password_field :password_confirmation, class: 'input-xxlarge'
+      .form-group
+        = f.label :password_confirmation, class: 'control-label col-sm-2'
+        .col-sm-10
+          = f.password_field :password_confirmation, class: 'form-control'
 
   %fieldset
     %legend Personal Information
 
-    .control-group
-      = f.label :first_name, class: 'control-label'
-      .controls
-        = f.text_field :first_name, class: 'input-xxlarge'
+    .form-group
+      = f.label :first_name, 'First Name', class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :first_name, class: 'form-control'
 
-    .control-group
-      = f.label :last_name, class: 'control-label'
-      .controls
-        = f.text_field :last_name, class: 'input-xxlarge'
+    .form-group
+      = f.label :last_name, 'Last Name', class: 'control-label col-sm-2'
+      .col-md-10
+        = f.text_field :last_name, class: 'form-control'
 
-    .control-group
-      = f.label :title, class: 'control-label'
-      .controls
-        = f.text_field :title, class: 'input-xxlarge'
+    .form-group
+      = f.label :title, class: 'control-label col-sm-2'
+      .col-md-10
+        = f.text_field :title, class: 'form-control'
 
-    .control-group
-      = f.label :address, class: 'control-label'
-      .controls
-        = f.text_field :address, class: 'input-xxlarge'
+    .form-group
+      = f.label :address, class: 'control-label col-sm-2'
+      .col-md-10
+        = f.text_field :address, class: 'form-control'
 
-    .control-group
-      = f.label :city, class: 'control-label'
-      .controls
-        = f.text_field :city, class: 'input-xxlarge'
+    .form-group
+      = f.label :city, class: 'control-label col-sm-2'
+      .col-md-10
+        = f.text_field :city, class: 'form-control'
 
-    .control-group
-      = f.label :state, class: 'control-label'
-      .controls
+    .form-group
+      = f.label :state, class: 'control-label col-sm-2'
+      .col-md-10
         = f.select :state,
           ActionView::Helpers::States::US.zip(ActionView::Helpers::States::US_SHORT),
-          prompt: "Select State...", class: 'input-xlarge'
+          {prompt: "Select State..."}, class: 'form-control'
 
-    .control-group
-      = f.label :zipcode, class: 'control-label'
-      .controls
-        = f.text_field :zipcode, class: 'input-xxlarge'
+    .form-group
+      = f.label :zipcode, class: 'control-label col-sm-2'
+      .col-md-10
+        = f.text_field :zipcode, class: 'form-control'
 
-    .control-group
-      = f.label :phone, class: 'control-label'
-      .controls
-        = f.text_field :phone, class: 'input-xxlarge'
+    .form-group
+      = f.label :phone, class: 'control-label col-sm-2'
+      .col-md-10
+        = f.text_field :phone, class: 'form-control'
 
-    .control-group
-      = f.label :avatar, 'Profile Picture', class: 'control-label'
-      .controls
+    .form-group
+      = f.label :avatar, 'Profile Picture', class: 'control-label col-sm-2'
+      .col-md-10
         = f.file_field :avatar
 
-  .form-actions
-    = f.submit class: 'btn btn-primary'
-    = link_to 'Cancel', users_path, class: 'btn btn-inverse'
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit class: 'btn btn-primary'
+        = link_to 'Cancel', users_path, class: 'btn btn-inverse'

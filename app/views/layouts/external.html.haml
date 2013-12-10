@@ -7,12 +7,11 @@
     = stylesheet_link_tag "application"
     = stylesheet_link_tag "external", data: { 'turbolinks-track' => true }
 
-    /[if lte IE 7.0]
-      = stylesheet_link_tag 'ie'
-    /[if IE 8.0]
-      <style type="text/css">
-      form.fields fieldset {margin-top: -10px;}
-      </style>
+    / The HTML5 shim, for IE6-8 support of HTML5 elements
+    /[if lt IE 9]
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+      = javascript_include_tag 'simpliq/respond'
+      = stylesheet_link_tag 'ie6-8'
 
     = csrf_meta_tag
     = favicon_link_tag
@@ -23,13 +22,17 @@
   %body#login{data: {action: params[:action], controller: controller.controller_name}}
     .container
       .row
-        .page-header.span12
+        .page-header
           %h1.text-center
-            %strong> YouthAlliance
-            BackOffice
+            %span.hidden-xs
+              %strong> YouthAlliance
+              %span BackOffice
+            %span.visible-xs
+              %strong YouthAlliance
+              %span BackOffice
+
       .row
         - flash.each do |name, msg|
-          .row
-            .col-md-6.col-md-offset-3
-              = render_flash name, msg
+          .center-block.flash-container
+            = render_flash name, msg
         = yield

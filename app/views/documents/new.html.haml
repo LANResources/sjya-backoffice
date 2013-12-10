@@ -1,29 +1,32 @@
 - title 'Document Uploader'
 
-.row-fluid
-  .span12
+.row
+  .col-md-12
     = form_for @document, html: { multipart: true, class: 'dropzone', data: { accepts: @document.item.extension_white_list.map{ |ext| ".#{ext}" } }} do |f|
       = render partial: 'shared/form_errors', locals: { resource: @document }
 
       %fieldset
-        .row-fluid
+        .row
           %ul.media-list.dropzone-previews
 
         .fallback
-          = f.label :title
-          = f.text_field :title, class: 'input-xxlarge'
+          .form-group
+            = f.label :title
+            = f.text_field :title, class: 'form-control'
 
-          = f.label :item, 'File'
-          = f.file_field :item
+          .form-group
+            = f.label :item, 'File'
+            = f.file_field :item
 
         %br/
-        .well.well-large.text-center.dropzone-activator
+        .well.well-lg.text-center.dropzone-activator
           %h1 Drop files to upload
           %h4 (or click)
 
-        .form-actions
-          = f.submit 'Upload', class: 'btn btn-primary'
-          = link_to 'Cancel', documents_path, class: 'btn btn-inverse'
+        .form-group
+          .col-sm-12
+            = f.submit 'Upload', class: 'btn btn-primary'
+            = link_to 'Cancel', documents_path, class: 'btn btn-inverse'
 
         %span.badge.dz-message
 
@@ -42,18 +45,19 @@
         %strong.dz-status.dz-queued-status.text-warning queued
         %strong.dz-status.dz-uploading-status.text-info uploading...
         %strong.dz-status.dz-success-status.text-success uploaded ✔
-        %strong.dz-status.dz-error-status.text-error failed ✘
+        %strong.dz-status.dz-error-status.text-danger failed ✘
         %small
           %span.separator= '|'
           %a.remove-file{href: '#'} remove
 
-      .controls
-        %input.title-input.input-xxlarge{type: 'text', placeholder: 'Title'}
+      .form-group
+        .col-md-6
+          %input.title-input.form-control{type: 'text', placeholder: 'Title'}
 
-        .progress.progress-striped.progress-info.dz-progress.input-xxlarge
-          %span.bar.dz-upload{"data-dz-uploadprogress" => true}
+          .progress.progress-striped.dz-progress
+            .progress-bar.progress-bar-info.dz-upload{"data-dz-uploadprogress" => true}
 
-        .dz-error-message.text-error{"data-dz-errormessage" => true}
+          .dz-error-message.text-danger{"data-dz-errormessage" => true}
 
 
 

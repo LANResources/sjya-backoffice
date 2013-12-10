@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/LANResources/backoffice-theme.git
-  revision: 20006b7fac8141a4e51123fa09c9eacc45ffb4a1
+  revision: 08b094340d1be65c79ab690384e0bf23a63cbca9
   branch: simpliq-2.1.1
   specs:
     lr-simpliq (0.0.9)

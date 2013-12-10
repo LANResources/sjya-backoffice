@@ -4,6 +4,9 @@ html {
 h1 {
   color: #FFF4E4;
 }
+.flash-container {
+  max-width: 400px;
+}
 .login-box {
   box-shadow: 0 0 20px rgba(50, 50, 50, 0.75);
 }
@@ -63,7 +66,7 @@ body {
 .content {
   background-color: rgba(255,255,255,0.5);
   margin-bottom: 25px;
-  .hero-unit {
+  .jumbotron {
     background-color: transparent;
     h1 {
       color: #1F3C68;
@@ -77,8 +80,11 @@ body {
   input[type="file"] {
     background-color: rgba(255,255,255,0.7);
   }
-  .form-actions, legend {
+  legend {
     border-color: rgba(30, 101, 148, 0.5);
     background-color: transparent;
+  }
+  .form-group hr {
+    border-color: rgba(30, 101, 148, 0.5);
   }
 }

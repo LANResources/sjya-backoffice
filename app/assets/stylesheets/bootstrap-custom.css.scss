@@ -1,3 +1,7 @@
+#content {
+  min-height: 1000px;
+}
+
 // Notice alerts match alert-success
 .alert-notice {
   color: #468847;
@@ -20,6 +24,15 @@ td, th {
   &.left {
     text-align: left;
   }
+}
+
+// Darker blockquote border
+blockquote {
+  border-left: 5px solid darken($bodyBackground, 10%);
+}
+
+blockquote.pull-right {
+  border-right: 5px solid darken($bodyBackground, 10%);
 }
 
 // Active pagination link

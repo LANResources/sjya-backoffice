@@ -20,7 +20,7 @@ module UsersHelper
 
   def invite_link(user)
     if InvitePolicy.new(current_user, user).create?
-      link_to 'Invite', invite_user_path(user), method: :post, class: 'btn btn-mini btn-info'
+      link_to 'Invite', invite_user_path(user), method: :post, class: 'btn btn-xs btn-info'
     else
       content_tag :span, 'Contact', class: 'label label-info'
     end
@@ -28,7 +28,7 @@ module UsersHelper
 
   def uninvite_link(user)
     if InvitePolicy.new(current_user, user).destroy?
-      link_to 'Uninvite', uninvite_user_path(user), method: :delete, class: 'btn btn-mini btn-info'
+      link_to 'Uninvite', uninvite_user_path(user), method: :delete, class: 'btn btn-xs btn-info'
     else
       content_tag :span, "Invited (#{user.invited_on.strftime('%-m/%-d/%y')})", class: 'label label-info'
     end

@@ -22,7 +22,7 @@ module ApplicationHelper
         crumbs.each do |crumb|
           if Array(crumb).length == 2
             crumb_items << content_tag(:li) do
-              link_to(crumb[0], crumb[1]) + content_tag(:span, ' /', class: 'divider')
+              link_to crumb[0], crumb[1]
             end
           else
             crumb_items << content_tag(:li, Array(crumb).first, class: 'active')
@@ -43,7 +43,7 @@ module ApplicationHelper
   end
 
   def render_flash(name, msg)
-    color_class = name == 'error' ? 'danger' : name
+    color_class = name.to_s == 'error' ? 'danger' : name
     content_tag :div, msg, class: "alert alert-#{color_class}"
   end
 end

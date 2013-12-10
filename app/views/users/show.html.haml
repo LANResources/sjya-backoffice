@@ -2,42 +2,43 @@
 
 - breadcrumbs ['People', users_path], @user.full_name
 
-.row-fluid
-  .box.span12
-    .box-header
-      %h2
-        %i.icon-user
-      - if policy(@user).edit?
-        .box-icon
-          = link_to edit_user_path(@user), title: 'Edit' do
-            %i.icon-pencil
+.row
+  .col-md-12
+    .box
+      .box-header
+        %h2
+          %i.fa.fa-user
+        - if policy(@user).edit?
+          .box-icon
+            = link_to edit_user_path(@user), title: 'Edit' do
+              %i.fa.fa-pencil
 
-    .box-content
-      .row-fluid
-        .span2
-          = image_tag(@user.avatar.url(:small), class: "img-rounded")
-        .span5
-          %h2= @user.organization_name
-          %h4
-            %span.label.label-info= @user.role.titleize
-            = user_status_link @user
-          %p
-            %strong Title
-            %br/
-            = @user.title
-          %p
-            %address
-              %strong Address
+      .box-content
+        .row
+          .col-md-2
+            = image_tag(@user.avatar.url(:small), class: "img-rounded")
+          .col-md-5
+            %h2= @user.organization_name
+            %h4
+              %span.label.label-info= @user.role.titleize
+              = user_status_link @user
+            %p
+              %strong Title
               %br/
-              - unless @user.address.blank?
-                = @user.address
+              = @user.title
+            %p
+              %address
+                %strong Address
                 %br/
-              = city_state_zip @user.city, @user.state, @user.zipcode
-          %p
-            %strong Phone
-            %br/
-            = @user.phone.present? ? format_as_phone_number(@user.phone) : 'Unknown'
-          %p
-            %strong Email
-            %br/
-            = @user.email.present? ? mail_to(@user.email) : 'Unknown'
+                - unless @user.address.blank?
+                  = @user.address
+                  %br/
+                = city_state_zip @user.city, @user.state, @user.zipcode
+            %p
+              %strong Phone
+              %br/
+              = @user.phone.present? ? format_as_phone_number(@user.phone) : 'Unknown'
+            %p
+              %strong Email
+              %br/
+              = @user.email.present? ? mail_to(@user.email) : 'Unknown'

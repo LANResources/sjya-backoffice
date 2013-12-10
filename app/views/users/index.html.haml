@@ -1,7 +1,7 @@
 - title "Directory"
 
-.row-fluid
-  .span12
+.row
+  .col-md-12
     %table.table.table-striped.table-condensed
       %thead
         %tr
@@ -9,13 +9,13 @@
           %th Name
           %th Organization
           %th Address
-          %th Phone
+          %th.hidden-xs Phone
           - if policy(current_user).edit?
-            %th Actions
+            %th.c Actions
       %tbody
         - @users.each do |user|
           %tr
-            %td.photo= link_to image_tag(user.avatar.url(:tiny), alt: "No Photo", class: 'img-rounded'), user
+            %td.photo= link_to image_tag(user.avatar.url(:tiny), alt: "No Photo", class: 'img-rounded img-responsive'), user
             %td= link_to user.full_name, user
             %td= user.organization.try(:name)
             %td
@@ -23,17 +23,19 @@
                 = user.address
                 %br/
                 = city_state_zip user.city, user.state, user.zipcode
-            %td= user.phone
+              .visible-xs= user.phone
+            %td.hidden-xs= user.phone
             - if policy(current_user).edit?
-              %td
+              %td.c
                 .btn-group
                   - if policy(user).edit?
-                    = link_to edit_user_path(user), title: "Edit User", class: "btn btn-small btn-warning" do
-                      %i.icon-pencil
+                    = link_to edit_user_path(user), title: "Edit User", class: "btn btn-xs btn-warning" do
+                      %i.fa.fa-pencil
                   - if policy(user).destroy?
-                    = link_to user, title: "Delete User", class: "btn btn-small btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
-                      %i.icon-trash
+                    = link_to user, title: "Delete User", class: "btn btn-xs btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
+                      %i.fa.fa-trash-o
 
 - if policy(User).create?
-  .row-fluid
-    = link_to "Add User", new_user_path, class: 'btn btn-primary'
+  .row
+    .col-md-12
+      = link_to "Add User", new_user_path, class: 'btn btn-primary'

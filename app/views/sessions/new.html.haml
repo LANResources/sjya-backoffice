@@ -1,13 +1,12 @@
-.row-fluid
-  .login-box
-    %h2 Login to your account
-    = form_for(:session, url: sessions_path, html: { class: "form-horizontal" }) do |f|
-      %fieldset
-        = f.text_field :email, placeholder: 'Email Address', class: "input-large span12"
-        = f.password_field :password, placeholder: 'Password', class: "input-large span12"
-        .clearfix
-        = f.submit "Login", class: "btn btn-primary span12"
-    %hr/
-    %h3 Forgot Password?
-    %p
-      -# No problem, #{link_to "click here", new_user_password_path, class: 'btn-link'} to get a new one.
+.col-md-12.login-box
+  %h2 Login to your account
+  = form_for(:session, url: sessions_path, html: { class: "form-horizontal" }) do |f|
+    %fieldset
+      = f.text_field :email, placeholder: 'Email Address', class: "form-control"
+      = f.password_field :password, placeholder: 'Password', class: "form-control"
+      .clearfix
+      = f.submit "Login", class: "btn btn-primary btn-block"
+  %hr/
+  -# %h3 Forgot Password?
+  -# %p
+    -# No problem, #{link_to "click here", new_user_password_path, class: 'btn-link'} to get a new one.

@@ -2,12 +2,14 @@
   = render partial: 'shared/form_errors', locals: { resource: @document }
 
   %fieldset
-    = f.label :title
-    = f.text_field :title, class: 'input-xxlarge'
+    .form-group
+      = f.label :title
+      = f.text_field :title, class: 'form-control'
 
-    = f.label :item, 'File'
-    = f.file_field :item
+    .form-group
+      = f.label :item, 'File'
+      = f.file_field :item
 
-    .form-actions
+    .form-group
       = f.submit class: 'btn btn-primary'
       = link_to 'Cancel', documents_path, class: 'btn btn-inverse'
