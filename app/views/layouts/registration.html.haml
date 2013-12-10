@@ -22,18 +22,18 @@
     %link{href: "apple-touch-icon-iphone4.png", rel: "apple-touch-icon", sizes: "114x114"}/
     %link{href: "apple-touch-icon-ipad3.png", rel: "apple-touch-icon", sizes: "144x144"}/
   %body#login{data: {action: params[:action], controller: controller.controller_name}}
-    .container-fluid-full
-      .row-fluid
-        .page-header.span12
+    .container
+      .row
+        .page-header.col-md-12
           %h1.text-center
             %strong> YouthAlliance
             BackOffice
-      .row-fluid
-        .span8.offset2.content
-          .row-fluid
-            .span10.offset1
+      .row
+        .col-md-8.col-md-offset-2.content
+          .row
+            .col-md-10.col-md-offset-1
               - flash.each do |name, msg|
                 .row-fluid
                   .span6.offset3
-                    %div{class: "alert alert-#{name}"}= msg
+                    = render_flash name, msg
               = yield

@@ -1,8 +1,8 @@
 module ApplicationHelper
   def title(page_title, show_title = true)
     content_for(:page_header) do
-      content_tag :div, class: 'row-fluid' do
-        content_tag :div, class: 'span12' do
+      content_tag :div, class: 'row' do
+        content_tag :div, class: 'col-md-12' do
           content_tag :h1, page_title.to_s
         end
       end
@@ -36,9 +36,14 @@ module ApplicationHelper
   def sortable(column, title=nil)
     title ||= column.titleize
     icons = { "asc" => "up", "desc" => "down" }
-    icon = column == sort_column ? content_tag(:i, "", class: "icon-caret-#{icons[sort_direction]}") : ''
+    icon = column == sort_column ? content_tag(:i, "", class: "fa.fa-caret-#{icons[sort_direction]}") : ''
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     link = link_to title, params.merge(sort: column, direction: direction, page: nil).reject { |k,v| k == "_" }
     [link, icon].join(' ').html_safe
+  end
+
+  def render_flash(name, msg)
+    color_class = name == 'error' ? 'danger' : name
+    content_tag :div, msg, class: "alert alert-#{color_class}"
   end
 end

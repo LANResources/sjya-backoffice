@@ -1,7 +1,7 @@
 - title "Organizations"
 
-.row-fluid
-  .span12
+.row
+  .col-md-12
     %table.table.table-striped.table-condensed
       %thead
         %tr
@@ -18,14 +18,15 @@
             %td= org.users.count
             - if policy(current_user.organization).edit?
               %td
-                .btn-group
+                .btn-group.btn-group-xs
                   - if policy(org).edit?
-                    = link_to edit_organization_path(org), title: "Edit Organization", class: "btn btn-small btn-warning" do
-                      %i.icon-pencil
+                    = link_to edit_organization_path(org), title: "Edit Organization", class: "btn btn-xs btn-warning" do
+                      %i.fa.fa-pencil
                   - if policy(org).destroy?
-                    = link_to org, title: "Delete Organization", class: "btn btn-small btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
-                      %i.icon-trash
+                    = link_to org, title: "Delete Organization", class: "btn btn-xs btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
+                      %i.fa.fa-trash
 
 - if policy(Organization).create?
-  .row-fluid
-    = link_to "Add Organization", new_organization_path, class: 'btn btn-primary'
+  .row
+    .col-md-12
+      = link_to "Add Organization", new_organization_path, class: 'btn btn-primary'

@@ -1,35 +1,35 @@
-#sidebar-left.span2
+#sidebar-left.col-lg-2.col-sm-1
   -# .row-fluid.actions
   -#   %input.search.span12{placeholder: "...", type: "text"}/
-  .nav-collapse.sidebar-nav
+  .nav-collapse.sidebar-nav.collapse.navbar-collapse.bs-navbar-collapse
     %ul.nav.nav-tabs.nav-stacked.main-menu
       %li{class: ('active' if controller.controller_name == 'static_pages' && params[:action] == 'about')}
         = link_to root_url do
-          %i.icon-info
-          %span.hidden-tablet About Us
+          %i.fa.fa-info
+          %span.hidden-sm About Us
 
       %li{class: ('active' if controller.controller_name == 'organizations')}
         = link_to organizations_path do
-          %i.icon-globe
-          %span.hidden-tablet Organizations
+          %i.fa.fa-globe
+          %span.hidden-sm Organizations
 
       %li{class: ('active' if controller.controller_name == 'users')}
         = link_to users_path do
-          %i.icon-group
-          %span.hidden-tablet Users
+          %i.fa.fa-group
+          %span.hidden-sm Users
 
       %li{class: ('active' if controller.controller_name == 'documents')}
         = link_to documents_url do
-          %i.icon-file-text
-          %span.hidden-tablet Documents
+          %i.fa.fa-file-text
+          %span.hidden-sm Documents
 
       %li{class: ('active' if controller.controller_name == '' && params[:action] == '')}
         = link_to root_url do
-          %i.icon-bullhorn
-          %span.hidden-tablet Activities
+          %i.fa.fa-bullhorn
+          %span.hidden-sm Activities
 
       %li{class: ('active' if controller.controller_name == '' && params[:action] == '')}
         = link_to root_url do
-          %i.icon-upload-alt
-          %span.hidden-tablet Data
+          %i.fa.fa-upload
+          %span.hidden-sm Data
 

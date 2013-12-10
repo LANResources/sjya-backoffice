@@ -1,44 +1,42 @@
-.navbar
-  .navbar-inner
-    .container-fluid
-      %a.btn.btn-navbar{"data-target" => ".top-nav.nav-collapse,.sidebar-nav.nav-collapse", "data-toggle" => "collapse"}
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a#main-menu-toggle.hidden-phone.open
-        %i.icon-reorder
-      .row-fluid
-        = link_to root_path, class: "brand span2" do
-          %span.hidden-phone Youth Alliance
-          %span.visible-phone
-            Youth Alliance
-            = image_tag 'open-door.png', size: '20x20'
-            BackOffice
+%header.navbar
+  .container
+    %a.navbar-toggle{"data-target" => ".sidebar-nav.nav-collapse", "data-toggle" => "collapse"}
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    %a#main-menu-toggle.hidden-xs.open
+      %i.fa.fa-bars
+    = link_to root_path, class: "navbar-brand col-lg-2 col-sm-1 col-xs-12" do
+      %span.hidden-xs Youth Alliance
+      %span.visible-xs
+        Youth Alliance
+        = image_tag 'open-door.png', size: '20x20'
+        BackOffice
 
-      .nav-no-collapse.header-nav
-        %ul.nav.pull-right
+    .nav-no-collapse.header-nav
+      %ul.nav.navbar-nav.pull-right
 
-          -# = render partial: 'layouts/admin_dropdown', locals: { phone: false }
+        -# = render partial: 'layouts/admin_dropdown', locals: { phone: false }
 
-          %li.dropdown
-            %a.btn.account.dropdown-toggle{data: {toggle: "dropdown"}, href: "#"}
-              .avatar= image_tag(current_user.avatar.url(:tiny))
-              .user
-                %span.hello Welcome!
-                %span.name= current_user.full_name
-            %ul.dropdown-menu
-              %li.dropdown-menu-title
-              %li
-                = link_to user_path(current_user) do
-                  %i.icon-user
-                  View Profile
-              %li
-                = link_to edit_user_path(current_user) do
-                  %i.icon-pencil
-                  Edit Profile
-              %li
-                = link_to logout_path, method: :delete do
-                  %i.icon-off
-                  Logout
+        %li.dropdown
+          %a.btn.account.dropdown-toggle{data: {toggle: "dropdown"}, href: "#"}
+            .avatar= image_tag(current_user.avatar.url(:tiny))
+            .user
+              %span.hello Welcome!
+              %span.name= current_user.full_name
+          %ul.dropdown-menu
+            %li.dropdown-menu-title
+            %li
+              = link_to user_path(current_user) do
+                %i.fa.fa-user
+                View Profile
+            %li
+              = link_to edit_user_path(current_user) do
+                %i.fa.fa-pencil
+                Edit Profile
+            %li
+              = link_to logout_path, method: :delete do
+                %i.fa.fa-off
+                Logout
 
-          -# = render partial: 'layouts/admin_dropdown', locals: { phone: true }
+        -# = render partial: 'layouts/admin_dropdown', locals: { phone: true }

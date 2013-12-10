@@ -20,7 +20,7 @@ gem 'figaro'
 gem 'pundit'
 
 # Theme
-gem 'lr-simpliq', git: 'https://github.com/LANResources/backoffice-theme.git', branch: 'master'
+gem 'lr-simpliq', git: 'https://github.com/LANResources/backoffice-theme.git', branch: 'simpliq-2.1.1'
 
 # JavaScript
 gem 'jquery-rails'
