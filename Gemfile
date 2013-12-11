@@ -43,6 +43,9 @@ gem 'mini_magick'
 # Mail
 gem 'letter_opener', group: :development
 
+# Surveys
+gem 'rapidfire', git: 'https://github.com/LANResources/rapidfire.git', branch: 'master'
+
 # Encryption
 gem 'bcrypt-ruby', '~> 3.0.0'
 

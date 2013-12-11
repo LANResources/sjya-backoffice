@@ -1,0 +1,10 @@
+%li
+  = render partial: "rapidfire/answers/errors", locals: {answer: answer}
+  .form-group
+    = f.label :answer_text, answer.question.question_text
+    = f.fields_for :answer_text do |af|
+      - answer.question.options.each do |option|
+        .checkbox
+          = af.label option do
+            = af.check_box nil, { id: nil, checked: checkbox_checked?(answer, option) }, option
+            = option

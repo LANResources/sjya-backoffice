@@ -1,0 +1,24 @@
+%tr{id: "survey_#{survey.id}"}
+  %td
+    - if policy(survey).create?
+      = link_to survey.name, survey_questions_path(survey)
+    - else
+      = survey.name
+  %td
+    .btn-group.btn-group-sm
+      = link_to new_survey_attempt_path(survey), title: 'Take Survey', class: 'btn btn-sm btn-success' do
+        = "Take Survey&nbsp;".html_safe
+        %i.fa.fa-share
+
+      - if policy(survey).results?
+        = link_to [:results, survey], title: "Results", class: "btn btn-sm btn-info" do
+          %i.fa.fa-archive
+          = "&nbsp;Results".html_safe
+
+      - if policy(survey).edit?
+        = link_to survey_questions_path(survey), title: "Edit Questions", class: "btn btn-sm btn-warning" do
+          %i.fa.fa-pencil
+
+      - if policy(survey).destroy?
+        = link_to survey, title: "Delete Survey", class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
+          %i.fa.fa-trash-o

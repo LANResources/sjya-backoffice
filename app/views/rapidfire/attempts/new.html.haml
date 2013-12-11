@@ -1,0 +1,21 @@
+- title "Survey Attempt"
+
+.row
+  .col-md-12
+    .box
+      .box-header
+        %h2
+          %i.fa.fa-paperclip
+          = @survey.name
+      .box-content
+        .row
+          .col-md-12
+            = form_for [@survey, @attempt_builder] do |f|
+              %ol
+                - @attempt_builder.answers.each do |answer|
+                  = f.fields_for("#{answer.question.id}", answer) do |answer_form|
+                    = render_answer_form_helper(answer, answer_form)
+
+              .form-group
+                .pull-right
+                  = f.submit "Save", class: 'btn btn-primary'

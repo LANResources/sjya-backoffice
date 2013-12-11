@@ -1,0 +1,19 @@
+- title 'Questions'
+
+- breadcrumbs ['Surveys', surveys_path], @survey.name
+
+.row
+  .col-md-12
+    %table.table
+      %thead
+        %tr
+          %th Question
+          %th
+      %tbody
+        = render partial: "question", collection: @questions
+
+.row
+  .col-md-12
+    = link_to new_survey_question_path(@survey), class: 'btn btn-primary' do
+      %i.fa.fa-plus
+      = "&nbsp;Add Question".html_safe

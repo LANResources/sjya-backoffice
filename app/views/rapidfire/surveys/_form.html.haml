@@ -1,0 +1,16 @@
+= form_for survey do |f|
+  = render partial: 'shared/form_errors', locals: { resource: survey }
+
+  %fieldset
+    .form-group
+      = f.label :name
+      = f.text_field :name, class: 'form-control'
+
+    .form-group
+      .check-box
+        = f.label :active do
+          = f.check_box :active
+          = "&nbsp;Active?".html_safe
+
+    .form-group
+      = f.submit class: 'btn btn-primary'

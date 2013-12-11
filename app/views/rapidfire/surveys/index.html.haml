@@ -1,0 +1,18 @@
+- title 'Surveys'
+
+.row
+  .col-md-12
+    %table.table
+      %thead
+        %tr
+          %th Survey
+          %th
+      %tbody
+        = render partial: "survey", collection: @surveys
+
+- if policy(Rapidfire::Survey).create?
+  .row
+    .col-md-12
+      = link_to new_survey_path, class: 'btn btn-primary' do
+        %i.fa.fa-plus
+        = "&nbsp;New Survey".html_safe

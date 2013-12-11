@@ -1,0 +1,10 @@
+%tr{id: "question_#{question.id}"}
+  %td= question.question_text
+  %td
+    .btn-group.btn-group-xs
+      - if policy(question).edit?
+        = link_to [:edit, question.survey, question], title: "Edit Question", class: "btn btn-xs btn-warning" do
+          %i.fa.fa-pencil
+      - if policy(question).destroy?
+        = link_to [question.survey, question], title: "Delete Question", class: "btn btn-xs btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
+          %i.fa.fa-trash-o

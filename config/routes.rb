@@ -20,5 +20,7 @@ SJYABackOffice::Application.routes.draw do
   get 'login', to: 'sessions#new', as: :login
   delete 'logout', to: 'sessions#destroy', as: :logout
 
+  mount Rapidfire::Engine => "/rf"
+
   root 'static_pages#about'
 end

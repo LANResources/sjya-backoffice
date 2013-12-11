@@ -1,16 +1,19 @@
 %header.navbar
   .container
-    %a.navbar-toggle{"data-target" => ".sidebar-nav.nav-collapse", "data-toggle" => "collapse"}
-      %span.icon-bar
-      %span.icon-bar
-      %span.icon-bar
+    %button.navbar-toggle{type: 'button', "data-target" => ".sidebar-nav.nav-collapse", "data-toggle" => "collapse", style: 'color: white;'}
+      %i.fa.fa-bars
+      %span{style: 'font-variant: small-caps;'}= "&nbsp;MENU".html_safe
+      -# %div{style: 'display: inline-block;'}
+      -#   %span.icon-bar
+      -#   %span.icon-bar
+      -#   %span.icon-bar
     %a#main-menu-toggle.hidden-xs.open
       %i.fa.fa-bars
     = link_to root_path, class: "navbar-brand col-lg-2 col-sm-1 col-xs-12" do
       %span.hidden-xs Youth Alliance
       %span.visible-xs
         Youth Alliance
-        = image_tag 'open-door.png', size: '20x20'
+        -# = image_tag 'open-door.png', size: '20x20'
         BackOffice
 
     .nav-no-collapse.header-nav

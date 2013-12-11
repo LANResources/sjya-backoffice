@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131126223018) do
+ActiveRecord::Schema.define(version: 20131211210720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,53 @@ ActiveRecord::Schema.define(version: 20131126223018) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rapidfire_answers", force: true do |t|
+    t.integer  "attempt_id"
+    t.integer  "question_id"
+    t.text     "answer_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rapidfire_answers", ["attempt_id"], name: "index_rapidfire_answers_on_attempt_id", using: :btree
+  add_index "rapidfire_answers", ["question_id"], name: "index_rapidfire_answers_on_question_id", using: :btree
+
+  create_table "rapidfire_attempts", force: true do |t|
+    t.integer  "survey_id"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rapidfire_attempts", ["survey_id"], name: "index_rapidfire_attempts_on_survey_id", using: :btree
+  add_index "rapidfire_attempts", ["user_id", "user_type"], name: "index_rapidfire_attempts_on_user_id_and_user_type", using: :btree
+
+  create_table "rapidfire_questions", force: true do |t|
+    t.integer  "survey_id"
+    t.string   "type"
+    t.string   "question_text"
+    t.integer  "position"
+    t.text     "answer_options"
+    t.text     "validation_rules"
+    t.integer  "follow_up_for_id"
+    t.text     "follow_up_for_condition"
+    t.boolean  "allow_custom",            default: false
+    t.string   "help_text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "rapidfire_questions", ["survey_id"], name: "index_rapidfire_questions_on_survey_id", using: :btree
+
+  create_table "rapidfire_surveys", force: true do |t|
+    t.string   "name"
+    t.boolean  "active",     default: false
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

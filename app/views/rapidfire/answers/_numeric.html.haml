@@ -1,0 +1,5 @@
+%li
+  = render partial: "rapidfire/answers/errors", locals: {answer: answer}
+  .form-group
+    = f.label :answer_text, answer.question.question_text
+    = f.number_field :answer_text, class: 'form-control'

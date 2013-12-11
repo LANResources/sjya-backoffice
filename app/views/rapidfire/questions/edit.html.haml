@@ -1,0 +1,7 @@
+- title 'Edit Question'
+
+- breadcrumbs ['Surveys', surveys_path], [@survey.name, survey_questions_path(@survey)], 'Edit Question'
+
+.row
+  .col-md-12
+    = render partial: 'form', locals: {question: @question}

@@ -24,7 +24,7 @@
                       %i.fa.fa-pencil
                   - if policy(org).destroy?
                     = link_to org, title: "Delete Organization", class: "btn btn-xs btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
-                      %i.fa.fa-trash
+                      %i.fa.fa-trash-o
 
 - if policy(Organization).create?
   .row

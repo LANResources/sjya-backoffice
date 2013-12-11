@@ -1,0 +1,76 @@
+= form_for [@survey, question], html: { class: 'form-horizontal' } do |f|
+  = render partial: 'shared/form_errors', locals: { resource: question }
+
+  %legend
+
+  %fieldset
+    .form-group
+      = f.label :type, class: 'control-label col-sm-2'
+      .col-sm-6
+        = f.select :type, ::Rapidfire::QuestionForm::QUESTION_TYPES, {include_blank: true}, id: "question_type", class: 'form-control'
+
+    .form-group
+      = f.label :question_text, 'Question', class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :question_text, class: 'form-control'
+
+    .form-group.aggregatable
+      = f.label :answer_options, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_area :answer_options, rows: 5, class: 'form-control'
+        %span.help-block Put each option on it's own line.
+
+    .form-group.aggregatable
+      = f.label :allow_custom, 'Allow Custom Fields?', class: 'control-label col-sm-2'
+      .col-sm-6
+        .checkbox
+          = f.check_box :allow_custom
+
+    .form-group
+      = f.label :help_text, 'Help Text', class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :help_text, class: 'form-control'
+
+    - if @survey.questions.with_choices.any?
+      .form-group
+        = f.label :follow_up_for_id, 'Follow up to:', class: 'control-label col-sm-2'
+        .col-sm-10
+          = f.collection_select :follow_up_for_id, @survey.questions.with_choices, :id, :question_text, {include_blank: true}, class: 'form-control'
+
+      .form-group.follow_up_for_condition_row
+        = f.label :follow_up_for_condition, 'Follow up condition:', class: 'control-label col-sm-2'
+        .col-sm-10
+          = f.select :follow_up_for_condition, @survey.questions.with_choices.all.map{|a| a.options}.flatten, {include_blank: true}, class: 'form-control'
+
+  %fieldset
+    %legend Validations
+
+    .form-group
+      = f.label :answer_presence, 'Answer Required?', class: 'control-label col-sm-2'
+      .col-sm-6
+        .checkbox
+          = f.check_box :answer_presence
+
+    .form-group
+      = f.label :answer_minimum_length, class: 'control-label col-sm-2'
+      .col-sm-6
+        = f.text_field :answer_minimum_length, class: 'form-control'
+
+    .form-group
+      = f.label :answer_maximum_length, class: 'control-label col-sm-2'
+      .col-sm-6
+        = f.text_field :answer_maximum_length, class: 'form-control'
+
+    .form-group
+      = f.label :answer_greater_than_or_equal_to, class: 'control-label col-sm-2'
+      .col-sm-6
+        = f.text_field :answer_greater_than_or_equal_to, class: 'form-control'
+
+    .form-group
+      = f.label :answer_less_than_or_equal_to, class: 'control-label col-sm-2'
+      .col-sm-6
+        = f.text_field :answer_less_than_or_equal_to, class: 'form-control'
+
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit class: 'btn btn-primary'
