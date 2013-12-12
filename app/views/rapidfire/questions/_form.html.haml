@@ -5,6 +5,11 @@
 
   %fieldset
     .form-group
+      = f.label :section, class: 'control-label col-sm-2'
+      .col-sm-6
+        = f.text_field :section, class: 'form-control autocomplete', data: { sections: @survey.sections }
+
+    .form-group
       = f.label :type, class: 'control-label col-sm-2'
       .col-sm-6
         = f.select :type, ::Rapidfire::QuestionForm::QUESTION_TYPES, {include_blank: true}, id: "question_type", class: 'form-control'
@@ -40,7 +45,7 @@
       .form-group.follow_up_for_condition_row
         = f.label :follow_up_for_condition, 'Follow up condition:', class: 'control-label col-sm-2'
         .col-sm-10
-          = f.select :follow_up_for_condition, @survey.questions.with_choices.all.map{|a| a.options}.flatten, {include_blank: true}, class: 'form-control'
+          = f.select :follow_up_for_condition, [], {include_blank: true}, class: 'form-control', data: {answers: Hash[@survey.questions.with_choices.map{ |q| [q.id, q.options] }]}
 
   %fieldset
     %legend Validations

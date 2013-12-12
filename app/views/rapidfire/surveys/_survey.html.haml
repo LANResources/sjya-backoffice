@@ -1,10 +1,11 @@
 %tr{id: "survey_#{survey.id}"}
   %td
     - if policy(survey).create?
-      = link_to survey.name, survey_questions_path(survey)
+      = best_in_place survey, :name
     - else
       = survey.name
-  %td
+  %td.c= best_in_place survey, :active, type: :checkbox, collection: checkbox_images
+  %td.c
     .btn-group.btn-group-sm
       = link_to new_survey_attempt_path(survey), title: 'Take Survey', class: 'btn btn-sm btn-success' do
         = "Take Survey&nbsp;".html_safe

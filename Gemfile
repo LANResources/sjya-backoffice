@@ -26,6 +26,8 @@ gem 'lr-simpliq', git: 'https://github.com/LANResources/backoffice-theme.git', b
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'dropzonejs-rails'
+gem 'select2-rails'
+gem 'best_in_place', git: 'https://github.com/bernat/best_in_place.git', branch: 'rails-4'
 
 # JSON
 gem 'jbuilder', '~> 1.2'

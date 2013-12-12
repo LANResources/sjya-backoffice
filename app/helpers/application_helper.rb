@@ -33,6 +33,19 @@ module ApplicationHelper
     end
   end
 
+  def checkbox_images(changeable = true)
+    [
+      content_tag(:span,
+        content_tag(:i, '', class: 'fa fa-thumbs-down'),
+        title: (changeable ? 'Click to enable' : 'Disabled'),
+        class: 'btn btn-sm btn-danger'),
+      content_tag(:span,
+        content_tag(:i, '', class: 'fa fa-thumbs-up'),
+        title: (changeable ? 'Click to disable' : 'Enabled'),
+        class: 'btn btn-sm btn-success')
+    ]
+  end
+
   def sortable(column, title=nil)
     title ||= column.titleize
     icons = { "asc" => "up", "desc" => "down" }

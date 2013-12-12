@@ -1,6 +1,15 @@
 %tr{id: "question_#{question.id}"}
-  %td= question.question_text
   %td
+    - if question.follow_up_for_id.present?
+      .col-sm-offset-1
+        - if question.follow_up_for_condition.present?
+          %span.label.label-primary= question.follow_up_for_condition
+        %i.fa.fa-long-arrow-right
+        = "&nbsp;#{question.question_text}".html_safe
+    - else
+      = question.question_text
+  %td.c= question.type.split('::').last
+  %td.c
     .btn-group.btn-group-xs
       - if policy(question).edit?
         = link_to [:edit, question.survey, question], title: "Edit Question", class: "btn btn-xs btn-warning" do

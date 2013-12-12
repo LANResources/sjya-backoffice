@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20131211210720) do
 
   create_table "rapidfire_questions", force: true do |t|
     t.integer  "survey_id"
+    t.string   "section"
     t.string   "type"
     t.string   "question_text"
     t.integer  "position"

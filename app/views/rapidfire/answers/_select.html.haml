@@ -1,5 +1,1 @@
-%li
-  = render partial: "rapidfire/answers/errors", locals: {answer: answer}
-  .form-group
-    = f.label :answer_text, answer.question.question_text
-    = f.select :answer_text, answer.question.options, include_blank: true, { class: 'form-control' }
+= f.select :answer_text, answer.question.options, include_blank: true, { class: 'form-control' }

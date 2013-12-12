@@ -16,5 +16,7 @@
 //= require nprogress
 //= require mustache
 //= require dropzone
+//= require best_in_place
+//= require select2
 //= require lr.simpliq
 //= require_tree .
