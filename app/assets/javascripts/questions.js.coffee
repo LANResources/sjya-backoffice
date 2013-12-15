@@ -34,8 +34,9 @@ initSectionsAutocomplete = ->
   $sectionInput = $('#question_section')
   sections = $sectionInput.data 'sections'
   if sections
-    $sectionInput.autocomplete
-      source: sections
+    $sectionInput.typeahead
+      name: 'sections'
+      local: sections
 
 updateFollowUpConditions = (question) ->
   $conditionSelect = $('#question_follow_up_for_condition')

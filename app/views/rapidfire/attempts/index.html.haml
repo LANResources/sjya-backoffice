@@ -1,0 +1,14 @@
+- title 'Activities'
+
+.row
+  .col-md-12
+    %table.table
+      %thead
+        %tr
+          %th Completed By
+          %th Activity Date
+      %tbody
+        - @attempts.each do |attempt|
+          %tr
+            %td= attempt.user.full_name
+            %td= (attempt.activity_date || attempt.updated_at).strftime('%B %-d, %Y')

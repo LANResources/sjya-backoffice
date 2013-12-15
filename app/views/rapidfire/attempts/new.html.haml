@@ -2,15 +2,23 @@
 
 .row
   .col-md-12
-    -# .box
-    -#   .box-header
-    -#     %h2
-    -#       %i.fa.fa-paperclip
-    -#       = @survey.name
-    -#   .box-content
-    -#     .row
-    -#       .col-md-12
     = form_for [@survey, @attempt_builder] do |f|
+      .form-group
+        %label{for: '#activity_date'} Activity Date
+        = text_field_tag :activity_date, '', class: 'form-control'
+
+      .form-group
+        %label Completed for:
+        %br/
+        - Rapidfire::Attempt::COMPLETED_FOR_OPTIONS.each do |option|
+          %label.checkbox-inline
+            = check_box_tag 'completed_for[]', option, false
+            = option
+
+      .form-group
+        %label{for: '#description'} Description
+        = text_area_tag :description, '', class: 'form-control'
+
       - @attempt_builder.answers.group_by{|a| a.question.section}.each do |section, section_answers|
         %h2= section
         - section_answers.each do |answer|
@@ -29,15 +37,6 @@
                         %h4= follow_up.question_text.html_safe
                         = render partial: "rapidfire/answers/errors", locals: {answer: follow_up_answer}
                         = render_answer_form_helper(follow_up_answer, answer_form)
-      -# %ol
-      -#   - @attempt_builder.answers.each do |answer|
-      -#     = f.fields_for("#{answer.question.id}", answer) do |answer_form|
-      -#       %li
-      -#         = render partial: "rapidfire/answers/errors", locals: {answer: answer}
-      -#         .form-group
-      -#           = f.label :answer_text, answer.question.question_text
-      -#           = render_answer_form_helper(answer, answer_form)
-
       .form-group
         .pull-right
           = f.submit "Save", class: 'btn btn-primary'

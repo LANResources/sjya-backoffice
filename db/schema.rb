@@ -19,9 +19,7 @@ ActiveRecord::Schema.define(version: 20131211210720) do
   create_table "documents", force: true do |t|
     t.integer  "user_id"
     t.string   "title"
-    t.string   "item"
-    t.string   "item_size"
-    t.string   "content_type"
+    t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -53,6 +51,9 @@ ActiveRecord::Schema.define(version: 20131211210720) do
     t.integer  "survey_id"
     t.integer  "user_id"
     t.string   "user_type"
+    t.date     "activity_date"
+    t.text     "description"
+    t.string   "completed_for", default: [], array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

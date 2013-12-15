@@ -9,6 +9,7 @@ initPage = ->
   else if pageIs 'attempts', 'new'
     initSelect2()
     initFollowUps()
+    initDatepicker()
 
 initBestInPlace = ->
   $('.best_in_place').best_in_place()
@@ -29,3 +30,6 @@ initFollowUps = ->
 
   $(document.body).on 'submit', '#new_attempt', ->
     $('.follow-up-container.invalid').remove()
+
+initDatepicker = ->
+  $('#activity_date').datepicker()

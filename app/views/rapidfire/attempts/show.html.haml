@@ -1,0 +1,22 @@
+- title 'Activity'
+
+.row
+  .col-md-12
+    %dl
+      %dt Activity Date
+      %dd= @attempt.activity_date.strftime '%B %-d, %Y'
+      %br/
+
+      %dt Completed for
+      %dd= @attempt.completed_for.join(', ')
+      %br/
+
+      %dt Description
+      %dd= @attempt.description
+
+    - @attempt.answers.each do |answer|
+      .panel.panel-info
+        .panel-heading
+          %h3.panel-title= answer.question.question_text
+        .panel-body
+          = answer.answer_text
