@@ -1,0 +1,18 @@
+- title 'Reset Password', false
+
+.jumbotron
+  %h1.text-center Reset Password
+
+= form_for @user, url: password_reset_path(params[:id]), html: {id: 'password_reset_form' } do |f|
+  = render partial: 'shared/form_errors', locals: { resource: @user }
+
+  .form-group
+    = f.label :password
+    = f.password_field :password, class: 'form-control'
+
+  .form-group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, class: 'form-control'
+  
+  .form-group
+    = f.submit "Update Password", class: 'btn btn-primary'

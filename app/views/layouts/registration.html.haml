@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Register · BackOffice · St. Joseph Youth Alliance
+    %title= "#{yield(:title) || "Register"} · BackOffice · St. Joseph Youth Alliance"
 
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
     = stylesheet_link_tag "application"

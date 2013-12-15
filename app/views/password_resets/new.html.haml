@@ -1,0 +1,12 @@
+- title 'Reset Password', false
+
+.jumbotron
+  %h1.text-center Reset Password
+
+= form_tag password_resets_path, method: :post, id: 'new_password_reset_form' do
+  .form-group
+    = label_tag :email
+    = text_field_tag :email, params[:email], class: 'form-control'
+  
+  .form-group
+    %button.btn.btn-primary{type: "submit"} Reset Password

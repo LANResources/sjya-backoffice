@@ -15,7 +15,8 @@ SJYABackOffice::Application.routes.draw do
   end
 
   resources :sessions, only: [:new, :create, :destroy]
-
+  resources :password_resets, only: [:new, :create, :edit, :update]
+  
   get "static_pages/about"
   get 'login', to: 'sessions#new', as: :login
   delete 'logout', to: 'sessions#destroy', as: :logout
