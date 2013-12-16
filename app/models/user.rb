@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   belongs_to :organization
   has_many :documents
+  has_many :attempts, class_name: 'Rapidfire::Attempt'
 
   validates :first_name,            presence: true
   validates :last_name,             presence: true

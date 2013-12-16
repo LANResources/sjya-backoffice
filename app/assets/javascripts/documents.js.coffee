@@ -54,7 +54,6 @@ initDocumentUploadForm = ->
         $container.find('.progress').hide()
         $titleDisplay = $("<div></div>").text response.title
         $container.find('.title-input').replaceWith $titleDisplay
-        # $tagsDisplay = $("<div></div>").text response.tag_list
         $container.find('.tags-input').replaceWith renderTags(response.tag_list)
         $container.find('.remove-file').replaceWith $(response.remove_link)
 

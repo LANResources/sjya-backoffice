@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
+
 gem 'rails', '4.0.0'
 
 # Database
@@ -7,6 +9,7 @@ gem 'pg'
 
 # Webserver
 gem 'thin', group: :development
+gem 'unicorn', group: :production
 
 # Asset Compilation
 gem 'sass-rails', '~> 4.0.0'
