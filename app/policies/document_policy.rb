@@ -32,6 +32,6 @@ class DocumentPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:title, :item]
+    [:title, :item, :tag_list]
   end
 end

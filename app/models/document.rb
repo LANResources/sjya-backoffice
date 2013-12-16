@@ -1,6 +1,7 @@
 class Document < ActiveRecord::Base
   belongs_to :user
   mount_uploader :item, DocumentUploader
+  acts_as_taggable
 
   validates_presence_of :item
 

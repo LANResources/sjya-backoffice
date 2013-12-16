@@ -48,6 +48,9 @@ gem 'letter_opener', group: :development
 # Surveys
 gem 'rapidfire', git: 'https://github.com/LANResources/rapidfire.git', branch: 'master'
 
+# Tagging
+gem 'acts-as-taggable-on'
+
 # Encryption
 gem 'bcrypt-ruby', '~> 3.0.0'
 

@@ -28,6 +28,8 @@ initDocumentUploadForm = ->
     sending: (file, xhr, formData) ->
       title = $(file.previewElement).find('.title-input').val()
       formData.append 'document[title]', title
+      tags = $(file.previewElement).find('.tags-input').val()
+      formData.append 'document[tag_list]', tags
     init: ->
       newDocumentDropzone = this
       $(this.element).find("input[type='submit']").on 'click', (e) ->
@@ -52,6 +54,8 @@ initDocumentUploadForm = ->
         $container.find('.progress').hide()
         $titleDisplay = $("<div></div>").text response.title
         $container.find('.title-input').replaceWith $titleDisplay
+        # $tagsDisplay = $("<div></div>").text response.tag_list
+        $container.find('.tags-input').replaceWith renderTags(response.tag_list)
         $container.find('.remove-file').replaceWith $(response.remove_link)
 
       this.on 'error', (file, message, xhr) ->
@@ -61,3 +65,9 @@ initDocumentUploadForm = ->
         $container.find('[data-dz-errormessage]').html(message.join('<br/>')) if $.isArray message
 
   Dropzone.discover()
+
+renderTags = (tags) ->
+  container = $('<div class="tag-list"></div>')
+  for tag in tags
+    container.append $('<span class="label label-info">' + tag + '</span>')
+  container
