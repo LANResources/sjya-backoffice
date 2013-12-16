@@ -30,10 +30,7 @@ ActiveRecord::Schema.define(version: 20131215212513) do
 
   create_table "organizations", force: true do |t|
     t.string   "name"
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
-    t.datetime "logo_updated_at"
+    t.string   "logo"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -120,10 +117,6 @@ ActiveRecord::Schema.define(version: 20131215212513) do
     t.string   "avatar"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
     t.string   "role"
     t.string   "invite_token"
     t.integer  "invited_by"

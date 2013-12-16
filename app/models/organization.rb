@@ -1,6 +1,6 @@
 class Organization < ActiveRecord::Base
   has_many :users
-  mount_uploader :logo, LogoUploader, mount_on: :logo_file_name
+  mount_uploader :logo, LogoUploader
   validates_presence_of :name
 
   scope :assignable_for, ->(user) {

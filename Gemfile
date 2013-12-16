@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/reed/'
 
 ruby '2.0.0'
 
@@ -23,7 +24,7 @@ gem 'figaro'
 gem 'pundit'
 
 # Theme
-gem 'lr-simpliq', git: 'https://github.com/LANResources/backoffice-theme.git', branch: 'simpliq-2.1.1'
+gem 'lr-simpliq' #, git: 'https://github.com/LANResources/backoffice-theme.git', branch: 'simpliq-2.1.1'
 
 # JavaScript
 gem 'jquery-rails'

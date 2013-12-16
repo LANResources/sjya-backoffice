@@ -1,15 +1,4 @@
 GIT
-  remote: https://github.com/LANResources/backoffice-theme.git
-  revision: 08b094340d1be65c79ab690384e0bf23a63cbca9
-  branch: simpliq-2.1.1
-  specs:
-    lr-simpliq (0.0.9)
-      coffee-rails
-      rails (>= 3.1.0)
-      sass (~> 3.2)
-      sass-rails (>= 3.2)
-
-GIT
   remote: https://github.com/LANResources/rapidfire.git
   revision: 4cdabc5f6dda24956d9afdcd06c2668f2bacd8b2
   branch: master
@@ -30,6 +19,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/reed/
   specs:
     actionmailer (4.0.0)
       actionpack (= 4.0.0)
@@ -178,6 +168,11 @@ GEM
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
+    lr-simpliq (0.0.9)
+      coffee-rails
+      rails (>= 3.1.0)
+      sass (~> 3.2)
+      sass-rails (>= 3.2)
     lumberjack (1.0.4)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -338,7 +333,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   letter_opener
-  lr-simpliq!
+  lr-simpliq
   meta_request
   methodfinder
   mini_magick

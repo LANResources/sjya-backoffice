@@ -14,7 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/bin/*
+# /bin/*
 database.yml
 application.yml
 dropbox.yml

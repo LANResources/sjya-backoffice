@@ -2,7 +2,7 @@ class CreateOrganizations < ActiveRecord::Migration
   def change
     create_table :organizations do |t|
       t.string :name
-      t.attachment :logo
+      t.string :logo
 
       t.timestamps
     end
