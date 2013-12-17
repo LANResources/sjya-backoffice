@@ -2,16 +2,17 @@
 
 - breadcrumbs ['Surveys', surveys_path], @survey.name
 
-.row
-  .col-md-12
-    %table.table
-      %thead
-        %tr
-          %th Question
-          %th.c Type
-          %th
-      %tbody
-        = render partial: "question", collection: @questions
+- @questions.group_by{|a| a.section}.each do |section, section_questions|
+  .row
+    .col-md-12
+      %table.table
+        %thead
+          %tr
+            %th= "Section: #{section}"
+            %th.c Type
+            %th
+        %tbody
+          = render partial: "question", collection: section_questions
 
 .row
   .col-md-12

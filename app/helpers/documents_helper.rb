@@ -10,6 +10,12 @@ module DocumentsHelper
                       end
   end
 
+  def render_tags(tag_list)
+    tag_list.map do |tag|
+      link_to tag, {tag: tag}, class: 'btn btn-xs btn-default'
+    end.join("&nbsp;").html_safe
+  end
+
   private
 
   def _file_type_label(color, text)

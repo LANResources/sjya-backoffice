@@ -5,10 +5,25 @@
     %table.table
       %thead
         %tr
-          %th Completed By
-          %th Activity Date
+          %th= sortable 'users.last_name', 'Completed By'
+          %th= sortable 'updated_at', 'Activity Date'
       %tbody
-        - @attempts.each do |attempt|
-          %tr
-            %td= attempt.user.full_name
-            %td= (attempt.activity_date || attempt.updated_at).strftime('%B %-d, %Y')
+        - if @attempts.any?
+          - @attempts.each do |attempt|
+            %tr
+              %td= attempt.user.full_name
+              %td= (attempt.activity_date || attempt.updated_at).strftime('%B %-d, %Y')
+
+        - else
+          %tr.warning
+            %td{colspan: 5} No activities available.
+
+    = will_paginate @attempts
+
+%br
+
+.row
+  .col-md-12
+    = link_to rapidfire.new_activity_path, class: 'btn btn-primary' do
+      %i.fa.fa-plus
+      = "&nbsp;New Activity".html_safe

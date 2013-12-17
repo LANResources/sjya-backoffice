@@ -2,6 +2,16 @@
 
 - breadcrumbs ['Documents', documents_path], [@document.filename, document_path(@document)], 'Edit'
 
+%br/
+
 .row
   .col-md-12
-    = render 'form'
+    .box
+      .box-header
+        %h2
+          %i.fa.fa-pencil
+
+      .box-content
+        .row
+          .col-md-12
+            = render 'form'

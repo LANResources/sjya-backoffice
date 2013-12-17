@@ -1,4 +1,7 @@
-- title 'Documents'
+- if @user
+  - title "#{@user.full_name}'s Documents"
+- else
+  - title 'Documents'
 
 .row
   .col-md-12
@@ -6,32 +9,41 @@
       %thead
         %tr
           %th= sortable 'title', 'File'
+          %th.c Tags
           %th.c= sortable 'users.last_name', 'Owner'
           %th.c= sortable 'updated_at', 'Updated'
           %th.r
 
       %tbody
-        - @documents.each do |document|
-          %tr
-            %td
-              = file_type_label document.content_type
-              = "&nbsp;".html_safe
-              = link_to document.name, document
-              %small
-                %i= " (#{number_to_human_size document.item_size})"
-            %td.c= link_to document.owner_name, document.user
-            %td.c
-              = document.updated_at.strftime '%-m/%-d/%Y %-I:%M %p'
-            %td.r
-              .btn-group
-                = link_to download_document_path(document), title: "Download", class: 'btn btn-sm btn-success', data: { 'no-turbolink' => true } do
-                  %i.fa.fa-download
-                - if policy(document).edit?
-                  = link_to edit_document_path(document), title: "Edit Document", class: "btn btn-sm btn-warning" do
-                    %i.fa.fa-pencil
-                - if policy(document).destroy?
-                  = link_to document, title: "Remove", class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
-                    %i.fa.fa-trash-o
+        - if @documents.any?
+          - @documents.each do |document|
+            %tr
+              %td
+                = file_type_label document.content_type
+                = "&nbsp;".html_safe
+                = link_to document.name, document
+                %small
+                  %i= " (#{number_to_human_size document.item_size})"
+              %td.c= render_tags document.tag_list
+              %td.c= link_to document.owner_name, document.user
+              %td.c
+                = document.updated_at.strftime '%-m/%-d/%Y %-I:%M %p'
+              %td.r
+                .btn-group
+                  = link_to download_document_path(document), title: "Download", class: 'btn btn-sm btn-success', data: { 'no-turbolink' => true } do
+                    %i.fa.fa-download
+                  - if policy(document).edit?
+                    = link_to edit_document_path(document), title: "Edit Document", class: "btn btn-sm btn-warning" do
+                      %i.fa.fa-pencil
+                  - if policy(document).destroy?
+                    = link_to document, title: "Remove", class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
+                      %i.fa.fa-trash-o
+        - else
+          %tr.warning
+            %td{colspan: 5} 
+              No documents available.
+              - if @user || params[:tag]
+                = link_to 'View All', documents_path, class: 'btn-link'
 
     = will_paginate @documents
 

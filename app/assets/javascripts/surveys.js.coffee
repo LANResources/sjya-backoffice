@@ -32,4 +32,6 @@ initFollowUps = ->
     $('.follow-up-container.invalid').remove()
 
 initDatepicker = ->
-  $('#activity_date').datepicker()
+  $ad = $('#activity_date')
+  $ad.datepicker().on 'changeDate', ->
+    $ad.datepicker 'hide'

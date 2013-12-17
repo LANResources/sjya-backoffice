@@ -1,0 +1,19 @@
+.col-md-6
+  .box
+    .box-header
+      %h2
+        %i.fa.fa-user
+        Activities
+
+    .box-content
+      - if @user.attempts.any?
+        %table.table
+          %thead
+            %tr
+              %th Date
+          %tbody
+            - @user.attempts.each do |attempt|
+              %tr
+                %td= (attempt.activity_date || attempt.updated_at).strftime('%B %-d, %Y')
+      - else
+        No activities

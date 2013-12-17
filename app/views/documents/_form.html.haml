@@ -1,15 +1,25 @@
-= form_for @document, html: { multipart: true } do |f|
+= form_for @document, html: { multipart: true, class: 'form-horizontal' } do |f|
   = render partial: 'shared/form_errors', locals: { resource: @document }
 
   %fieldset
     .form-group
-      = f.label :title
-      = f.text_field :title, class: 'form-control'
+      = f.label :title, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :title, class: 'form-control'
 
     .form-group
-      = f.label :item, 'File'
-      = f.file_field :item
+      = f.label :tag_list, class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.text_field :tag_list, class: 'form-control'
+        %span.help-block
+          Separated by commas
 
     .form-group
-      = f.submit class: 'btn btn-primary'
-      = link_to 'Cancel', documents_path, class: 'btn btn-inverse'
+      = f.label :item, 'File', class: 'control-label col-sm-2'
+      .col-sm-10
+        = f.file_field :item
+
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit class: 'btn btn-primary'
+        = link_to 'Cancel', documents_path, class: 'btn btn-inverse'

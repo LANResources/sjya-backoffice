@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class LogoUploader < CarrierWave::Uploader::Base
-  # include CarrierWave::Compatibility::Paperclip
   include CarrierWave::MiniMagick
 
   storage :dropbox

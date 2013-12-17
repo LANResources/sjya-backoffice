@@ -1,8 +1,11 @@
 class DocumentsController < ApplicationController
+  before_action :set_user, only: :index
   before_action :set_document, only: [:show, :download, :edit, :update, :destroy]
 
   def index
-    @documents = Document.includes(:user).order("#{sort_column} #{sort_direction}").page(params[:page]).per_page(15)
+    @documents = @user.try(:documents) || Document.includes(:user)
+    @documents = @documents.tagged_with(params[:tag]) if params[:tag]
+    @documents = @documents.order("#{sort_column} #{sort_direction}").page(params[:page]).per_page(15)
   end
 
   def show
@@ -65,6 +68,12 @@ class DocumentsController < ApplicationController
       authorize! @document
     end
 
+    def set_user
+      if params[:user] && User.exists?(params[:user])
+        @user = User.find params[:user]
+      end
+    end
+    
     def current_resource
       if params[:action] == 'create'
         @current_resource ||= params[:document] if params[:document]

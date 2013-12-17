@@ -1,5 +1,5 @@
 - answer.question.options.each do |option|
   .radio
-    = f.label "answer_text_#{option}", option do
+    %label
       = f.radio_button :answer_text, option
       = option.html_safe

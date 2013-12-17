@@ -56,6 +56,7 @@ initDocumentUploadForm = ->
         $container.find('.title-input').replaceWith $titleDisplay
         $container.find('.tags-input').replaceWith renderTags(response.tag_list)
         $container.find('.remove-file').replaceWith $(response.remove_link)
+        $('#cancel-btn').text 'Finished'
 
       this.on 'error', (file, message, xhr) ->
         $container = $(file.previewElement)

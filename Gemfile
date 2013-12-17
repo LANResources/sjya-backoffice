@@ -7,6 +7,7 @@ gem 'rails', '4.0.0'
 
 # Database
 gem 'pg'
+gem 'seed_dump'
 
 # Webserver
 gem 'thin', group: :development

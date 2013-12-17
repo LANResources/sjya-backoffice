@@ -24,14 +24,9 @@
           %span.hidden-sm Documents
 
       %li{class: ('active' if controller.controller_name.in? ['surveys', 'attempts', 'questions'])}
-        = link_to rapidfire.surveys_url do
+        = link_to rapidfire.activities_url do
           %i.fa.fa-bullhorn
           %span.hidden-sm Activities
-
-      %li{class: ('active' if controller.controller_name == 'attempts' && params[:action] == 'new')}
-        = link_to rapidfire.new_activity_url do
-          %i.fa.fa-bullhorn
-          %span.hidden-sm New Activity
 
       %li{class: ('active' if controller.controller_name == '' && params[:action] == '')}
         = link_to root_url do
