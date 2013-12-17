@@ -16,4 +16,5 @@
               %tr
                 %td= (attempt.activity_date || attempt.updated_at).strftime('%B %-d, %Y')
       - else
-        No activities
+        %h4.text-center.text-info
+          No activities recorded.

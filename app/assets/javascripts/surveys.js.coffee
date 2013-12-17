@@ -22,11 +22,19 @@ initFollowUps = ->
   $('.question-panel.has-follow-up').each ->
     $question_panel = $(this)
     question = $question_panel.data('primary-question-id')
-    $(document.body).on 'change', "[name=\"attempt[#{question}][answer_text]\"]", ->
+    $(document.body).on 'change', "[name=\"attempt[#{question}][answer_text]\"], [name=\"attempt[#{question}][answer_text][]\"]", ->
       answer = $(this).val()
-      $question_panel.find('.follow-up-container').each ->
-        $(this).hide().addClass 'invalid'
-      $question_panel.find(".follow-up-container[data-condition=\"#{answer}\"]").show().removeClass 'invalid'
+
+      if $(this).attr('type') is 'checkbox'
+        $answer = $question_panel.find(".follow-up-container[data-condition=\"#{answer}\"]")
+        if $(this).attr('checked')?
+          $answer.show().removeClass 'invalid'
+        else
+          $answer.hide().addClass 'invalid'
+      else
+        $question_panel.find('.follow-up-container').each ->
+          $(this).hide().addClass 'invalid'
+        $question_panel.find(".follow-up-container[data-condition=\"#{answer}\"]").show().removeClass 'invalid'
 
   $(document.body).on 'submit', '#new_attempt', ->
     $('.follow-up-container.invalid').remove()

@@ -1,6 +1,6 @@
 = f.fields_for :answer_text do |af|
   - answer.question.options.each do |option|
     .checkbox
-      = af.label option do
+      %label
         = af.check_box nil, { id: nil, checked: checkbox_checked?(answer, option) }, option
         = option.html_safe

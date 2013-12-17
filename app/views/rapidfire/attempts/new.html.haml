@@ -14,7 +14,7 @@
               .row
                 .col-sm-6
                   .input-group
-                    = text_field_tag :activity_date, '', class: 'form-control'
+                    = text_field_tag :activity_date, '', class: 'form-control', data: { 'date-format' => 'yyyy-mm-dd' }
                     %span.input-group-addon
                       %i.fa.fa-calendar
           .col-md-6
