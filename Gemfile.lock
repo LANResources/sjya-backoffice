@@ -19,7 +19,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
-  remote: https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/reed/
+  remote: https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/lanresources/
   specs:
     actionmailer (4.0.0)
       actionpack (= 4.0.0)

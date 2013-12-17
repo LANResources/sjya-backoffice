@@ -6,7 +6,10 @@ initPage = ->
   if pageIs 'surveys', 'index'
     initBestInPlace()
 
-  else if pageIs 'attempts', 'new'
+  else if pageIs 'attempts', 'index'
+    initDescriptionPopovers()
+
+  else if pageIs 'attempts', ['new', 'create']
     initSelect2()
     initFollowUps()
     initDatepicker()
@@ -18,7 +21,7 @@ initSelect2 = ->
   $('.select2').select2()
 
 initFollowUps = ->
-  $('.follow-up-container').hide()
+  $('.follow-up-container').hide().addClass 'invalid'
   $('.question-panel.has-follow-up').each ->
     $question_panel = $(this)
     question = $question_panel.data('primary-question-id')
@@ -43,3 +46,9 @@ initDatepicker = ->
   $ad = $('#activity_date')
   $ad.datepicker().on 'changeDate', ->
     $ad.datepicker 'hide'
+
+initDescriptionPopovers = ->
+  $('.description-popover').each ->
+    $(this).popover
+      placement: 'left'
+      trigger: 'hover'

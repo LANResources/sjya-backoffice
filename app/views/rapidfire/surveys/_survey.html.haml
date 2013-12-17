@@ -11,11 +11,6 @@
         = "Take Survey&nbsp;".html_safe
         %i.fa.fa-share
 
-      - if policy(survey).results?
-        = link_to [:results, survey], title: "Results", class: "btn btn-sm btn-info" do
-          %i.fa.fa-archive
-          = "&nbsp;Results".html_safe
-
       - if policy(survey).edit?
         = link_to survey_questions_path(survey), title: "Edit Questions", class: "btn btn-sm btn-warning" do
           %i.fa.fa-pencil

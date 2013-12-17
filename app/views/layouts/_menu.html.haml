@@ -5,31 +5,31 @@
     %ul.nav.nav-tabs.nav-stacked.main-menu
       %li{class: ('active' if controller.controller_name == 'static_pages' && params[:action] == 'about')}
         = link_to root_url do
-          %i.fa.fa-info
+          %i.fa.fa-info.fa-fw
           %span.hidden-sm About Us
 
       %li{class: ('active' if controller.controller_name == 'organizations')}
         = link_to organizations_path do
-          %i.fa.fa-globe
+          %i.fa.fa-globe.fa-fw
           %span.hidden-sm Organizations
 
       %li{class: ('active' if controller.controller_name == 'users')}
         = link_to users_path do
-          %i.fa.fa-group
+          %i.fa.fa-group.fa-fw
           %span.hidden-sm Users
 
       %li{class: ('active' if controller.controller_name == 'documents')}
         = link_to documents_url do
-          %i.fa.fa-file-text
+          %i.fa.fa-file-text.fa-fw
           %span.hidden-sm Documents
 
       %li{class: ('active' if controller.controller_name.in? ['surveys', 'attempts', 'questions'])}
         = link_to rapidfire.activities_url do
-          %i.fa.fa-bullhorn
+          %i.fa.fa-bullhorn.fa-fw
           %span.hidden-sm Activities
 
       %li{class: ('active' if controller.controller_name == '' && params[:action] == '')}
         = link_to root_url do
-          %i.fa.fa-upload
+          %i.fa.fa-upload.fa-fw
           %span.hidden-sm Data
 

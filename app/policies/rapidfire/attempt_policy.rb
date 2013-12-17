@@ -17,15 +17,15 @@ module Rapidfire
     end
 
     def edit?
-      true
+      update?
     end
 
     def update?
-      true
+      user == resource.user || user >= :site_manager
     end
 
     def destroy?
-      true
+      update?
     end
 
     def permitted_attributes

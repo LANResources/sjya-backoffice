@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20131215212513) do
   create_table "rapidfire_attempts", force: true do |t|
     t.integer  "survey_id"
     t.integer  "user_id"
-    t.string   "user_type"
     t.date     "activity_date"
     t.text     "description"
     t.string   "completed_for", default: [], array: true
@@ -58,7 +57,7 @@ ActiveRecord::Schema.define(version: 20131215212513) do
   end
 
   add_index "rapidfire_attempts", ["survey_id"], name: "index_rapidfire_attempts_on_survey_id", using: :btree
-  add_index "rapidfire_attempts", ["user_id", "user_type"], name: "index_rapidfire_attempts_on_user_id_and_user_type", using: :btree
+  add_index "rapidfire_attempts", ["user_id"], name: "index_rapidfire_attempts_on_user_id", using: :btree
 
   create_table "rapidfire_questions", force: true do |t|
     t.integer  "survey_id"

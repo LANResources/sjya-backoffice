@@ -5,6 +5,7 @@
 .row
   .col-md-12
     = form_for [@survey, @attempt_builder] do |f|
+      = render partial: 'shared/form_errors', locals: { resource: @attempt_builder.to_model }
       %fieldset
         %legend Details
         .row

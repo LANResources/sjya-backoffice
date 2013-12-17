@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-source 'https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/reed/'
+source 'https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/lanresources/'
 
 ruby '2.0.0'
 

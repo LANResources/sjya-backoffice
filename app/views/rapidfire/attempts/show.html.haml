@@ -1,22 +1,70 @@
-- title 'Activity'
+- title "Activity ##{@attempt.id}"
+
+- breadcrumbs ['Activities', activities_path], @attempt.id
 
 .row
-  .col-md-12
+  .col-md-8
     %dl
-      %dt Activity Date
+      %dt
+        %i.fa.fa-thumb-tack.fa-rotate-270
+        = "&nbsp;Description".html_safe
+      %dd
+        %p.lead= @attempt.description
+
+  .col-md-4
+    %dl
+      %dt
+        %i.fa.fa-calendar
+        = "&nbsp;Activity Date".html_safe
       %dd= @attempt.activity_date.strftime '%B %-d, %Y'
       %br/
 
-      %dt Completed for
-      %dd= @attempt.completed_for.join(', ')
+      %dt
+        %i.fa.fa-user
+        = "&nbsp;Entered By".html_safe
+      %dd= link_to @attempt.user.full_name, @attempt.user
       %br/
 
-      %dt Description
-      %dd= @attempt.description
+      %dt
+        %i.fa.fa-users
+        = "&nbsp;Completed for".html_safe
+      %dd= (@attempt.completed_for.join("<br/>") || '').html_safe
 
-    - @attempt.answers.each do |answer|
-      .panel.panel-info
-        .panel-heading
-          %h3.panel-title= answer.question.question_text
-        .panel-body
-          = answer.answer_text
+
+- @attempt.answers.includes(:question).group_by{|a| a.question.section}.each do |section, section_answers|
+  .row
+    .col-md-12
+      %h1
+        %small
+          %i.fa.fa-bookmark-o
+          = "&nbsp;#{section}".html_safe
+
+  .row
+    .col-md-12
+      - section_answers.each do |answer|
+        - unless answer.question.follow_up_for_id.present?
+          .bs-callout.bs-callout-info
+            .row
+              .col-md-6
+                %h4.h4= answer.question.question_text
+              .col-md-6
+                %p
+                  - if answer.answer_text.present?
+                    = answer.answer_text.html_safe
+                  - else
+                    %i No Response Given
+
+            - answer.question.follow_up_questions.each do |follow_up|
+              - if answer.answer_text == follow_up.follow_up_for_condition && @attempt.answers.exists?(question_id: follow_up.id)
+                - follow_up_answer = @attempt.answers.where(question_id: follow_up.id).first
+                .row
+                  .col-md-6
+                    %h4.h4
+                      %i.fa.fa-long-arrow-right
+                      = "&nbsp;#{follow_up.question_text}".html_safe
+                  .col-md-6
+                    %p
+                      - if follow_up_answer.answer_text.present?
+                        = follow_up_answer.answer_text.html_safe
+                      - else
+                        %i No Response Given

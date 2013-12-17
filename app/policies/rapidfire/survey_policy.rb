@@ -1,7 +1,7 @@
 module Rapidfire
   class SurveyPolicy < ApplicationPolicy
     def index?
-      true
+      user.administrator?
     end
 
     def show?
@@ -13,23 +13,19 @@ module Rapidfire
     end
 
     def create?
-      true
+      user.administrator?
     end
 
     def edit?
-      true
+      user.administrator?
     end
 
     def update?
-      true
+      user.administrator?
     end
 
     def destroy?
-      true
-    end
-
-    def results?
-      true
+      user.administrator?
     end
 
     def permitted_attributes

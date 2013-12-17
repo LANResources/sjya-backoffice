@@ -44,3 +44,42 @@ blockquote.pull-right {
   color: white;
 }
 
+// Remove margin beneath breadcrumbs
+.breadcrumb {
+  margin-bottom: 0px;
+}
+
+// Callouts
+.bs-callout {
+  margin: 20px 0;
+  padding: 20px;
+  border-left: 3px solid #eee;
+}
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout-danger {
+  background-color: #fdf7f7;
+  border-color: #eed3d7;
+}
+.bs-callout-danger h4 {
+  color: #b94a48;
+}
+.bs-callout-warning {
+  background-color: #faf8f0;
+  border-color: #faebcc;
+}
+.bs-callout-warning h4 {
+  color: #8a6d3b;
+}
+.bs-callout-info {
+  background-color: #DCE6F0;
+  border-color: #96ACCF;
+}
+.bs-callout-info h4 {
+  color: #2E568A;
+}
