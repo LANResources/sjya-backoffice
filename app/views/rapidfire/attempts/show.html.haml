@@ -7,7 +7,7 @@
     %dl
       %dt
         %i.fa.fa-thumb-tack.fa-rotate-270
-        = "&nbsp;Description".html_safe
+        = p_space 'Description'
       %dd
         %p.lead= @attempt.description
 
@@ -15,29 +15,29 @@
     %dl
       %dt
         %i.fa.fa-calendar
-        = "&nbsp;Activity Date".html_safe
+        = p_space 'Activity Date'
       %dd= @attempt.activity_date.strftime '%B %-d, %Y'
       %br/
 
       %dt
         %i.fa.fa-user
-        = "&nbsp;Entered By".html_safe
+        = p_space 'Entered By'
       %dd= link_to @attempt.user.full_name, @attempt.user
       %br/
 
       %dt
         %i.fa.fa-users
-        = "&nbsp;Completed for".html_safe
+        = p_space 'Completed for'
       %dd= (@attempt.completed_for.join("<br/>") || '').html_safe
 
 
-- @attempt.answers.includes(:question).group_by{|a| a.question.section}.each do |section, section_answers|
+- @attempt.answers.includes(:question).sort_by{|a| a.question.section }.group_by{|a| a.question.section}.each do |section, section_answers|
   .row
     .col-md-12
       %h1
         %small
           %i.fa.fa-bookmark-o
-          = "&nbsp;#{section}".html_safe
+          = p_space section.sub(/^\d*\. /, '')
 
   .row
     .col-md-12
@@ -50,7 +50,7 @@
               .col-md-6
                 %p
                   - if answer.answer_text.present?
-                    = answer.answer_text.html_safe
+                    = display_answer_text answer
                   - else
                     %i No Response Given
 
@@ -61,10 +61,10 @@
                   .col-md-6
                     %h4.h4
                       %i.fa.fa-long-arrow-right
-                      = "&nbsp;#{follow_up.question_text}".html_safe
+                      = p_space follow_up.question_text
                   .col-md-6
                     %p
                       - if follow_up_answer.answer_text.present?
-                        = follow_up_answer.answer_text.html_safe
+                        = display_answer_text follow_up_answer
                       - else
                         %i No Response Given

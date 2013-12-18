@@ -18,28 +18,36 @@
           .col-md-2
             = image_tag(@user.avatar.url(:small), class: "img-rounded")
           .col-md-5
-            %h2= @user.organization_name
+            %h3= @user.organization_name
             %h4
               %span.label.label-info= @user.role.titleize
               = user_status_link @user
             %p
-              %strong Title
+              %strong
+                %i.fa.fa-shield
+                = p_space 'Title'
               %br/
-              = @user.title
+              = @user.title.present? ? @user.title : 'Unknown'
             %p
               %address
-                %strong Address
+                %strong
+                  %i.fa.fa-map-marker
+                  = p_space 'Address'
                 %br/
                 - unless @user.address.blank?
                   = @user.address
                   %br/
-                = city_state_zip @user.city, @user.state, @user.zipcode
+                = city_state_zip @user.city, @user.state, @user.zipcode, fallback: (@user.address.blank? ? 'Unknown' : '')
             %p
-              %strong Phone
+              %strong
+                %i.fa.fa-phone
+                = p_space 'Phone'
               %br/
               = @user.phone.present? ? format_as_phone_number(@user.phone) : 'Unknown'
             %p
-              %strong Email
+              %strong
+                %i.fa.fa-inbox
+                = p_space 'Email'
               %br/
               = @user.email.present? ? mail_to(@user.email) : 'Unknown'
 

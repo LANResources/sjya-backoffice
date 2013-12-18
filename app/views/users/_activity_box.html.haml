@@ -2,8 +2,11 @@
   .box
     .box-header
       %h2
-        %i.fa.fa-user
+        %i.fa.fa-bullhorn
         Activities
+      .box-icon
+        = link_to rapidfire.new_activity_path, title: 'Add New Activity' do
+          %i.fa.fa-plus
 
     .box-content
       - if @user.attempts.any?
@@ -11,10 +14,26 @@
           %thead
             %tr
               %th Date
+              %th.c Completed For
+              %th.c Description
+              %th.c
           %tbody
-            - @user.attempts.each do |attempt|
+            - @user.attempts.limit(15).each do |attempt|
               %tr
-                %td= (attempt.activity_date || attempt.updated_at).strftime('%B %-d, %Y')
+                %td= link_to (attempt.activity_date || attempt.updated_at).strftime('%B %-d, %Y'), rapidfire.activity_path(attempt)
+                %td.c= attempt.completed_for.map{|cf| link_to cf, rapidfire.activities_path({for: cf, user: attempt.user_id})}.join('<br/>').html_safe
+                %td.c
+                  %a.btn-link.description-popover{role: 'button', title: 'Description', data: {content: attempt.description}}
+                    %i.fa.fa-ellipsis-h.fa-lg.fa-border
+                %td.r
+                  - if policy(attempt).destroy?
+                    = link_to rapidfire.activity_path(attempt), title: "Delete Activity", class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
+                      %i.fa.fa-trash-o
+
+        .row
+          .col-md-12
+            = link_to 'View All', rapidfire.activities_path(user: @user.id), class: 'btn btn-primary'
+
       - else
         %h4.text-center.text-info
           No activities recorded.

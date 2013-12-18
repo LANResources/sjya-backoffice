@@ -7,14 +7,16 @@
         %tr
           %th
           %th Name
+          %th Sector
           %th Members
           - if policy(current_user.organization).edit?
             %th Actions
       %tbody
-        - @organizations.each do |org|
+        - @organizations.includes(:sector).each do |org|
           %tr
             %td.photo= link_to image_tag(org.logo.url(:tiny), alt: "No Photo", class: 'img-rounded'), org
             %td= link_to org.name, org
+            %td= org.sector.try(:name)
             %td= org.users.count
             - if policy(current_user.organization).edit?
               %td

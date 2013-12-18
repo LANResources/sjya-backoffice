@@ -7,6 +7,11 @@
       = f.text_field :name, class: 'form-control'
 
   .form-group
+    = f.label :sector_id, 'Sector', class: 'control-label col-sm-2'
+    .col-sm-10
+      = f.collection_select :sector_id, Sector.all, :id, :name, {}, class: 'form-control'
+
+  .form-group
     = f.label :logo, 'Logo', class: 'control-label col-sm-2'
     .col-sm-10
       = f.file_field :logo

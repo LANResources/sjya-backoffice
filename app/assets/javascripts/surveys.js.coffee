@@ -21,7 +21,7 @@ initSelect2 = ->
   $('.select2').select2()
 
 initFollowUps = ->
-  $('.follow-up-container').hide().addClass 'invalid'
+  $('.follow-up-container').not('.show-initially').hide().addClass 'invalid'
   $('.question-panel.has-follow-up').each ->
     $question_panel = $(this)
     question = $question_panel.data('primary-question-id')

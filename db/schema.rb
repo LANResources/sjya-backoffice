@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131215212513) do
+ActiveRecord::Schema.define(version: 20131218174655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,10 @@ ActiveRecord::Schema.define(version: 20131215212513) do
     t.string   "logo"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sector_id"
   end
+
+  add_index "organizations", ["sector_id"], name: "index_organizations_on_sector_id", using: :btree
 
   create_table "rapidfire_answers", force: true do |t|
     t.integer  "attempt_id"
@@ -84,6 +87,14 @@ ActiveRecord::Schema.define(version: 20131215212513) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "sectors", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sectors", ["name"], name: "index_sectors_on_name", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"

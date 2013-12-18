@@ -4,17 +4,20 @@
       %h2
         %i.fa.fa-file-text
         Documents
+      .box-icon
+        = link_to new_document_path, title: 'Upload New Documents' do
+          %i.fa.fa-plus
 
     .box-content
       - if @user.documents.any?
         %table.table
           %thead
             %tr
-              %th 
+              %th
               %th.c Updated
               %th.r
           %tbody
-            - @user.documents.limit(10).each do |document|
+            - @user.documents.limit(15).each do |document|
               %tr
                 %td
                   = file_type_label document.content_type

@@ -1,19 +1,75 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
-# Examples:
+# Admin Setup
 #
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-lan = Organization.create name: 'LAN Resources'
-Organization.create name: 'St. Joseph Youth Alliance'
-User.create first_name: 'Nick',
-            last_name: 'Reed',
-            email: 'nreed@biozymeinc.com',
-            role: 'administrator',
-            password: 'changeM3!',
-            password_confirmation: 'changeM3!',
-            organization_id: lan.id
+
+lan = Organization.find_or_create_by name: 'LAN Resources'
+User.find_or_create_by(email: 'nreed@biozymeinc.com') do |u|
+  u.first_name = 'Nick'
+  u.last_name = 'Reed'
+  u.role = 'administrator'
+  u.password = 'changeM3!'
+  u.password_confirmation = 'changeM3!'
+  u.organization_id = lan.id
+end
+
+#
+# Default Organizations
+#
+
+{
+  'Youth Serving Organizations' => [
+    'St. Joseph Youth Alliance',
+    'Heartland Foundation'
+  ],
+  'Youth' => [
+    'Xtreme Youth Coalition',
+  ],
+  'Health Care Professionals' => [
+    'Health & Senior Services',
+    'Northwest Health'
+  ],
+  'Law Enforcement Agency' => [
+    'Drug Strike Force',
+    'Missouri Western State University Police Department',
+    'St. Joseph Police Department'
+  ],
+  'Media' => [
+    'News-Press Now'
+  ],
+  'Religious/Fraternal' => [
+    'Journey Church',
+    'David Mason'
+  ],
+  'Schools' => [
+    'MU Extension',
+    'Saint Joseph School District'
+  ],
+  'Government' => [
+    'Childrens Division',
+    "County Prosecutor's Office",
+    'Probation & Parole'
+  ],
+  'Other Organization with Expertise in Substance Abuse' => [
+    'Preferred Family Health Care',
+    'St. Joseph Safety Council'
+  ],
+  'Parents/Caregivers' => [
+    'Dan Brachman'
+  ],
+  'Business Community' => [
+    'Alice Norris'
+  ],
+  'Civic/Volunteer Group' => [
+    'Steve Holdenried'
+  ]
+}.each do |sector, orgs|
+  sector_id = Sector.find_by(name: sector).try(:id)
+  orgs.each{|org| Organization.create_with(sector_id: sector_id).find_or_create_by name: org }
+end
+
+#
+# Default survey
+#
 
 survey = Rapidfire::Survey.create! name: "Default", active: true
 
@@ -58,9 +114,9 @@ survey.questions.create! section: "Impact",
                           help_text: ""
 
 survey.questions.create! section: "Impact",
-                          type: "Rapidfire::Questions::Checkbox",
+                          type: "Rapidfire::Questions::SectorCheckbox",
                           question_text: "In what sectors did the activity occur?",
-                          answer_options: "Business Community\r\nSchools\r\nGovernment\r\nHealth Care Professionals\r\nLaw Enforcement Agency\r\nMedia\r\nParents / Caregivers\r\nReligious/Fraternal Organizations\r\nCivic/Volunteer Group\r\nYouth\r\nYouth Serving Organizations\r\nOther Organization with Expertise in Substance Abuse\r\nGeneral Community",
+                          answer_options: "",
                           validation_rules: {:presence=>nil, :minimum=>nil, :maximum=>nil, :greater_than_or_equal_to=>nil, :less_than_or_equal_to=>nil},
                           follow_up_for_id: nil,
                           follow_up_for_condition: "",

@@ -3,8 +3,12 @@ $ ->
    $(document).on 'page:load', initPage
 
 initPage = ->
-  if pageIs 'users', ['new', 'edit']
-    initUserForm()
+  if pageIs 'users', 'show'
+    initDescriptionPopovers()
 
 
-initUserForm = ->
+initDescriptionPopovers = ->
+  $('.description-popover').each ->
+    $(this).popover
+      placement: 'right'
+      trigger: 'hover'

@@ -51,8 +51,9 @@ module UsersHelper
     (user <= current_user) && (current_user >= :site_manager)
   end
 
-  def city_state_zip(city, state, zipcode)
-   [city.blank? ? '' : "#{city},", state, zipcode].join(' ')
+  def city_state_zip(city, state, zipcode, fallback: '')
+   csz = [city.blank? ? '' : "#{city},", state, zipcode].join(' ')
+   csz.present? ? csz : fallback
   end
 
   def format_as_phone_number(number=nil)

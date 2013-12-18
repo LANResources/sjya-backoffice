@@ -15,7 +15,7 @@
               .row
                 .col-sm-6
                   .input-group
-                    = text_field_tag :activity_date, '', class: 'form-control', data: { 'date-format' => 'yyyy-mm-dd' }
+                    = text_field_tag :activity_date, @attempt_builder.to_model.try(:activity_date) || '', class: 'form-control', data: { 'date-format' => 'yyyy-mm-dd' }
                     %span.input-group-addon
                       %i.fa.fa-calendar
           .col-md-6
@@ -24,32 +24,15 @@
               %br/
               - Rapidfire::Attempt::COMPLETED_FOR_OPTIONS.each do |option|
                 %label.checkbox-inline
-                  = check_box_tag 'completed_for[]', option, false
+                  = check_box_tag 'completed_for[]', option, option.in?(Array(@attempt_builder.to_model.completed_for))
                   = option
 
         .form-group
           %label{for: '#description'} Description
-          = text_area_tag :description, '', class: 'form-control'
+          = text_area_tag :description, @attempt_builder.to_model.try(:description) || '', class: 'form-control'
 
-      - @attempt_builder.answers.group_by{|a| a.question.section}.each do |section, section_answers|
-        %fieldset
-          %legend= section
-          - section_answers.each do |answer|
-            - unless answer.question.follow_up_for_id.present?
-              .panel.panel-primary.form-group.question-panel{class: ('has-follow-up' if answer.question.follow_up_questions.any?), data: {'primary-question-id' => answer.question.id}}
-                .panel-heading= answer.question.question_text.html_safe
-                .panel-body
-                  = f.fields_for("#{answer.question.id}", answer) do |answer_form|
-                    = render partial: "rapidfire/answers/errors", locals: {answer: answer}
-                    = render_answer_form_helper(answer, answer_form)
-                  - answer.question.follow_up_questions.each do |follow_up|
-                    .row.follow-up-container{data: {condition: follow_up.follow_up_for_condition}}
-                      .col-sm-12
-                        - follow_up_answer = @attempt_builder.answers.find{ |a| a.question_id == follow_up.id }
-                        = f.fields_for("#{follow_up.id}", follow_up_answer) do |answer_form|
-                          %h4= follow_up.question_text.html_safe
-                          = render partial: "rapidfire/answers/errors", locals: {answer: follow_up_answer}
-                          = render_answer_form_helper(follow_up_answer, answer_form)
+      = render partial: 'questions', locals: { attempt_builder: @attempt_builder, f: f }
+
       .form-group
         .pull-right
           = f.submit "Save", class: 'btn btn-primary'

@@ -8,7 +8,7 @@
       %table.table
         %thead
           %tr
-            %th= "Section: #{section}"
+            %th= "Section: #{section.sub(/^\d*\. /, '')}"
             %th.c Type
             %th
         %tbody
@@ -18,4 +18,4 @@
   .col-md-12
     = link_to new_survey_question_path(@survey), class: 'btn btn-primary' do
       %i.fa.fa-plus
-      = "&nbsp;Add Question".html_safe
+      = p_space 'Add Question'
