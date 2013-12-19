@@ -1,1 +1,9 @@
 - title 'Edit Activity'
+
+- breadcrumbs ['Activities', activities_path], [@attempt.id, activity_path(@attempt)], 'Edit'
+
+%br/
+
+.row
+  .col-md-12
+    = render partial: 'form', locals: {survey: @survey, attempt_builder: @attempt_builder}

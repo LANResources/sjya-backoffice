@@ -30,6 +30,18 @@
         = p_space 'Completed for'
       %dd= (@attempt.completed_for.join("<br/>") || '').html_safe
 
+      - if policy(@attempt).edit?
+        %br/
+        %dd
+          = link_to edit_activity_path(@attempt), class: 'btn btn-sm btn-warning' do
+            %i.fa.fa-pencil
+            = p_space 'Edit'
+
+          - if policy(@attempt).edit?
+            = link_to activity_path(@attempt), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do
+              %i.fa.fa-trash-o
+              = p_space 'Delete'
+
 
 - @attempt.answers.includes(:question).sort_by{|a| a.question.section }.group_by{|a| a.question.section}.each do |section, section_answers|
   .row

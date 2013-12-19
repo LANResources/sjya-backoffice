@@ -20,6 +20,26 @@
         = f.label :role, class: 'control-label col-sm-2'
         .col-sm-10
           = f.collection_select :role, current_user.assignable_roles, :to_s, :humanize, {}, class: 'form-control'
+          %span.help-block
+            %button.btn-link.role-explanation-toggle{type: 'button', data: {toggle: "modal", target: "#role-explanations-modal"}} What do these mean?
+          .modal.fade#role-explanations-modal
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  %button.close{type: 'button', data: {dismiss: "modal"}, 'aria-hidden' => "true"} &times;
+                  %h4.modal-title Role Explanations
+
+                .modal-body
+                  = role_explanations current_user.assignable_roles
+                .modal-footer
+                  %button.btn.btn-primary{type: "button", data: {dismiss: "modal"}} OK
+          - if @user.new_record? || @user.contact?
+            #invitation-warning.bs-callout.bs-callout-warning
+              .row
+                .col-md-12
+                  %h4 Invitation
+                .col-md-12
+                  Saving this user will result in a registration invitation e-mail being sent to them.
 
     - if @user == current_user
       .form-group

@@ -46,6 +46,30 @@ module UsersHelper
     user.new_record? || current_user > user
   end
 
+  def role_explanations(roles)
+    content_tag :dl, class: 'dl-horizontal', id: 'role-explanations' do
+      roles.map do |role|
+        dt = content_tag :dt, role.to_s.titleize
+        explanation = case role.to_s.titleize
+                      when 'Contact'
+                        'Will not have any access to the site.'
+                      when 'Registered User'
+                        'Will have access to the site with mostly read-only permissions.'
+                      when 'Organization Manager'
+                        ['Can create/manage registered users and contacts within their own organization.',
+                          'Can update their own organization.'].join('<br/>')
+                      when 'Site Manager'
+                        ['Can create/manage organization managers, registered users, and contacts in any organization.',
+                          'Can create/manage organizations.'].join('<br/>')
+                      when 'Administrator'
+                        'Full permissions'
+                      end
+        dd = content_tag :dd, (explanation + ' <hr/>').html_safe
+        [dt + dd].join('').html_safe
+      end.join('').html_safe
+    end.html_safe
+  end
+
   def show_organization_select?(user)
     return false if user == current_user
     (user <= current_user) && (current_user >= :site_manager)

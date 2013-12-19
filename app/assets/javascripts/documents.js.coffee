@@ -28,7 +28,7 @@ initDocumentUploadForm = ->
     sending: (file, xhr, formData) ->
       title = $(file.previewElement).find('.title-input').val()
       formData.append 'document[title]', title
-      tags = $(file.previewElement).find('.tags-input').val()
+      tags = $(file.previewElement).find('.tags-input').select2('val').join(',')
       formData.append 'document[tag_list]', tags
     init: ->
       newDocumentDropzone = this
@@ -49,11 +49,14 @@ initDocumentUploadForm = ->
             else
               newDocumentDropzone.removeFile file
 
+        initTagSelector $(file.previewElement).find('.tags-input')
+
       this.on 'success', (file, response) ->
         $container = $(file.previewElement)
         $container.find('.progress').hide()
         $titleDisplay = $("<div></div>").text response.title
         $container.find('.title-input').replaceWith $titleDisplay
+        $container.find('.tags-input').select2('destroy')
         $container.find('.tags-input').replaceWith renderTags(response.tag_list)
         $container.find('.remove-file').replaceWith $(response.remove_link)
         $('#cancel-btn').text 'Finished'
@@ -67,7 +70,13 @@ initDocumentUploadForm = ->
   Dropzone.discover()
 
 renderTags = (tags) ->
+  console.log 'renderTags ', tags
   container = $('<div class="tag-list"></div>')
   for tag in tags
     container.append $('<span class="label label-info">' + tag + '</span>')
   container
+
+initTagSelector = ($el) ->
+  $el.select2
+    tags: $el.data('tags')
+    tokenSeparators: [',']

@@ -1,0 +1,32 @@
+= form_for [survey, attempt_builder] do |f|
+  = render partial: 'shared/form_errors', locals: { resource: attempt_builder.to_model }
+  %fieldset
+    %legend Details
+    .row
+      .col-md-6
+        .form-group
+          %label{for: '#activity_date'} Activity Date
+          .row
+            .col-sm-6
+              .input-group
+                = text_field_tag :activity_date, attempt_builder.to_model.try(:activity_date) || '', class: 'form-control', data: { 'date-format' => 'yyyy-mm-dd' }
+                %span.input-group-addon
+                  %i.fa.fa-calendar
+      .col-md-6
+        .form-group
+          %label Completed for:
+          %br/
+          - Rapidfire::Attempt::COMPLETED_FOR_OPTIONS.each do |option|
+            %label.checkbox-inline
+              = check_box_tag 'completed_for[]', option, option.in?(Array(attempt_builder.to_model.completed_for))
+              = option
+
+    .form-group
+      %label{for: '#description'} Description
+      = text_area_tag :description, attempt_builder.to_model.try(:description) || '', class: 'form-control'
+
+  = render partial: 'questions', locals: { attempt_builder: attempt_builder, f: f }
+
+  .form-group
+    .pull-right
+      = f.submit "Save", class: 'btn btn-primary'

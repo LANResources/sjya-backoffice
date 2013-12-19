@@ -9,7 +9,7 @@ initPage = ->
   else if pageIs 'attempts', 'index'
     initDescriptionPopovers()
 
-  else if pageIs 'attempts', ['new', 'create']
+  else if pageIs 'attempts', ['new', 'create', 'edit', 'update']
     initSelect2()
     initFollowUps()
     initDatepicker()

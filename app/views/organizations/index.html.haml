@@ -6,20 +6,20 @@
       %thead
         %tr
           %th
-          %th Name
-          %th Sector
-          %th Members
+          %th= sortable 'name'
+          %th= sortable 'sectors.name', 'Sector'
+          %th.c Members
           - if policy(current_user.organization).edit?
-            %th Actions
+            %th.r
       %tbody
-        - @organizations.includes(:sector).each do |org|
+        - @organizations.each do |org|
           %tr
             %td.photo= link_to image_tag(org.logo.url(:tiny), alt: "No Photo", class: 'img-rounded'), org
             %td= link_to org.name, org
             %td= org.sector.try(:name)
-            %td= org.users.count
+            %td.c= org.users.count
             - if policy(current_user.organization).edit?
-              %td
+              %td.r
                 .btn-group.btn-group-xs
                   - if policy(org).edit?
                     = link_to edit_organization_path(org), title: "Edit Organization", class: "btn btn-xs btn-warning" do
@@ -27,6 +27,8 @@
                   - if policy(org).destroy?
                     = link_to org, title: "Delete Organization", class: "btn btn-xs btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
                       %i.fa.fa-trash-o
+
+    = will_paginate @organizations
 
 - if policy(Organization).create?
   .row

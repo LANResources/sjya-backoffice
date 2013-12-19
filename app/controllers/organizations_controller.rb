@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
   def index
-    @organizations = Organization.all
+    @organizations = Organization.includes(:sector).order("#{sort_column} #{sort_direction}").page(params[:page]).per_page(25)
   end
 
   def show
@@ -66,5 +66,9 @@ class OrganizationsController < ApplicationController
 
     def organization_attributes
       params.require(:organization).permit *policy(@organization || Organization).permitted_attributes
+    end
+
+    def sort_column
+      super(Organization.column_names + ['sectors.name'], 'name')
     end
 end

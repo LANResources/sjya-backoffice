@@ -50,15 +50,21 @@
           %span.separator= '|'
           %a.remove-file{href: '#'} remove
 
-      .form-group
-        .col-md-6
-          %input.title-input.form-control{type: 'text', placeholder: 'Title'}
-          %input.tags-input.form-control{type: 'text', placeholder: 'Tags'}
+      .row
+        .col-md-12
+          .form-group
+            .col-md-6
+              %input.title-input.form-control{type: 'text', placeholder: 'Title'}
+      .row
+        .col-md-12
+          .form-group
+            .col-md-6
+              %input.tags-input.form-control{type: 'text', placeholder: 'Tags', data: {tags: ActsAsTaggableOn::Tag.pluck(:name)}}
 
-          .progress.progress-striped.dz-progress
-            .progress-bar.progress-bar-info.dz-upload{"data-dz-uploadprogress" => true}
+              .progress.progress-striped.dz-progress
+                .progress-bar.progress-bar-info.dz-upload{"data-dz-uploadprogress" => true}
 
-          .dz-error-message.text-danger{"data-dz-errormessage" => true}
+              .dz-error-message.text-danger{"data-dz-errormessage" => true}
 
 
 

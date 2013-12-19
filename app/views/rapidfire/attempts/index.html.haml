@@ -34,6 +34,10 @@
                 %a.btn-link.description-popover{role: 'button', title: 'Description', data: {content: attempt.description}}
                   %i.fa.fa-ellipsis-h.fa-lg.fa-border
               %td.r
+                - if policy(attempt).edit?
+                  = link_to edit_activity_path(attempt), title: "Edit Activity", class: "btn btn-sm btn-warning" do
+                    %i.fa.fa-pencil
+
                 - if policy(attempt).destroy?
                   = link_to activity_path(attempt), title: "Delete Activity", class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
                     %i.fa.fa-trash-o
