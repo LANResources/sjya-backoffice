@@ -3,7 +3,7 @@ source 'https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/lanresources/'
 
 ruby '2.0.0'
 
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.2'
 
 # Database
 gem 'pg'
@@ -57,7 +57,7 @@ gem 'rapidfire', git: 'https://github.com/LANResources/rapidfire.git', branch: '
 gem 'acts-as-taggable-on'
 
 # Encryption
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Debugging
 gem 'exception_notification'
