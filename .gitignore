@@ -23,7 +23,7 @@ dropbox.yml
 .powrc
 .DS_Store
 ._.DS_Store
-public/assets
+# public/assets
 vendor/cache
 *.csv
 .sass-cache
