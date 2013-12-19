@@ -6,6 +6,7 @@ class DocumentsController < ApplicationController
     @documents = @user.try(:documents) || Document.includes(:user)
     @documents = @documents.tagged_with(params[:tag]) if params[:tag]
     @documents = @documents.order("#{sort_column} #{sort_direction}").page(params[:page]).per_page(15)
+    @documents = policy_scope @documents
   end
 
   def show
@@ -73,7 +74,7 @@ class DocumentsController < ApplicationController
         @user = User.find params[:user]
       end
     end
-    
+
     def current_resource
       if params[:action] == 'create'
         @current_resource ||= params[:document] if params[:document]

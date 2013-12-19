@@ -26,10 +26,15 @@ initDocumentUploadForm = ->
     fallback: ->
       $('.dropzone-activator').remove()
     sending: (file, xhr, formData) ->
-      title = $(file.previewElement).find('.title-input').val()
+      $previewElement = $(file.previewElement)
+      title = $previewElement.find('.title-input').val()
       formData.append 'document[title]', title
-      tags = $(file.previewElement).find('.tags-input').select2('val').join(',')
+      tags = $previewElement.find('.tags-input').select2('val').join(',')
       formData.append 'document[tag_list]', tags
+      $measurementData = $previewElement.find('.measurement-data')
+      if $measurementData.size() > 0 and $measurementData.attr('checked')?
+        formData.append 'document[measurement_data]', '1'
+
     init: ->
       newDocumentDropzone = this
       $(this.element).find("input[type='submit']").on 'click', (e) ->
@@ -54,6 +59,7 @@ initDocumentUploadForm = ->
       this.on 'success', (file, response) ->
         $container = $(file.previewElement)
         $container.find('.progress').hide()
+        $container.find('.measurement-data-container').remove()
         $titleDisplay = $("<div></div>").text response.title
         $container.find('.title-input').replaceWith $titleDisplay
         $container.find('.tags-input').select2('destroy')

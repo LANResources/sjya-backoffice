@@ -1,30 +1,67 @@
-- title @document.name
+- title @document.name, false
 
 - breadcrumbs ['Documents', documents_path], @document.filename
 
-.row-fluid
-  .span12
-    %div
-      %small Title
+%h1
+  %i.fa.fa-hdd-o
+  = p_space @document.name
+
+%br/
+
+.row
+  .col-md-6
+    %dl
+      %dt
+        %i.fa.fa-barcode
+        = p_space 'Title'
+      %dd= @document.title
       %br/
-      %strong= @document.title
 
-    %div
-      %small File
+      %dt
+        %i.fa.fa-file-text-o
+        = p_space 'File'
+      %dd= @document.filename
       %br/
-      %strong= @document.filename
 
-    %br/
+      %dt
+        %i.fa.fa-tags
+        = p_space 'Tags'
+      %dd= render_tags @document.tag_list
 
-    .btn-group
-      = link_to download_document_path(@document), title: "Download", class: 'btn btn-small btn-success', data: { 'no-turbolink' => true } do
-        %i.icon-download-alt
-        = ' Download'
+  .col-md-6
+    %dl
+      %dt
+        %i.fa.fa-calendar
+        = p_space 'Uploaded'
+      %dd= @document.updated_at.strftime '%B %-d, %Y'
+      %br/
+
+      %dt
+        %i.fa.fa-user
+        = p_space 'Owner'
+      %dd= link_to @document.user.full_name, @document.user
+
+      - if policy(@document).permitted_attributes.include? :measurement_data
+        %br/
+        %dt
+          - if @document.for_dashboard?
+            %i.fa.fa-check.fa-lg.fa-border.text-success
+          - else
+            %i.fa.fa-times.fa-lg.fa-border.text-danger
+          = p_space 'Dashboard Data File'
+
       - if policy(@document).edit?
-        = link_to edit_document_path(@document), title: "Edit Document", class: "btn btn-small btn-warning" do
-          %i.icon-pencil
-          = ' Edit'
-      - if policy(@document).destroy?
-        = link_to @document, title: "Remove", class: "btn btn-small btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
-          %i.icon-trash
-          = ' Remove'
+        %br/
+        %dd
+          = link_to download_document_path(@document), title: "Download", class: 'btn btn-sm btn-success', data: { 'no-turbolink' => true } do
+            %i.fa.fa-cloud-download
+            = p_space 'Download'
+          - if policy(@document).edit?
+            = link_to edit_document_path(@document), title: "Edit Document", class: "btn btn-sm btn-warning" do
+              %i.fa.fa-pencil
+              = p_space 'Edit'
+          - if policy(@document).destroy?
+            = link_to @document, title: "Remove", class: "btn btn-sm btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
+              %i.fa.fa-trash-o
+              = p_space 'Remove'
+

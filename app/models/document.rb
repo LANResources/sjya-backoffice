@@ -7,6 +7,8 @@ class Document < ActiveRecord::Base
 
   before_save :set_default_title, :set_item_metadata
 
+  scope :for_dashboard, -> { where(measurement_data: true) }
+
   def filename
     item.path.split('/').last
   end
@@ -17,6 +19,10 @@ class Document < ActiveRecord::Base
 
   def owner_name
     user.full_name
+  end
+
+  def for_dashboard?
+    measurement_data
   end
 
   private

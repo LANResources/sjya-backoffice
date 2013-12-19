@@ -17,4 +17,4 @@
           .col-md-2
             = image_tag(@organization.logo.url(:small), class: "img-rounded")
           .col-md-5
-            %h4= "#{@organization.users.count} members"
+            %h4= pluralize @organization.users.count, 'member'

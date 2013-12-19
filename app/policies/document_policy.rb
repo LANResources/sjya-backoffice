@@ -1,4 +1,14 @@
 class DocumentPolicy < ApplicationPolicy
+  self::Scope = Struct.new(:user, :scope) do
+    def resolve
+      if user >= :site_manager
+        scope.all
+      else
+        scope.where(measurement_data: false)
+      end
+    end
+  end
+
   def index?
     true
   end
@@ -32,6 +42,8 @@ class DocumentPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:title, :item, :tag_list]
+    attrs = [:title, :item, :tag_list]
+    attrs << :measurement_data if user >= :site_manager
+    attrs
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131218174655) do
+ActiveRecord::Schema.define(version: 20131219203820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20131218174655) do
     t.string   "content_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "measurement_data", default: false
   end
 
   add_index "documents", ["user_id"], name: "index_documents_on_user_id", using: :btree

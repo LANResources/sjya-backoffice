@@ -5,6 +5,8 @@ module DocumentsHelper
                         ['info', 'PDF']
                       when /jpe?g/i
                         ['warning', 'JPG']
+                      when /vnd.openxmlformats-officedocument.wordprocessingml.document/i
+                        ['default', 'DOC']
                       else
                         ['default', type.split('/').last.to_s.upcase]
                       end

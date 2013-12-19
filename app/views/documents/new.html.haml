@@ -55,6 +55,14 @@
           .form-group
             .col-md-6
               %input.title-input.form-control{type: 'text', placeholder: 'Title'}
+          - if policy(Document).permitted_attributes.include? :measurement_data
+            .form-group.measurement-data-container
+              .col-md-6
+                .checkbox
+                  %label
+                    = check_box_tag :measurement_data, 1, false, class: 'measurement-data'
+                    = p_space 'Dashboard Data Document?'
+
       .row
         .col-md-12
           .form-group

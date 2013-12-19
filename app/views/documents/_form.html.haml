@@ -8,11 +8,20 @@
         = f.text_field :title, class: 'form-control'
 
     .form-group
-      = f.label :tag_list, class: 'control-label col-sm-2'
+      = f.label :tag_list, 'Tags', class: 'control-label col-sm-2'
       .col-sm-10
         = f.text_field :tag_list, class: 'form-control'
         %span.help-block
           Separated by commas
+
+    - if policy(@document).permitted_attributes.include? :measurement_data
+      .form-group
+        = f.label :measurement_data, 'Dashboard data?', class: 'control-label col-sm-2'
+        .col-sm-10
+          .checkbox
+            %label
+              = f.check_box :measurement_data
+              = p_space 'Yes'
 
     .form-group
       = f.label :item, 'File', class: 'control-label col-sm-2'
