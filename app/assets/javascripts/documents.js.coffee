@@ -70,7 +70,6 @@ initDocumentUploadForm = ->
   Dropzone.discover()
 
 renderTags = (tags) ->
-  console.log 'renderTags ', tags
   container = $('<div class="tag-list"></div>')
   for tag in tags
     container.append $('<span class="label label-info">' + tag + '</span>')
