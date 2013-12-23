@@ -8,6 +8,11 @@
           %i.fa.fa-info.fa-fw
           %span.hidden-sm About Us
 
+      %li{class: ('active' if controller.controller_name == 'measures' && params[:action] == 'index')}
+        = link_to dashboard_url do
+          %i.fa.fa-dashboard.fa-fw
+          %span.hidden-sm Dashboard
+
       %li{class: ('active' if controller.controller_name.in? ['surveys', 'attempts', 'questions'])}
         = link_to rapidfire.activities_url do
           %i.fa.fa-bullhorn.fa-fw

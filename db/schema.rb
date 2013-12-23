@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131219203820) do
+ActiveRecord::Schema.define(version: 20131223182736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,9 +29,34 @@ ActiveRecord::Schema.define(version: 20131219203820) do
 
   add_index "documents", ["user_id"], name: "index_documents_on_user_id", using: :btree
 
+  create_table "measurements", force: true do |t|
+    t.integer  "measure_id"
+    t.string   "link"
+    t.integer  "document_id"
+    t.integer  "year"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "measurements", ["document_id"], name: "index_measurements_on_document_id", using: :btree
+  add_index "measurements", ["measure_id"], name: "index_measurements_on_measure_id", using: :btree
+
+  create_table "measures", force: true do |t|
+    t.string   "description"
+    t.string   "link"
+    t.integer  "document_id"
+    t.integer  "source_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "organizations", force: true do |t|
     t.string   "name"
-    t.string   "logo"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sector_id"
@@ -53,6 +78,7 @@ ActiveRecord::Schema.define(version: 20131219203820) do
   create_table "rapidfire_attempts", force: true do |t|
     t.integer  "survey_id"
     t.integer  "user_id"
+    t.string   "user_type"
     t.date     "activity_date"
     t.text     "description"
     t.string   "completed_for", default: [], array: true
@@ -61,7 +87,7 @@ ActiveRecord::Schema.define(version: 20131219203820) do
   end
 
   add_index "rapidfire_attempts", ["survey_id"], name: "index_rapidfire_attempts_on_survey_id", using: :btree
-  add_index "rapidfire_attempts", ["user_id"], name: "index_rapidfire_attempts_on_user_id", using: :btree
+  add_index "rapidfire_attempts", ["user_id", "user_type"], name: "index_rapidfire_attempts_on_user_id_and_user_type", using: :btree
 
   create_table "rapidfire_questions", force: true do |t|
     t.integer  "survey_id"
@@ -97,6 +123,13 @@ ActiveRecord::Schema.define(version: 20131219203820) do
 
   add_index "sectors", ["name"], name: "index_sectors_on_name", using: :btree
 
+  create_table "sources", force: true do |t|
+    t.string   "name"
+    t.string   "short_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -128,6 +161,10 @@ ActiveRecord::Schema.define(version: 20131219203820) do
     t.string   "avatar"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.string   "role"
     t.string   "invite_token"
     t.integer  "invited_by"

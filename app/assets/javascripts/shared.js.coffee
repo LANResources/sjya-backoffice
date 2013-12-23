@@ -22,7 +22,10 @@ $ ->
   initPopstate()
   initializeNProgress()
   removeFooterLogoOnIE()
-  $(document).on 'page:load', removeFooterLogoOnIE
+  initBestInPlace()
+  $(document).on 'page:load', ->
+    removeFooterLogoOnIE()
+    initBestInPlace()
 
 initPopstate = ->
   if @browserSupportsPushState
@@ -44,3 +47,6 @@ initializeNProgress = ->
 removeFooterLogoOnIE = ->
   if /MSIE (\d+\.\d+);/.test navigator.userAgent
     $('#footer-logo').remove()
+
+initBestInPlace = ->
+  $('.best_in_place').best_in_place()

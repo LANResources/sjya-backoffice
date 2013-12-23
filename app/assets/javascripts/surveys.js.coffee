@@ -3,19 +3,13 @@ $ ->
    $(document).on 'page:load', initPage
 
 initPage = ->
-  if pageIs 'surveys', 'index'
-    initBestInPlace()
-
-  else if pageIs 'attempts', 'index'
+  if pageIs 'attempts', 'index'
     initDescriptionPopovers()
 
   else if pageIs 'attempts', ['new', 'create', 'edit', 'update']
     initSelect2()
     initFollowUps()
     initDatepicker()
-
-initBestInPlace = ->
-  $('.best_in_place').best_in_place()
 
 initSelect2 = ->
   $('.select2').select2()

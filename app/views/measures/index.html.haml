@@ -1,0 +1,25 @@
+- title 'Dashboard'
+
+.row
+  .col-md-12
+    .table-responsive
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th Measure
+            %th.c Source
+            - (2006..Date.today.year).each do |year|
+              %th.c= year
+        %tbody
+          - @measures.each do |measure|
+            %tr
+              %td= measure.description
+              %td.c
+                %abbr{title: measure.source.name}= measure.source.short_name
+              - (2006..Date.today.year).each do |year|
+                %td.c
+                  - if @measurements.has_key?([measure.id, year])
+                    - measurement = @measurements[[measure.id, year]].first
+                    = best_in_place_if policy(measurement).update?, measurement, :value
+                  - else
+                    = '-'

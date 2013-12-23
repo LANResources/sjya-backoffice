@@ -14,6 +14,11 @@ SJYABackOffice::Application.routes.draw do
     get 'download', on: :member, as: :download
   end
 
+  resources :measures
+  get 'dashboard', to: 'measures#index', as: :dashboard
+
+  resources :measurements
+  
   resources :sessions, only: [:new, :create, :destroy]
   resources :password_resets, only: [:new, :create, :edit, :update]
   
