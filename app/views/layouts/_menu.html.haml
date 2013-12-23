@@ -3,15 +3,15 @@
   -#   %input.search.span12{placeholder: "...", type: "text"}/
   .nav-collapse.sidebar-nav.collapse.navbar-collapse.bs-navbar-collapse
     %ul.nav.nav-tabs.nav-stacked.main-menu
-      %li{class: ('active' if controller.controller_name == 'static_pages' && params[:action] == 'about')}
-        = link_to main_app.root_url do
-          %i.fa.fa-info.fa-fw
-          %span.hidden-sm About Us
-
       %li{class: ('active' if controller.controller_name == 'measures' && params[:action] == 'index')}
-        = link_to dashboard_url do
+        = link_to main_app.root_url do
           %i.fa.fa-dashboard.fa-fw
           %span.hidden-sm Dashboard
+
+      %li{class: ('active' if controller.controller_name == 'static_pages' && params[:action] == 'about')}
+        = link_to about_url do
+          %i.fa.fa-info.fa-fw
+          %span.hidden-sm About Us
 
       %li{class: ('active' if controller.controller_name.in? ['surveys', 'attempts', 'questions'])}
         = link_to rapidfire.activities_url do
@@ -32,9 +32,4 @@
         = link_to documents_url do
           %i.fa.fa-file-text.fa-fw
           %span.hidden-sm Documents
-
-      -# %li{class: ('active' if controller.controller_name == '' && params[:action] == '')}
-      -#   = link_to root_url do
-      -#     %i.fa.fa-upload.fa-fw
-      -#     %span.hidden-sm Data
 

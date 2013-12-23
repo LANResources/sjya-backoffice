@@ -51,7 +51,7 @@ class MeasuresController < ApplicationController
 
     @measure.destroy
     respond_to do |format|
-      format.html { redirect_to dashboard_url }
+      format.html { redirect_to root_url }
       format.json { head :no_content }
     end
   end
