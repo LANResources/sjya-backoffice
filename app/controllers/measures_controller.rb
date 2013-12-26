@@ -1,7 +1,7 @@
 class MeasuresController < ApplicationController
 
   def index
-    @measures = Measure.includes(:source, :measurements)
+    @measures = Measure.includes(:source, :measurements).order(:created_at)
     @measurements = Measurement.includes(:measure).to_a.group_by{|m| [m.measure_id, m.year]}
   end
 
@@ -37,10 +37,10 @@ class MeasuresController < ApplicationController
     respond_to do |format|
       if @measure.update(measure_attributes)
         format.html { redirect_to @measure, notice: 'Measure was successfully updated.' }
-        format.json { head :no_content }
+        format.json { respond_with_bip(@measure) }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @measure.errors, status: :unprocessable_entity }
+        format.json { respond_with_bip(@measure) }
       end
     end
   end

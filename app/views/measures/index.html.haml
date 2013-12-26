@@ -13,13 +13,11 @@
         %tbody
           - @measures.each do |measure|
             %tr
-              %td= measure.description
+              %td= best_in_place_if policy(measure).update?, measure, :description, inner_class: 'form-control'
               %td.c
                 %abbr{title: measure.source.name}= measure.source.short_name
               - (2006..Date.today.year).each do |year|
-                %td.c
-                  - if @measurements.has_key?([measure.id, year])
-                    - measurement = @measurements[[measure.id, year]].first
-                    = best_in_place_if policy(measurement).update?, measurement, :value
-                  - else
-                    = '-'
+                - measurement = @measurements.has_key?([measure.id, year]) ? @measurements[[measure.id, year]].first : nil
+                = render partial: 'measurement', locals: {measurement: measurement, measure: measure, year: year}
+
+

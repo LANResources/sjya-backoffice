@@ -53,10 +53,7 @@ ActiveRecord::Schema.define(version: 20131223182736) do
 
   create_table "organizations", force: true do |t|
     t.string   "name"
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
-    t.datetime "logo_updated_at"
+    t.string   "logo"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sector_id"
@@ -78,7 +75,6 @@ ActiveRecord::Schema.define(version: 20131223182736) do
   create_table "rapidfire_attempts", force: true do |t|
     t.integer  "survey_id"
     t.integer  "user_id"
-    t.string   "user_type"
     t.date     "activity_date"
     t.text     "description"
     t.string   "completed_for", default: [], array: true
@@ -87,7 +83,7 @@ ActiveRecord::Schema.define(version: 20131223182736) do
   end
 
   add_index "rapidfire_attempts", ["survey_id"], name: "index_rapidfire_attempts_on_survey_id", using: :btree
-  add_index "rapidfire_attempts", ["user_id", "user_type"], name: "index_rapidfire_attempts_on_user_id_and_user_type", using: :btree
+  add_index "rapidfire_attempts", ["user_id"], name: "index_rapidfire_attempts_on_user_id", using: :btree
 
   create_table "rapidfire_questions", force: true do |t|
     t.integer  "survey_id"
@@ -161,10 +157,6 @@ ActiveRecord::Schema.define(version: 20131223182736) do
     t.string   "avatar"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
     t.string   "role"
     t.string   "invite_token"
     t.integer  "invited_by"

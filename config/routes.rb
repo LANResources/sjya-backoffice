@@ -14,14 +14,14 @@ SJYABackOffice::Application.routes.draw do
     get 'download', on: :member, as: :download
   end
 
-  resources :measures
+  resources :measures do
+    resources :measurements
+  end
   get 'dashboard', to: 'measures#index', as: :dashboard
 
-  resources :measurements
-  
   resources :sessions, only: [:new, :create, :destroy]
   resources :password_resets, only: [:new, :create, :edit, :update]
-  
+
   get 'about', to: 'static_pages#about', as: :about
   get 'login', to: 'sessions#new', as: :login
   delete 'logout', to: 'sessions#destroy', as: :logout
