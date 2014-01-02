@@ -1,11 +1,12 @@
 $ ->
-   initPage()
-   $(document).on 'page:load', initPage
+  initPage()
+  $(document).on 'page:load', initPage
 
 initPage = ->
   if pageIs 'measures', 'index'
     initNewMeasurements()
     initPopovers()
+    initAdminMode()
 
 initNewMeasurements = ->
   $(document.body).on 'click', '.no-measurement', ->
@@ -21,3 +22,12 @@ initPopovers = ->
       trigger: 'click'
       html: true
       container: 'body'
+
+initAdminMode = ->
+  $('.modifiers').hide()
+  $(document.body).on 'click', '#admin-mode-toggle', ->
+    $('.modifiers').toggle()
+    $toggleBtn = $(this)
+    buttonText = $toggleBtn.find('.state').text()
+    buttonText = if buttonText.match(/Off/) then ' On' else ' Off'
+    $toggleBtn.find('.state').text buttonText

@@ -8,11 +8,19 @@ class MeasuresController < ApplicationController
   def new
     @measure = Measure.new
     authorize! @measure
+
+    respond_to do |format|
+      format.js { render 'modal' }
+    end
   end
 
   def edit
     @measure = current_resource
     authorize! @measure
+
+    respond_to do |format|
+      format.js { render 'modal' }
+    end
   end
 
   def create
@@ -22,10 +30,13 @@ class MeasuresController < ApplicationController
     respond_to do |format|
       if @measure.save
         format.html { redirect_to root_url, notice: 'Measure was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @measure }
+        format.js {
+          @years = Measurement.pluck(:year).uniq.sort
+          @show_new_year_column = !@years.include?(Date.today.year) && policy(Measurement).create?
+        }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @measure.errors, status: :unprocessable_entity }
+        format.html { redirect_to root_url }
+        format.js { render 'error' }
       end
     end
   end
@@ -36,11 +47,16 @@ class MeasuresController < ApplicationController
 
     respond_to do |format|
       if @measure.update(measure_attributes)
-        format.html { redirect_to @measure, notice: 'Measure was successfully updated.' }
+        format.html { redirect_to root_url, notice: 'Measure was successfully updated.' }
         format.json { respond_with_bip(@measure) }
+        format.js {
+          @measurements = Measurement.includes(:measure).tap{|m| @years = m.pluck(:year).uniq.sort }.where(measure_id: @measure.id).to_a.group_by{|m| [m.measure_id, m.year]}
+          @show_new_year_column = !@years.include?(Date.today.year) && policy(Measurement).create?
+        }
       else
-        format.html { render action: 'edit' }
+        format.html { redirect_to root_url }
         format.json { respond_with_bip(@measure) }
+        format.js { render 'error' }
       end
     end
   end
@@ -52,7 +68,7 @@ class MeasuresController < ApplicationController
     @measure.destroy
     respond_to do |format|
       format.html { redirect_to root_url }
-      format.json { head :no_content }
+      format.js
     end
   end
 

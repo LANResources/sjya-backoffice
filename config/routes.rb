@@ -14,8 +14,8 @@ SJYABackOffice::Application.routes.draw do
     get 'download', on: :member, as: :download
   end
 
-  resources :measures do
-    resources :measurements
+  resources :measures, except: [:show] do
+    resources :measurements, except: [:index, :show]
   end
   get 'dashboard', to: 'measures#index', as: :dashboard
 

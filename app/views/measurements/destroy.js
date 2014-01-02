@@ -1,4 +1,4 @@
-newCell = $("<%= escape_javascript(render partial: 'measures/measurement', locals: { measure: @measure, measurement: nil, year: @year }) %>");
+newCell = $("<%= escape_javascript(render partial: 'measures/measurement', locals: { measure: @measure, measurement: nil, year: @year, modifiers: false }) %>");
 
 cell = $('.measurement[data-year="<%= @year %>"][data-measure="<%= @measure.id %>"]');
 

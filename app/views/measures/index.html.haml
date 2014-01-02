@@ -3,30 +3,27 @@
 .row
   .col-md-12
     .table-responsive
-      %table.table.table-striped.table-condensed
+      %table.table.table-striped.table-condensed#measure-table{data: {years: @years}}
         %thead
           %tr
             %th Measure
             %th.c Source
             - @years.each do |year|
               %th.c= year
+            - if show_new_year_column = !@years.include?(Date.today.year) && policy(Measurement).create?
+              %th.c.modifiers.new-year= Date.today.year
         %tbody
-          - @measures.each do |measure|
-            %tr
-              %td
-                = best_in_place_if policy(measure).update?, measure, :description, inner_class: 'form-control'
-                = p_space measure_link(measure)
-                = p_space measure_document_link(measure)
-              %td.c
-                %abbr{title: measure.source.name}= measure.source.short_name
-              - @years.each do |year|
-                - measurement = @measurements.has_key?([measure.id, year]) ? @measurements[[measure.id, year]].first : nil
-                = render partial: 'measurement', locals: {measurement: measurement, measure: measure, year: year}
+          = render partial: 'measure', collection: @measures, locals: {years: @years, measurements: @measurements, show_new_year_column: show_new_year_column}
 
-- if policy(Measure).create?
-  = link_to '#', class: 'btn btn-primary', data: {toggle: 'modal', target: '#new-measure-modal'} do
-    %i.fa.fa-plus
-    = p_space 'New Measure'
+- if policy(Measure).update?
+  .row
+    .col-md-12
+      %button.btn.btn-primary#admin-mode-toggle{data: {toggle: 'button'}}
+        %i.fa.fa-wrench
+        = p_space 'Admin Mode:'
+        %span.state= p_space 'Off'
 
-  = render partial: 'new_measure_modal'
-
+      - if policy(Measure).create?
+        = link_to new_measure_path, class: 'btn btn-primary', remote: true do
+          %i.fa.fa-plus
+          = p_space 'New Measure'

@@ -1,10 +1,11 @@
-.modal.fade#new-measurement-modal{role: 'dialog', aria: {labelledby: 'new-measurement-modal-label', hidden: 'true'}}
+- new_or_edit = measurement.new_record? ? 'new' : 'edit'
+.modal.fade{id: "#{new_or_edit}-measurement-modal", role: 'dialog', aria: {labelledby: "#{new_or_edit}-measurement-modal-label", hidden: 'true'}}
   .modal-dialog
     .modal-content
       = form_for [measure, measurement], remote: true, html: { class: 'form-horizontal' } do |f|
         .modal-header
           %button.close{type: 'button', data: {dismiss: 'modal'}, aria: {hidden: 'true'}} &times;
-          %h4.modal-title#new-measurement-modal-label New Measurement
+          %h4.modal-title{id: "#{new_or_edit}-measurement-modal-label"}= "#{new_or_edit.titleize} Measurement"
 
         .modal-body
           %h4= @measure.description
@@ -12,7 +13,8 @@
           .form-group
             = f.label :year, class: 'control-label col-sm-2'
             .col-sm-10
-              = f.hidden_field :year
+              - if new_or_edit == 'new'
+                = f.hidden_field :year
               %p.form-control-static
                 = measurement.year
 
@@ -23,4 +25,4 @@
 
         .modal-footer
           %button.btn.btn-default{type: 'button', data: {dismiss: 'modal'}} Close
-          = f.submit 'Create', class: 'btn btn-primary'
+          = f.submit class: 'btn btn-primary'

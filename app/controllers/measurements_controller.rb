@@ -6,7 +6,7 @@ class MeasurementsController < ApplicationController
     @measurement.year = params[:year].to_i
 
     respond_to do |format|
-      format.js
+      format.js { render 'modal' }
     end
   end
 
@@ -19,7 +19,7 @@ class MeasurementsController < ApplicationController
         format.html { redirect_to root_url, notice: 'Measurement was successfully created.' }
         format.js
       else
-        format.html { render action: 'new' }
+        format.html { redirect_to root_url }
         format.js { render 'error' }
       end
     end
@@ -30,7 +30,7 @@ class MeasurementsController < ApplicationController
     authorize! @measurement
 
     respond_to do |format|
-      format.js
+      format.js { render 'modal' }
     end
   end
 
