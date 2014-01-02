@@ -1,6 +1,4 @@
 .btn-group-vertical
-  -# = link_to [measure, measurement], title: "View", class: 'btn btn-xs btn-success', data: { 'no-turbolink' => true } do
-  -#   %i.fa.fa-download
   - if policy(measurement).edit?
     = link_to edit_measure_measurement_path(measure, measurement), remote: true, title: "Edit Measurement", class: "btn btn-xs btn-warning" do
       %i.fa.fa-pencil

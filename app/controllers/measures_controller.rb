@@ -2,7 +2,7 @@ class MeasuresController < ApplicationController
 
   def index
     @measures = Measure.includes(:source, :measurements).order(:created_at)
-    @measurements = Measurement.includes(:measure).to_a.group_by{|m| [m.measure_id, m.year]}
+    @measurements = Measurement.includes(:measure).tap{|m| @years = m.pluck(:year).uniq.sort }.to_a.group_by{|m| [m.measure_id, m.year]}
   end
 
   def new
@@ -21,7 +21,7 @@ class MeasuresController < ApplicationController
 
     respond_to do |format|
       if @measure.save
-        format.html { redirect_to @measure, notice: 'Measure was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Measure was successfully created.' }
         format.json { render action: 'show', status: :created, location: @measure }
       else
         format.html { render action: 'new' }

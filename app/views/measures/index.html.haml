@@ -8,16 +8,25 @@
           %tr
             %th Measure
             %th.c Source
-            - (2006..Date.today.year).each do |year|
+            - @years.each do |year|
               %th.c= year
         %tbody
           - @measures.each do |measure|
             %tr
-              %td= best_in_place_if policy(measure).update?, measure, :description, inner_class: 'form-control'
+              %td
+                = best_in_place_if policy(measure).update?, measure, :description, inner_class: 'form-control'
+                = p_space measure_link(measure)
+                = p_space measure_document_link(measure)
               %td.c
                 %abbr{title: measure.source.name}= measure.source.short_name
-              - (2006..Date.today.year).each do |year|
+              - @years.each do |year|
                 - measurement = @measurements.has_key?([measure.id, year]) ? @measurements[[measure.id, year]].first : nil
                 = render partial: 'measurement', locals: {measurement: measurement, measure: measure, year: year}
 
+- if policy(Measure).create?
+  = link_to '#', class: 'btn btn-primary', data: {toggle: 'modal', target: '#new-measure-modal'} do
+    %i.fa.fa-plus
+    = p_space 'New Measure'
+
+  = render partial: 'new_measure_modal'
 
