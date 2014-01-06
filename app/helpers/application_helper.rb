@@ -1,9 +1,11 @@
 module ApplicationHelper
-  def title(page_title, show_title = true)
+  def title(page_title, show_title = true, subtitle = nil)
     content_for(:page_header) do
       content_tag :div, class: 'row' do
         content_tag :div, class: 'col-md-12' do
-          content_tag :h1, page_title.to_s
+          content_tag :h1 do
+            [page_title.to_s, (subtitle ? content_tag(:small, subtitle).html_safe : nil)].compact.join("&nbsp;").html_safe
+          end
         end
       end
     end
@@ -66,5 +68,21 @@ module ApplicationHelper
 
   def a_space(content)
     "#{content}&nbsp;".html_safe
+  end
+
+  def scope_links(scopes, scope_params)
+    links = []
+    scopes.each do |scope, vals|
+      Array(vals).each_with_index do |val, i|
+        path_params = if vals.is_a?(Array) && vals != [val]
+                        scope_params.merge({scope => scope_params[scope] - [scope_params[scope][i]]})
+                      else
+                        scope_params.reject{|k,| k == scope }
+                      end
+
+        links << [val, path_params]
+      end
+    end
+    links
   end
 end

@@ -30,6 +30,10 @@ class UserPolicy < ApplicationPolicy
     create? && !resource.administrator? && user != resource
   end
 
+  def revoke?
+    permitted_attributes.include? :role
+  end
+
   def permitted_attributes
     attributes = [:first_name, :last_name, :email, :password, :password_confirmation,
                           :title, :phone, :address, :city, :state, :zipcode, :avatar]

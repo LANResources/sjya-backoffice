@@ -1,15 +1,7 @@
 
-- title "Activities #{@scopes.values.join(" ")}"
+- title "Activities", true, @scopes.values.join(" ")
 
-- if @scopes.any?
-  .row
-    .col-md-12
-      .text-right
-        - @scopes.each do |scope, val|
-          = link_to activities_path(@scope_params.reject{|k,| k == scope }), class: 'btn btn-sm btn-default' do
-            = "#{val}&nbsp;".html_safe
-            %i.fa.fa-times
-        %br/
+= render partial: 'shared/scope_tags', locals: { scopes: @scopes, scope_params: @scope_params }
 
 .row
   .col-md-12
@@ -29,7 +21,7 @@
               %td= link_to (attempt.activity_date || attempt.updated_at).strftime('%B %-d, %Y'), activity_path(attempt)
               - unless @scopes.has_key? :user
                 %td.c= link_to attempt.user.full_name, activities_path(@scope_params.merge({user: attempt.user.id}))
-              %td.c= attempt.completed_for.map{|cf| link_to cf, {for: cf}}.join('<br/>').html_safe
+              %td.c= attempt.completed_for.map{|cf| link_to cf, @scope_params.merge({for: cf})}.join('<br/>').html_safe
               %td.c
                 %a.btn-link.description-popover{role: 'button', title: 'Description', data: {content: attempt.description}}
                   %i.fa.fa-ellipsis-h.fa-lg.fa-border

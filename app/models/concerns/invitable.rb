@@ -26,10 +26,14 @@ module Invitable
   end
 
   def uninvite(invitee)
-    invitee.update_attributes!  role: 'contact',
-                                invite_token: nil,
-                                invited_by: nil,
-                                invited_at: nil
+    invitee.revoke_access!
+  end
+
+  def revoke_access!
+    self.update_attributes! role: 'contact',
+                            invite_token: nil,
+                            invited_by: nil,
+                            invited_at: nil
   end
 
   def register(token, user_params)

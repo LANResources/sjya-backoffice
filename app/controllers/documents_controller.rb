@@ -1,12 +1,8 @@
 class DocumentsController < ApplicationController
-  before_action :set_user, only: :index
   before_action :set_document, only: [:show, :download, :edit, :update, :destroy]
+  before_action :scope_documents, only: :index
 
   def index
-    @documents = @user.try(:documents) || Document.includes(:user)
-    @documents = @documents.tagged_with(params[:tag]) if params[:tag]
-    @documents = @documents.order("#{sort_column} #{sort_direction}").page(params[:page]).per_page(15)
-    @documents = policy_scope @documents
   end
 
   def show
@@ -69,12 +65,6 @@ class DocumentsController < ApplicationController
       authorize! @document
     end
 
-    def set_user
-      if params[:user] && User.exists?(params[:user])
-        @user = User.find params[:user]
-      end
-    end
-
     def current_resource
       if params[:action] == 'create'
         @current_resource ||= params[:document] if params[:document]
@@ -85,6 +75,30 @@ class DocumentsController < ApplicationController
 
     def document_attributes
       params.require(:document).permit *policy(@document || Document).permitted_attributes
+    end
+
+    def scope_documents
+      @scopes = {}
+      @title_scopes = {}
+      @scope_params = {}
+
+      if params[:owner] && User.exists?(params[:owner])
+        @user = User.find params[:owner]
+        @documents = @user.documents
+        @title_scopes[:owner] = @scopes[:owner] = "owned by #{@user.full_name}"
+        @scope_params[:owner] = params[:owner]
+      else
+        @documents = Document.includes(:user)
+      end
+
+      if params[:tag]
+        @title_scopes[:tag] = "tagged with #{params[:tag].map{|tag| "'#{tag}'" }.join(' & ')}"
+        @scopes[:tag] = params[:tag].map{|tag| "tagged with '#{tag}'"}
+        @scope_params[:tag] = params[:tag]
+        @documents = @documents.tagged_with params[:tag]
+      end
+
+      @documents = policy_scope @documents.order("#{sort_column} #{sort_direction}").page(params[:page]).per_page(15)
     end
 
     def sort_column

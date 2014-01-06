@@ -1,7 +1,6 @@
-- if @user
-  - title "#{@user.full_name}'s Documents"
-- else
-  - title 'Documents'
+- title "Documents", true, @title_scopes.values.join(" ")
+
+= render partial: 'shared/scope_tags', locals: { scopes: @scopes, scope_params: @scope_params }
 
 .row
   .col-md-12
@@ -10,7 +9,8 @@
         %tr
           %th= sortable 'title', 'File'
           %th.c Tags
-          %th.c= sortable 'users.last_name', 'Owner'
+          - unless @scopes.has_key? :owner
+            %th.c= sortable 'users.last_name', 'Owner'
           %th.c= sortable 'updated_at', 'Updated'
           %th.r
 
@@ -24,8 +24,9 @@
                 = link_to document.name, document
                 %small
                   %i= " (#{number_to_human_size document.item_size})"
-              %td.c= render_tags document.tag_list
-              %td.c= link_to document.owner_name, document.user
+              %td.c= render_tags document.tag_list, @scope_params
+              - unless @scopes.has_key? :owner
+                %td.c= link_to document.owner_name, documents_path(@scope_params.merge({owner: document.user_id}))
               %td.c
                 = document.updated_at.strftime '%-m/%-d/%Y %-I:%M %p'
               %td.r

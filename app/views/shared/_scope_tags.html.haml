@@ -1,0 +1,10 @@
+- if scopes.any?
+  .row
+    .col-md-12
+      .text-right
+        - scope_links(@scopes, @scope_params).each do |label, path|
+          = link_to path, class: 'btn btn-sm btn-default' do
+            = a_space label
+            %i.fa.fa-times
+            
+        %br/

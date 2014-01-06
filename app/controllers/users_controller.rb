@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :revoke]
+  before_action :scope_users, only: :index
 
   def index
-    @users = User.all
   end
 
   def show
@@ -59,6 +59,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def revoke
+    authorize! @user
+    @user.revoke_access!
+
+    respond_to do |format|
+      format.html { redirect_to @user }
+      format.js
+    end 
+  end
+
   private
     def set_user
       @user = current_resource
@@ -74,5 +84,23 @@ class UsersController < ApplicationController
 
     def user_attributes
       params.require(:user).permit *policy(@user || User).permitted_attributes
+    end
+
+    def scope_users
+      @scopes = {}
+      @scope_params = {}
+      @users = User.includes(:organization)
+
+      if params[:org] and Organization.exists?(params[:org])
+        @scopes[:org] = "members of #{Organization.find(params[:org]).name}"
+        @scope_params[:org] = params[:org]
+        @users = @users.where organization_id: params[:org]
+      end
+
+      @users = @users.order("#{sort_column} #{sort_direction}").page(params[:page]).per_page(20)
+    end
+
+    def sort_column
+      super(User.column_names + ['organizations.name'], 'last_name')
     end
 end

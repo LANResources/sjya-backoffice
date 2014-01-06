@@ -14,8 +14,8 @@
       %tbody
         - @organizations.each do |org|
           %tr
-            %td.photo= link_to image_tag(org.logo.url(:tiny), alt: "No Photo", class: 'img-rounded'), org
-            %td= link_to org.name, org
+            %td.photo= link_to image_tag(org.logo.url(:tiny), alt: "No Photo", class: 'img-rounded'), users_path({org: org.id})
+            %td= link_to org.name, users_path({org: org.id})
             %td= org.sector.try(:name)
             %td.c= org.users.count
             - if policy(current_user.organization).edit?

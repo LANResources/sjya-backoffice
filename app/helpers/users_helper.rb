@@ -1,9 +1,9 @@
 module UsersHelper
-  def styled_user_status(status)
-    case status
+  def styled_user_status(user)
+    case user.status
     when 'registered' then 'Registered'
     when 'contact_only' then 'Not Registered'
-    when 'invited' then 'Invited'
+    when 'invited' then "Invited (#{user.invited_at.strftime('%-m/%-d/%y')})"
     end
   end
 
@@ -18,27 +18,25 @@ module UsersHelper
     end
   end
 
+  def user_status_label(user)
+    content_tag :span, styled_user_status(user), class: 'label label-info user-status-label'
+  end
+
   def invite_link(user)
     if InvitePolicy.new(current_user, user).create?
-      link_to 'Invite', invite_user_path(user), method: :post, class: 'btn btn-xs btn-info'
-    else
-      content_tag :span, 'Contact', class: 'label label-info'
+      link_to 'Send Invite', invite_user_path(user), method: :post, class: 'btn-link user-status-link'
     end
   end
 
   def uninvite_link(user)
     if InvitePolicy.new(current_user, user).destroy?
-      link_to 'Uninvite', uninvite_user_path(user), method: :delete, class: 'btn btn-xs btn-info'
-    else
-      content_tag :span, "Invited (#{user.invited_on.strftime('%-m/%-d/%y')})", class: 'label label-info'
+      link_to 'Uninvite', uninvite_user_path(user), method: :delete, class: 'btn-link user-status-link'
     end
   end
 
   def revoke_link(user)
     if policy(user).permitted_attributes.include? :role
-      'Revoke'
-    else
-      content_tag :span, "Registered", class: 'label label-info'
+      link_to 'Revoke Site Access', revoke_user_path(user), method: :patch, remote: true, class: 'text-danger user-status-link'
     end
   end
 

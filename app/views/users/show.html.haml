@@ -1,4 +1,4 @@
-- title "#{@user.full_name}'s Profile"
+- title @user.full_name
 
 - breadcrumbs ['People', users_path], @user.full_name
 
@@ -8,6 +8,7 @@
       .box-header
         %h2
           %i.fa.fa-user
+          = p_space 'Profile'
         - if policy(@user).edit?
           .box-icon
             = link_to edit_user_path(@user), title: 'Edit' do
@@ -15,13 +16,24 @@
 
       .box-content
         .row
-          .col-md-2
-            = image_tag(@user.avatar.url(:small), class: "img-rounded")
-          .col-md-5
-            %h3= @user.organization_name
-            %h4
-              %span.label.label-info= @user.role.titleize
-              = user_status_link @user
+          .col-md-2.col-sm-4
+            .row
+              .col-md-12.col-sm-12.col-xs-6
+                = image_tag(@user.avatar.url(:small), class: "img-rounded img-responsive")
+              .col-md-12.col-sm-12.col-xs-6
+                %h4 Role
+
+                %span.label.label-info.user-role= @user.role.titleize
+                %h4
+                  Status
+                = user_status_label @user
+                %br/
+                = user_status_link @user
+
+          .col-md-10.col-sm-8
+            %h3.user-org= @user.organization_name
+            
+            %hr/
             %p
               %strong
                 %i.fa.fa-shield

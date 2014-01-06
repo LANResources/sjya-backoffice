@@ -7,6 +7,7 @@ SJYABackOffice::Application.routes.draw do
       delete 'uninvite', to: 'invites#destroy', as: :uninvite
       get 'register/:invite_code', to: 'invites#edit', as: :rsvp
       match 'register', to: 'invites#update', via: [:patch, :put], as: :register
+      match 'revoke', to: 'users#revoke', via: [:patch, :put], as: :revoke
     end
   end
 
