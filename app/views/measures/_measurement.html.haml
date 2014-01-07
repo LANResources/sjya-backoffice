@@ -1,10 +1,11 @@
 - if measurement
-  - if policy(measurement).update?
-    %td.c.measurement{data: {year: year, measure: measure.id, measurement: measurement.id }}
-      %span.popovers{data: {content: render(partial: 'measures/popover', locals: { measure: measure, measurement: measurement }).html_safe}}
-        = measurement.value
-  - else
-    %td.c= measurement.value
+  - cache [policy(measurement).update?, measurement] do
+    - if policy(measurement).update?
+      %td.c.measurement{data: {year: year, measure: measure.id, measurement: measurement.id }}
+        %span.popovers{data: {content: render(partial: 'measures/popover', locals: { measure: measure, measurement: measurement }).html_safe}}
+          = measurement.value
+    - else
+      %td.c= measurement.value
 
 - else
   - if policy(Measurement).create?

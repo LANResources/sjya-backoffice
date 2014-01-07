@@ -99,6 +99,7 @@ GEM
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
     daemons (1.1.9)
+    dalli (2.6.4)
     database_cleaner (1.2.0)
     debugger (1.6.2)
       columnize (>= 0.3.1)
@@ -177,6 +178,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    memcachier (0.0.2)
     meta_request (0.2.8)
       callsite
       rack-contrib
@@ -323,6 +325,7 @@ DEPENDENCIES
   childprocess (= 0.3.9)
   coffee-rails (~> 4.0.0)
   cucumber-rails (= 1.4.0)
+  dalli
   database_cleaner
   debugger
   dropzonejs-rails
@@ -337,6 +340,7 @@ DEPENDENCIES
   jquery-rails
   letter_opener
   lr-simpliq
+  memcachier
   meta_request
   methodfinder
   mini_magick

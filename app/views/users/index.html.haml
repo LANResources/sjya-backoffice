@@ -5,46 +5,26 @@
 
 = render partial: 'shared/scope_tags', locals: { scopes: @scopes, scope_params: @scope_params }
 
-.row
-  .col-md-12
-    %table.table.table-striped.table-condensed
-      %thead
-        %tr
-          %th
-          %th= sortable 'last_name', 'Name'
-          - unless @scopes.has_key? :org
-            %th= sortable 'organizations.name', 'Organization'
-          %th Address
-          %th.hidden-xs Phone
-          - if policy(current_user).edit?
-            %th.c Actions
-      %tbody
-        - @users.each do |user|
-          %tr
-            %td.photo= link_to image_tag(user.avatar.url(:tiny), alt: "No Photo", class: 'img-rounded img-responsive'), user
-            %td= link_to user.full_name, user
-            - unless @scopes.has_key? :org
-              %td= link_to user.organization.try(:name), users_path(@scope_params.merge({org: user.organization_id}))
-            %td
-              %address
-                = user.address
-                %br/
-                = city_state_zip user.city, user.state, user.zipcode
-              .visible-xs= user.phone
-            %td.hidden-xs= user.phone
-            - if policy(current_user).edit?
-              %td.c
-                .btn-group
-                  - if policy(user).edit?
-                    = link_to edit_user_path(user), title: "Edit User", class: "btn btn-xs btn-warning" do
-                      %i.fa.fa-pencil
-                  - if policy(user).destroy?
-                    = link_to user, title: "Delete User", class: "btn btn-xs btn-danger", data: { confirm: 'Are you sure?' }, method: :delete do
-                      %i.fa.fa-trash-o
-
-    = will_paginate @users
-
-- if policy(User).create?
+- cache [current_user, :users, @scope_cache_key] do
   .row
     .col-md-12
-      = link_to "Add User", new_user_path, class: 'btn btn-primary'
+      %table.table.table-striped.table-condensed
+        %thead
+          %tr
+            %th
+            %th= sortable 'last_name', 'Name'
+            - unless @scopes.has_key? :org
+              %th= sortable 'organizations.name', 'Organization'
+            %th Address
+            %th.hidden-xs Phone
+            - if policy(current_user).edit?
+              %th.c Actions
+        %tbody
+          = render partial: 'users/user', collection: @users, locals: {scopes: @scopes, scope_params: @scope_params, scope_cache_key: @scope_cache_key }
+            
+      = will_paginate @users
+
+  - if policy(User).create?
+    .row
+      .col-md-12
+        = link_to "Add User", new_user_path, class: 'btn btn-primary'

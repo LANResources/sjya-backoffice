@@ -1,18 +1,19 @@
-%tr.measure{data: {measure: measure.id }}
-  %td.measure-description
-    = best_in_place_if policy(measure).update?, measure, :description, inner_class: 'form-control'
-    = p_space measure_link(measure)
-    = p_space measure_document_link(measure)
-    - if policy(measure).update?
-      .btn-group.btn-group-xs.modifiers.pull-right
-        = link_to edit_measure_path(measure), remote: true, title: "Edit Measure", class: "btn btn-xs btn-warning" do
-          %i.fa.fa-pencil
-        = link_to measure, title: "Remove", class: "btn btn-xs btn-danger", data: { confirm: 'Are you sure?' }, remote: true, method: :delete do
-          %i.fa.fa-trash-o
-  %td.c.measure-source
-    %abbr{title: measure.source.name}= measure.source.short_name
-  - years.each do |year|
-    - measurement = measurements.has_key?([measure.id, year]) ? measurements[[measure.id, year]].first : nil
-    = render partial: 'measurement', locals: {measurement: measurement, measure: measure, year: year, modifiers: false}
-  - if show_new_year_column
-    = render partial: 'measurement', locals: {measurement: nil, measure: measure, year: Date.today.year, modifiers: true}
+- cache [policy(measure).update?, measure, years.join('-')] do
+  %tr.measure{data: {measure: measure.id }}
+    %td.measure-description
+      = best_in_place_if policy(measure).update?, measure, :description, inner_class: 'form-control'
+      = p_space measure_link(measure)
+      = p_space measure_document_link(measure)
+      - if policy(measure).update?
+        .btn-group.btn-group-xs.modifiers.pull-right
+          = link_to edit_measure_path(measure), remote: true, title: "Edit Measure", class: "btn btn-xs btn-warning" do
+            %i.fa.fa-pencil
+          = link_to measure, title: "Remove", class: "btn btn-xs btn-danger", data: { confirm: 'Are you sure?' }, remote: true, method: :delete do
+            %i.fa.fa-trash-o
+    %td.c.measure-source
+      %abbr{title: measure.source.name}= measure.source.short_name
+    - years.each do |year|
+      - measurement = measurements.has_key?([measure.id, year]) ? measurements[[measure.id, year]].first : nil
+      = render partial: 'measurement', locals: {measurement: measurement, measure: measure, year: year, modifiers: false}
+    - if show_new_year_column
+      = render partial: 'measurement', locals: {measurement: nil, measure: measure, year: Date.today.year, modifiers: true}

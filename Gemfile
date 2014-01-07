@@ -59,6 +59,10 @@ gem 'acts-as-taggable-on'
 # Encryption
 gem 'bcrypt-ruby', '~> 3.1.2'
 
+# Caching
+gem 'memcachier'
+gem 'dalli'
+
 # Debugging
 gem 'exception_notification'
 group :development do

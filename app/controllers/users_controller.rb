@@ -89,11 +89,13 @@ class UsersController < ApplicationController
     def scope_users
       @scopes = {}
       @scope_params = {}
+      @scope_cache_key = ''
       @users = User.includes(:organization)
 
       if params[:org] and Organization.exists?(params[:org])
         @scopes[:org] = "members of #{Organization.find(params[:org]).name}"
         @scope_params[:org] = params[:org]
+        @scope_cache_key += "org-#{params[:org]}"
         @users = @users.where organization_id: params[:org]
       end
 
