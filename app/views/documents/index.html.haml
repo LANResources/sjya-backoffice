@@ -19,7 +19,7 @@
           - @documents.each do |document|
             %tr
               %td
-                = file_type_label document.content_type
+                = file_type_label document.filename
                 = "&nbsp;".html_safe
                 = link_to document.name, document
                 %small
@@ -41,7 +41,7 @@
                       %i.fa.fa-trash-o
         - else
           %tr.warning
-            %td{colspan: 5} 
+            %td{colspan: 5}
               No documents available.
               - if @user || params[:tag]
                 = link_to 'View All', documents_path, class: 'btn-link'

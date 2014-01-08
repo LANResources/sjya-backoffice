@@ -1,14 +1,23 @@
 module DocumentsHelper
-  def file_type_label(type)
-    _file_type_label *case type
+  def file_type_label(filename = '')
+    ext = filename.split('.').last
+    _file_type_label *case ext
                       when /pdf/i
                         ['info', 'PDF']
                       when /jpe?g/i
                         ['warning', 'JPG']
-                      when /vnd.openxmlformats-officedocument.wordprocessingml.document/i
-                        ['default', 'DOC']
+                      when /png/i
+                        ['warning', 'PNG']
+                      when /gif/i
+                        ['warning', 'GIF']
+                      when /docx?/i
+                        ['info', 'DOC']
+                      when /pptx?/i
+                        ['info', 'PPT']
+                      when /xlsx?/i
+                        ['info', 'XLS']
                       else
-                        ['default', type.split('/').last.to_s.upcase]
+                        ['default', ext.upcase]
                       end
   end
 

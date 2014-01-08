@@ -20,7 +20,7 @@
             - @user.documents.limit(15).each do |document|
               %tr
                 %td
-                  = file_type_label document.content_type
+                  = file_type_label document.filename
                   = "&nbsp;".html_safe
                   = link_to document.name, document
                   %small
