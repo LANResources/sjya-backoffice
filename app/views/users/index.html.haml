@@ -26,4 +26,4 @@
 - if policy(User).create?
   .row
     .col-md-12
-      = link_to "Add User", new_user_path, class: 'btn btn-primary'
+      = link_to "Add User", new_user_path(@scope_params.select{|k,v| k == :org }), class: 'btn btn-primary'

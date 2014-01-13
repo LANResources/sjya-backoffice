@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.organization_id = params[:org] if params[:org] && Organization.exists?(params[:org])
     authorize! @user
   end
 
