@@ -16,7 +16,7 @@
       %dt
         %i.fa.fa-calendar
         = p_space 'Activity Date'
-      %dd= @attempt.activity_date.strftime '%B %-d, %Y'
+      %dd= (@attempt.activity_date || @attempt.updated_at).strftime '%B %-d, %Y'
       %br/
 
       %dt
