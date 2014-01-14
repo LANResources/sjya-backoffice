@@ -26,7 +26,12 @@
         .col-md-12.activity-type
           %label{for: '#activity_type'} Activity Type
           %br/
-          = text_field_tag :activity_type, attempt_builder.to_model.try(:activity_type) || '', class: 'form-control autocomplete', data: { types: Rapidfire::Attempt.activity_types }
+          = hidden_field_tag :activity_type, attempt_builder.to_model.try(:activity_type) || ''
+          .row
+            .col-md-6
+              = select_tag :activity_type_select, options_for_select(Rapidfire::Attempt.activity_types, attempt_builder.to_model.try(:activity_type)), prompt: 'Custom', class: 'form-control'
+            .col-md-6
+              = text_field_tag :activity_type_custom, '', placeholder: 'Custom...', class: 'form-control'
 
     .form-group
       %label{for: '#description'} Description

@@ -10,7 +10,7 @@ initPage = ->
     initSelect2()
     initFollowUps()
     initDatepicker()
-    initActivityTypeAutocomplete()
+    initActivityTypeSelect()
     initMultiObjectQuestions()
 
 initSelect2 = ->
@@ -49,13 +49,22 @@ initDescriptionPopovers = ->
       placement: 'left'
       trigger: 'hover'
 
-initActivityTypeAutocomplete = ->
-  $activityTypeInput = $('#activity_type')
-  types = $activityTypeInput.data 'types'
-  if types
-    $activityTypeInput.typeahead
-      name: 'types'
-      local: types
+initActivityTypeSelect = ->
+  $(document.body).on 'change', '#activity_type_select', ->
+    if $(this).val() is ''
+      $('#activity_type_custom').show()
+    else
+      $('#activity_type_custom').hide().val('')
+
+  $('#activity_type_select').change()
+
+  $(document.body).on 'submit', '#new_attempt, .edit_attempt', ->
+    $activityTypeInput = $('#activity_type')
+    if (selectVal = $('#activity_type_select').val()) is ''
+      $activityTypeInput.val $('#activity_type_custom').val()
+    else
+      $activityTypeInput.val selectVal
+
 
 initMultiObjectQuestions = ->
   $(document.body).on 'click', '.add-object-btn', ->
