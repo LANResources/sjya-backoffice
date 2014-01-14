@@ -12,7 +12,7 @@ initQuestionForm = ->
   $(document.body).on 'change', '#question_type', ->
     type = $(this).val().split('::').pop()
     $aggregatable = $('.aggregatable')
-    if type in ['Checkbox', 'Radio', 'Select', 'MultiSelect']
+    if type in ['Checkbox', 'Radio', 'Select', 'MultiSelect', 'MultiObject']
       $aggregatable.show()
     else
       $aggregatable.hide().each ->

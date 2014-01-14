@@ -4,16 +4,19 @@
     - section_answers.each do |answer|
       - unless answer.question.follow_up_for_id.present?
         .panel.panel-primary.form-group.question-panel{class: ('has-follow-up' if answer.question.follow_up_questions.any?), data: {'primary-question-id' => answer.question.id}}
-          .panel-heading= answer.question.question_text.html_safe
+          .panel-heading
+            = display_question_text answer.question
+
           .panel-body
             = f.fields_for("#{answer.question.id}", answer) do |answer_form|
               = render partial: "rapidfire/answers/errors", locals: {answer: answer}
               = render_answer_form_helper(answer, answer_form)
+
             - answer.question.follow_up_questions.each do |follow_up|
               - follow_up_answer = attempt_builder.answers.find{ |a| a.question_id == follow_up.id }
               .row.follow-up-container{class: ('show-initially' if answer.answer_text == follow_up.follow_up_for_condition), data: {condition: follow_up.follow_up_for_condition}}
                 .col-sm-12
                   = f.fields_for("#{follow_up.id}", follow_up_answer) do |answer_form|
-                    %h4= follow_up.question_text.html_safe
+                    %h4= display_question_text follow_up
                     = render partial: "rapidfire/answers/errors", locals: {answer: follow_up_answer}
                     = render_answer_form_helper(follow_up_answer, answer_form)

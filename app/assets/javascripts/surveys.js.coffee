@@ -11,6 +11,7 @@ initPage = ->
     initFollowUps()
     initDatepicker()
     initActivityTypeAutocomplete()
+    initMultiObjectQuestions()
 
 initSelect2 = ->
   $('.select2').select2()
@@ -34,7 +35,7 @@ initFollowUps = ->
           $(this).hide().addClass 'invalid'
         $question_panel.find(".follow-up-container[data-condition=\"#{answer}\"]").show().removeClass 'invalid'
 
-  $(document.body).on 'submit', '#new_attempt', ->
+  $(document.body).on 'submit', '#new_attempt, .edit_attempt', ->
     $('.follow-up-container.invalid').remove()
 
 initDatepicker = ->
@@ -55,3 +56,30 @@ initActivityTypeAutocomplete = ->
     $activityTypeInput.typeahead
       name: 'types'
       local: types
+
+initMultiObjectQuestions = ->
+  $(document.body).on 'click', '.add-object-btn', ->
+    $panel = $(this).parents('.panel-body')
+    $objectsContainer = $panel.find('.objects-container')
+    index = $objectsContainer.find('.form-group').size()
+    template = Mustache.render $("##{$(this).data('template')}").html(), { index: index }
+    $objectsContainer.append(template)
+
+  $(document.body).on 'click', '.remove-object-btn', ->
+    $(this).parents('li').remove()
+
+  $(document.body).on 'submit', '#new_attempt, .edit_attempt', ->
+    $('.objects-container').each ->
+      $input = $(this).parents('.panel-body').find('.objects-input')
+      $objects = $(this).find('li')
+      if $objects.size is 0
+        $input.val ''
+      else
+        newVal = ''
+        $objects.each ->
+          obj = []
+          $(this).find('input').each ->
+            obj.push $(this).data('property') + '=' + $(this).val()
+          newVal += obj.join(',') + ';'
+        $input.val newVal
+

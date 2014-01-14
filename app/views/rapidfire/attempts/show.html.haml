@@ -64,7 +64,7 @@
           .bs-callout.bs-callout-info
             .row
               .col-md-6
-                %h4.h4= answer.question.question_text
+                %h4.h4= display_question_text answer.question
               .col-md-6
                 %p
                   - if answer.answer_text.present?
@@ -79,7 +79,7 @@
                   .col-md-6
                     %h4.h4
                       %i.fa.fa-long-arrow-right
-                      = p_space follow_up.question_text
+                      = p_space display_question_text(follow_up)
                   .col-md-6
                     %p
                       - if follow_up_answer.answer_text.present?
