@@ -22,6 +22,13 @@
               = option
 
     .form-group
+      .row
+        .col-md-12.activity-type
+          %label{for: '#activity_type'} Activity Type
+          %br/
+          = text_field_tag :activity_type, attempt_builder.to_model.try(:activity_type) || '', class: 'form-control autocomplete', data: { types: Rapidfire::Attempt.activity_types }
+
+    .form-group
       %label{for: '#description'} Description
       = text_area_tag :description, attempt_builder.to_model.try(:description) || '', class: 'form-control'
 

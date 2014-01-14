@@ -29,7 +29,7 @@ module Rapidfire
     end
 
     def permitted_attributes
-      [:description, :completed_for, :activity_date]
+      [:description, :completed_for, :activity_date, :activity_type]
     end
   end
 end

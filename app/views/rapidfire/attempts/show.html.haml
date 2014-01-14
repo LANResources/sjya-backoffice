@@ -20,6 +20,12 @@
       %br/
 
       %dt
+        %i.fa.fa-filter
+        = p_space 'Activity Type'
+      %dd= @attempt.activity_type
+      %br/
+
+      %dt
         %i.fa.fa-user
         = p_space 'Entered By'
       %dd= link_to @attempt.user.full_name, @attempt.user

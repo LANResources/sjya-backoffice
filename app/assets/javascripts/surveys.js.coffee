@@ -10,6 +10,7 @@ initPage = ->
     initSelect2()
     initFollowUps()
     initDatepicker()
+    initActivityTypeAutocomplete()
 
 initSelect2 = ->
   $('.select2').select2()
@@ -46,3 +47,11 @@ initDescriptionPopovers = ->
     $(this).popover
       placement: 'left'
       trigger: 'hover'
+
+initActivityTypeAutocomplete = ->
+  $activityTypeInput = $('#activity_type')
+  types = $activityTypeInput.data 'types'
+  if types
+    $activityTypeInput.typeahead
+      name: 'types'
+      local: types

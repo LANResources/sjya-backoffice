@@ -6,3 +6,10 @@
     margin-top: 14px;
   }
 }
+.activity-type
+  .twitter-typeahead {
+    width: 100%;
+    .tt-hint, .tt-dropdown-menu {
+      width: 100%;
+    }
+  }
