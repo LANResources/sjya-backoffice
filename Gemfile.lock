@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/LANResources/rapidfire.git
-  revision: 3b3ca29a0fc3cbc8dc4cabaea6194d83861eaae3
+  revision: c7cefa8543ca8617d8e9e51f7c4d67567b6a7f7b
   branch: master
   specs:
     rapidfire (1.2.0)
