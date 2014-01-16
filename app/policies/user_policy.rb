@@ -14,7 +14,7 @@ class UserPolicy < ApplicationPolicy
 
   def create?
     (user >= :site_manager && user > resource) || 
-      (user.organization_manager? && user.organization == resource.organization) || 
+      (user.organization_manager? && user.organization == resource.try(:organization)) || 
       user.administrator?
   end
 
