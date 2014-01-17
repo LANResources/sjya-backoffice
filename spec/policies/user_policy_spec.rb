@@ -150,7 +150,7 @@ describe UserPolicy do
     context 'on another site manager' do
       let(:other_user){ create(:site_manager) }
 
-      it { should_not permit(:create) }
+      it { should permit(:create) }
       it { should_not permit(:edit) }
       it { should_not permit(:update) }
       it { should_not permit(:destroy) }

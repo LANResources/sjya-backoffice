@@ -16,7 +16,7 @@
     .nav-no-collapse.header-nav
       %ul.nav.navbar-nav.pull-right
 
-        -# = render partial: 'layouts/admin_dropdown', locals: { phone: false }
+        = render partial: 'layouts/admin_dropdown', locals: { phone: false }
 
         %li.dropdown
           %a.btn.account.dropdown-toggle{data: {toggle: "dropdown"}, href: "#"}
@@ -39,4 +39,4 @@
                 %i.fa.fa-off
                 Logout
 
-        -# = render partial: 'layouts/admin_dropdown', locals: { phone: true }
+        = render partial: 'layouts/admin_dropdown', locals: { phone: true }

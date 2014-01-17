@@ -1,0 +1,11 @@
+- if current_user.administrator?
+  %li{class: "dropdown #{phone ? 'visible' : 'hidden'}-xs"}
+    %a.btn.dropdown-toggle{data: {toggle: 'dropdown'}, href: "#"}
+      %i.fa.fa-cogs
+    %ul.dropdown-menu
+      %li
+        %span.dropdown-menu-title Admin
+      %li
+        = link_to clear_caches_path do
+          %i.fa.fa-cog
+          = p_space 'Clear App Cache'

@@ -23,6 +23,8 @@ SJYABackOffice::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :password_resets, only: [:new, :create, :edit, :update]
 
+  get 'cache/clear', to: 'cache#clear', as: :clear_caches
+
   get 'about', to: 'static_pages#about', as: :about
   get 'login', to: 'sessions#new', as: :login
   delete 'logout', to: 'sessions#destroy', as: :logout
