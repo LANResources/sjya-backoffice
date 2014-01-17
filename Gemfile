@@ -21,6 +21,9 @@ gem 'coffee-rails', '~> 4.0.0'
 # Configuration
 gem 'figaro'
 
+# Heroku
+gem 'rails_12factor', group: :production
+
 # Authorization
 gem 'pundit'
 
