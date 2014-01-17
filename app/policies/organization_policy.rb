@@ -29,6 +29,6 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [:name, :logo]
+    [:name, :logo, :sector_id]
   end
 end
