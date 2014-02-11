@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/LANResources/rapidfire.git
-  revision: e04bb96675aa4e8e4175984bb1a9d3c0b8015a00
+  revision: ec4e59e9a61c7e2b22122664cb2c67d5f31be271
   branch: master
   specs:
     rapidfire (1.2.0)
@@ -52,7 +52,7 @@ GEM
     acts_as_list (0.3.0)
       activerecord (>= 3.0)
     addressable (2.3.5)
-    arel (4.0.1)
+    arel (4.0.2)
     atomic (1.1.14)
     awesome_print (1.2.0)
     bcrypt-ruby (3.1.2)
