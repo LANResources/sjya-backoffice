@@ -13,7 +13,7 @@ class MeasurePolicy < ApplicationPolicy
   end
 
   def create?
-    user.administrator?
+    user >= :site_manager
   end
 
   def edit?
@@ -21,11 +21,11 @@ class MeasurePolicy < ApplicationPolicy
   end
 
   def update?
-    user.administrator?
+    user >= :site_manager
   end
 
   def destroy?
-    user.administrator?
+    user >= :site_manager
   end
 
   def permitted_attributes

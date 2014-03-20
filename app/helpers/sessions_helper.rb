@@ -27,7 +27,7 @@ module SessionsHelper
     if signed_in?
       redirect_to root_url, notice: 'You are not authorized to view that page.'
     else
-      redirect_to login_path, notice: 'Please sign in to access this site.'
+      redirect_to main_app.login_path, notice: 'Please sign in to access this site.'
     end
   end
 

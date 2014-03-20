@@ -1,1 +1,1 @@
-= f.select :answer_text, option_groups_from_collection_for_select(answer.question.grouped_options, 'users', 'name', 'id', 'full_name'), {include_blank: false}, multiple: true, class: 'form-control select2'
+= f.select :answer_text, option_groups_from_collection_for_select(answer.question.grouped_options, 'users', 'name', 'id', 'full_name', f.object.answer_text.try(:split, ',,,')), {include_blank: false}, multiple: true, class: 'form-control select2'
