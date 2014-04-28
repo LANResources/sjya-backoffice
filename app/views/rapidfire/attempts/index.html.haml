@@ -8,7 +8,7 @@
     %table.table.table-striped.table-responsive
       %thead
         %tr
-          %th= sortable 'updated_at', 'Activity Date'
+          %th= sortable 'activity_date', 'Activity Date', 'desc'
           - unless @scopes.has_key? :user
             %th.c= sortable 'users.last_name', 'Completed By'
           %th.c Completed For

@@ -48,11 +48,11 @@ module ApplicationHelper
     ]
   end
 
-  def sortable(column, title=nil)
+  def sortable(column, title = nil, default_direction = 'asc')
     title ||= column.titleize
     icons = { "asc" => "up", "desc" => "down" }
-    icon = column == sort_column ? content_tag(:i, "", class: "fa fa-caret-#{icons[sort_direction]}") : ''
-    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+    icon = column == sort_column ? content_tag(:i, "", class: "fa fa-caret-#{icons[sort_direction(default_direction)]}") : ''
+    direction = column == sort_column && sort_direction(default_direction) == "asc" ? "desc" : "asc"
     link = link_to title, params.merge(sort: column, direction: direction, page: nil).reject { |k,v| k == "_" }
     [link, icon].join(' ').html_safe
   end
