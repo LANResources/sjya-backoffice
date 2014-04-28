@@ -9,8 +9,8 @@
         = user.address
         %br/
         = city_state_zip user.city, user.state, user.zipcode
-      .visible-xs= user.phone
-    %td.hidden-xs= user.phone
+      .visible-xs= format_as_phone_number user.phone
+    %td.hidden-xs= format_as_phone_number user.phone
     - if policy(current_user).edit?
       %td.c
         .btn-group
