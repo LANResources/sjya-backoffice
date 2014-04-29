@@ -3,6 +3,16 @@ class UsersController < ApplicationController
   before_action :scope_users, only: :index
 
   def index
+    respond_to do |format|
+      format.html {
+        @users = @users.page(params[:page]).per_page(20)
+      }
+      format.csv {
+        @users = @users.where(role: current_user.assignable_roles)
+        response.headers['Content-Type'] = 'text/csv';
+        response.headers['Content-Disposition'] = "attachment; filename=SJYA User List.csv"
+      }
+    end
   end
 
   def show
@@ -67,7 +77,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @user }
       format.js
-    end 
+    end
   end
 
   private
@@ -100,7 +110,7 @@ class UsersController < ApplicationController
         @users = @users.where organization_id: params[:org]
       end
 
-      @users = @users.order("#{sort_column} #{sort_direction}").page(params[:page]).per_page(20)
+      @users = @users.order("#{sort_column} #{sort_direction}")
     end
 
     def sort_column

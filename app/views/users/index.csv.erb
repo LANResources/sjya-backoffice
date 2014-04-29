@@ -1,0 +1,4 @@
+"Organization Sector","User Type","Organization Name","First Name","Last Name","Address","Phone Number","E-mail"
+<% @users.each do |user| %>
+<%= user.organization.sector.try(:name) %>,"<%= user.role.titleize %>","<%= user.organization_name %>","<%= user.first_name %>","<%= user.last_name %>","<%= user.full_address.try(:html_safe) %>","<%= format_as_phone_number user.phone %>",<%= user.email %>
+<% end %>

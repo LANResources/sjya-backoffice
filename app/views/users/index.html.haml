@@ -20,10 +20,16 @@
             %th.c Actions
       %tbody
         = render partial: 'users/user', collection: @users, locals: {scopes: @scopes, scope_params: @scope_params, scope_cache_key: @scope_cache_key }
-          
+
     = will_paginate @users
 
-- if policy(User).new?
+- if policy(User).new? || policy(User).export?
   .row
     .col-md-12
-      = link_to "Add User", new_user_path(@scope_params.select{|k,v| k == :org }), class: 'btn btn-primary'
+      - if policy(User).export?
+        = link_to "Export", users_path(@scope_params.merge(format: :csv)), class: 'btn btn-secondary'
+        &nbsp;
+
+      - if policy(User).new?
+        = link_to "Add User", new_user_path(@scope_params.select{|k,v| k == :org }), class: 'btn btn-primary'
+

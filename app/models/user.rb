@@ -1,3 +1,5 @@
+require 'csv'
+
 class User < ActiveRecord::Base
   include RoleManagement
   include Invitable
@@ -46,6 +48,10 @@ class User < ActiveRecord::Base
 
   def organization_name
     organization.try(:name) || ''
+  end
+
+  def full_address
+    [address, city, state, zipcode].reject(&:blank?).compact.join(', ')
   end
 
   private

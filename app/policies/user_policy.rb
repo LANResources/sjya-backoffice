@@ -13,8 +13,8 @@ class UserPolicy < ApplicationPolicy
   end
 
   def create?
-    (user >= :site_manager && user >= resource) || 
-      (user.organization_manager? && user.organization == resource.try(:organization)) || 
+    (user >= :site_manager && user >= resource) ||
+      (user.organization_manager? && user.organization == resource.try(:organization)) ||
       user.administrator?
   end
 
@@ -32,6 +32,10 @@ class UserPolicy < ApplicationPolicy
 
   def revoke?
     permitted_attributes.include? :role
+  end
+
+  def export?
+    user >= :site_manager
   end
 
   def permitted_attributes
