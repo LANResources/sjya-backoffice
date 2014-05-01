@@ -5,12 +5,13 @@
 
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
     = stylesheet_link_tag "application"
+    = stylesheet_link_tag "icons", media: 'all', data: {'turbolinks-track' => true}
     = stylesheet_link_tag "external", data: { 'turbolinks-track' => true }
 
     / The HTML5 shim, for IE6-8 support of HTML5 elements
     /[if lt IE 9]
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-      = javascript_include_tag 'simpliq/respond'
+      = javascript_include_tag 'simpliq/respond.min'
       = stylesheet_link_tag 'ie6-8'
 
     = csrf_meta_tag
