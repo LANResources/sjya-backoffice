@@ -29,6 +29,14 @@ SJYABackOffice::Application.routes.draw do
   get 'login', to: 'sessions#new', as: :login
   delete 'logout', to: 'sessions#destroy', as: :logout
 
+
+  get 'reports', to: 'static_pages#reports', as: :reports
+  get 'activity_summary', to: 'static_pages#activity_summary', as: :activity_summary
+  get 'coalition_report', to: 'static_pages#coalition_report', as: :coalition_report
+  get 'coalition_meeting_report', to: 'static_pages#coalition_meeting_report', as: :coalition_meeting_report
+  get 'major_matrix_report', to: 'static_pages#major_matrix_report', as: :major_matrix_report
+  get 'strategy_report', to: 'static_pages#strategy_report', as: :strategy_report
+
   mount Rapidfire::Engine => "/rf"
 
   root to: 'measures#index'
