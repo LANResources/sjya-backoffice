@@ -1,0 +1,102 @@
+- title "Activity Summary"
+
+.row
+  %br
+  .col-md-2
+    %strong Select Date Range
+  .col-md-4
+    .form-group
+      .col-md-2
+        %label From
+      .col-md-10
+        %input{id: 'activity_date', class: 'form-control', data_date_format: "yyyy-mm-dd", data_behaviour: "datepicker"}
+  .col-md-4
+    .form-group
+      .col-md-2
+        %label To
+      .col-md-10
+        %input{id: 'activity_date1', class: 'form-control'}
+
+
+
+.row
+  %br
+  .col-md-12
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th.c Activity Type
+          %th.c # in Period
+          %th.c Completed for
+          %th.c Total Participants
+          %th.c Volunteer Hours
+          %th.c Sectors
+          %th.c Successfulness
+      %tbody
+        %tr
+          %td.c
+          %td.c
+          %td.c
+            %table{style: 'width: 100%;'}
+              %tr
+                %th.c % for Stop Act
+                %th.c % Drug Free Community
+          %td.c
+          %td.c
+            %table{style: 'width: 100%;'}
+              %tr
+                %th.c Adults
+                %th.c Youth
+          %td.c
+            %table{style: 'width: 100%;'}
+              %tr
+                %th.c{style: 'width: 50%'} Count
+                %th.c{style: 'width: 50%'} %
+          %td.c
+
+        %tr
+          %td.c XYZ
+          %td.c 10
+          %td.c
+            %table{style: 'width: 100%;'}
+              %tr
+                %td.c 20%
+                %td.c 30%
+          %td.c 20 People
+
+          %td.c
+            %table{style: 'width: 100%;'}
+              %tr
+                %td.c 20
+                %td.c 30
+
+          %td.c
+            %table{style: 'width: 100%;'}
+              %tr
+                %td.c{style: 'width: 50%'} 3
+                %td.c{style: 'width: 50%'} 60%
+          %td.c Very Successful
+
+        %tr
+          %td.c XYZ
+          %td.c 10
+          %td.c
+            %table{style: 'width: 100%;'}
+              %tr
+                %td.c 20%
+                %td.c 30%
+          %td.c 20 People
+
+          %td.c
+            %table{style: 'width: 100%;'}
+              %tr
+                %td.c 20
+                %td.c 30
+
+          %td.c
+            %table{style: 'width: 100%;'}
+              %tr
+                %td.c{style: 'width: 50%'} 3
+                %td.c{style: 'width: 50%'} 60%
+          %td.c Very Successful
+

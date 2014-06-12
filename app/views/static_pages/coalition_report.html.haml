@@ -1,5 +1,4 @@
 - title "User/Coalition Report"
-
 .row
   .col-md-12
     %table.table.table-striped.table-condensed
@@ -9,18 +8,14 @@
           %th.c # of Members/Users
           %th.c # Involvement (%)
       %tbody
-        %tr
-          %td.c IT
-          %td.c 10
-          %td.c 20%
-        %tr
-          %td.c Retail
-          %td.c 15
-          %td.c 30%
-        %tr
-          %td.c Banking
-          %td.c 20
-          %td.c 40%
+        - @report.each_key do |sector|
+          %tr
+            %td.c= sector
+            %td.c= @report[sector][:members]
+            %td.c= "#{@report[sector][:involvement]} %"
+
+
+
 
 
 

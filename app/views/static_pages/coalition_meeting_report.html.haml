@@ -1,19 +1,26 @@
 - title "Coalition Meeting Report"
 
 .row
-  .h4 Select Date Range
+  %br
+  .col-md-2
+    %strong Select Date Range
   .col-md-4
     .form-group
-      %label From
-      %input{id: 'activity_date', class: 'form-control', data_date_format: "yyyy-mm-dd", data_behaviour: "datepicker"}
+      .col-md-2
+        %label From
+      .col-md-10
+        %input(id ='activity_date' class= 'form-control' data-date-format= "yyyy-mm-dd")
   .col-md-4
     .form-group
-      %label To
-      %input{id: 'activity_date1', class: 'form-control'}
+      .col-md-2
+        %label To
+      .col-md-10
+        %input{id: 'activity_date1', class: 'form-control'}
 
 
 
 .row
+  %br
   .col-md-12
     %fieldset
       %legend Average Attendance

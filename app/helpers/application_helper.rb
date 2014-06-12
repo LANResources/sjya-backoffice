@@ -85,4 +85,13 @@ module ApplicationHelper
     end
     links
   end
+
+  def display_answer_content ans
+    if ans.question.id == 5
+      Sector.find(ans.answer_text.to_i).name
+    else
+      ans.answer_text.to_i
+    end
+  end
+
 end
