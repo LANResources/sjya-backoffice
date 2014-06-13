@@ -70,7 +70,7 @@ gem 'dalli'
 # Debugging
 gem 'exception_notification'
 group :development do
-  gem "pry"
+  gem "pry-rails"
   gem 'meta_request'
   gem 'rails-erd'
   gem 'hirb'

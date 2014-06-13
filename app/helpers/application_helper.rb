@@ -95,7 +95,7 @@ module ApplicationHelper
   end
 
   def display_in_percent(val, p)
-   val.nonzero? ? "#{(val * 100) / p} %" : "0%".html_safe
+   val.nonzero? ? "#{((val * 100) / p.to_f).round(2)} %" : "0%".html_safe
   end
 
 end

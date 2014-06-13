@@ -9,10 +9,11 @@
           %th.c # Involvement (%)
       %tbody
         - @report.each_key do |sector|
+          - next if sector == :involvement_total
           %tr
             %td.c= sector
             %td.c= @report[sector][:members]
-            %td.c= "#{@report[sector][:involvement]} %"
+            %td.c= "#{display_in_percent(@report[sector][:involvement], @report[:involvement_total])}"
 
 
 
