@@ -28,4 +28,8 @@ class Reports::Report
       updated: Rapidfire::Attempt.last_updated 
     }
   end
+
+  def self.policy_class
+    ReportPolicy
+  end
 end

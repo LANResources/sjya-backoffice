@@ -18,6 +18,12 @@
           %i.fa.fa-bullhorn.fa-fw
           %span.hidden-sm Activities
 
+      - if policy(Reports::Report).index?
+        %li{class: ('active' if controller.controller_name == 'reports')}
+          = link_to reports_url do
+            %i.fa.fa-bar-chart-o.fa-fw
+            %span.hidden-sm Reports
+
       %li{class: ('active' if controller.controller_name == 'users')}
         = link_to users_path do
           %i.fa.fa-group.fa-fw
