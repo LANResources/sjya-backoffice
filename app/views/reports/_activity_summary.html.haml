@@ -1,0 +1,37 @@
+.row
+  .col-md-12
+    .table-responsive
+      %table.table.table-striped.table-condensed.table-bordered.small-text-table#activity-summary-table
+        %thead
+          %tr
+            %th.l{rowspan: 2} Activity Type
+            %th.c{rowspan: 2} # Activities
+            %th.c{colspan: Rapidfire::Attempt::COMPLETED_FOR_OPTIONS.size} Completed For
+            %th.c{rowspan: 2} Total Participants
+            %th.c{colspan: 2} Volunteer Hours
+            %th.c{rowspan: 2} Sectors Served
+            %th.c{colspan: 2, rowspan: 2} Success Rate
+          %tr
+            - Rapidfire::Attempt::COMPLETED_FOR_OPTIONS.each do |option|
+              %th.c= option
+            %th.c Adult
+            %th.c Youth
+        
+        %tbody
+          - @report.activity_types.sort_by{|k,v| k}.each do |type, type_data|
+            %tr
+              %td.l{rowspan: 3}= type
+              %td.c.lg{rowspan: 3}= type_data[:count]
+              - Rapidfire::Attempt::COMPLETED_FOR_OPTIONS.each do |option|
+                %td.c.lg{rowspan: 3}= number_to_percentage (type_data[:completed_for_count][option] / type_data[:count].to_f) * 100, precision: 0
+              %td.c.lg{rowspan: 3}= type_data[:total_participants]
+              %td.c.lg{rowspan: 3}= type_data[:total_volunteer_hours][:adult]
+              %td.c.lg{rowspan: 3}= type_data[:total_volunteer_hours][:youth]
+              %td.c.lg{rowspan: 3}= number_with_percentage type_data[:sectors_served], @report.sector_count
+              %td.c= success_rate_category_icon @report.success_rate_categories[0]
+              %td.c= number_with_percentage type_data[:success_rate][@report.success_rate_categories[0]], type_data[:count]
+
+            - @report.success_rate_categories[1..(@report.success_rate_categories.size - 1)].each do |category|
+              %tr
+                %td.c= success_rate_category_icon category
+                %td.c= number_with_percentage type_data[:success_rate][category], type_data[:count]

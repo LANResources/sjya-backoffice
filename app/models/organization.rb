@@ -5,6 +5,8 @@ class Organization < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :sector, unless: lambda {|org| org.name == 'LAN Resources' }
 
+  after_save :clear_cache
+  
   scope :assignable_for, ->(user) {
     case user.role
     when 'administrator'
@@ -17,4 +19,10 @@ class Organization < ActiveRecord::Base
       none
     end
   }
+
+  private
+
+  def clear_cache
+    Rails.cache.delete 'sectors-by-user'
+  end
 end

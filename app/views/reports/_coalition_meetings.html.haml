@@ -1,0 +1,44 @@
+.row
+  .col-md-4
+    .row
+      %br.hidden-sm.hidden-xs
+      %br.hidden-sm.hidden-xs
+
+      .col-lg-12.col-sm-12.col-xs-6.col-xxs-12
+        .smallstat.box
+          %i.fa.fa-gavel.darkBlue
+          %span.title Meetings
+          %span.value= @report.meeting_count
+
+      .col-lg-12.col-sm-12.col-xs-6.col-xxs-12
+        .smallstat.box
+          %i.fa.fa-users.burntOrange
+          %span.title Average Attendance
+          %span.value= @report.average_attendance.round(0)
+
+      .col-lg-12.col-sm-12.col-xs-6.col-xxs-12
+        .smallstat.box
+          %i.fa.fa-users.blue
+          %span.title Avg. Member Attendance
+          %span.value= @report.average_coalition_member_attendance.round(0)
+
+      .col-lg-12.col-sm-12.col-xs-6.col-xxs-12
+        .smallstat.box
+          %i{class: coalition_meeting_involvement_score_icon(@report.involvement)}
+          %span.title Involvement Score
+          %span.value= "#{number_to_percentage(@report.involvement_score, precision: 0)} (#{@report.involvement})"
+
+  .col-md-8
+    .row
+      .col-md-12
+        %table.table.table-striped.table-condensed
+          %thead
+            %tr
+              %th.l Sector
+              %th.c Meetings Attended
+          %tbody
+            - @report.sectors.sort_by{|sector, sector_data| sector_data[:name] }.each do |sector, sector_data|
+              %tr
+                %td.l= sector_data[:name]
+                %td.c= number_with_percentage sector_data[:meetings_attended], sector_data[:average_involvement]
+

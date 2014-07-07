@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
 
   before_create :check_password
   before_save { self.email = email.downcase }
+  after_save :clear_cache
 
   def authenticate(unencrypted_password)
     if status == 'registered'
@@ -54,9 +55,18 @@ class User < ActiveRecord::Base
     [address, city, state, zipcode].reject(&:blank?).compact.join(', ')
   end
 
+  def sector_id
+    organization.try(:sector_id)
+  end
+
   private
 
   def check_password
     raise "Password digest missing on new record" if password_required? && password_digest.blank?
   end
+
+  def clear_cache
+    Rails.cache.delete 'sectors-by-user'
+  end
+  
 end

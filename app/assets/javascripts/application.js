@@ -20,4 +20,8 @@
 //= require select2
 //= require typeahead.min
 //= require lr.simpliq
+//= require simpliq/moment
+//= require simpliq/daterangepicker
+//= require highcharts
+//= require highcharts/themes/grid-light
 //= require_tree .

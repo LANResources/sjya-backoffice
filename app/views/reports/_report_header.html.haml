@@ -1,0 +1,17 @@
+- title active_title
+
+- content_for :breadcrumb_dropdown do
+  .btn-group
+    %button.btn.btn-xs.btn-info.dropdown-toggle{type: 'button', data: { toggle: 'dropdown' }}
+      = a_space active_title
+      %span.caret
+    %ul.dropdown-menu{role: 'menu'}
+      - Reports::Report::TITLES_AND_IDS.each do |(report_title, report_id)|
+        - unless report_id == active_id
+          %li
+            = link_to report_title, report_path(report_id)
+
+- breadcrumbs ['Reports', reports_path], yield(:breadcrumb_dropdown).html_safe
+
+- if defined?(date_range) && date_range
+  = render partial: 'date_range_picker'

@@ -1,0 +1,20 @@
+.row
+  .col-md-12
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th.l Rank
+          %th.c Strategy
+          %th.c Activities
+      %tbody
+        - @report.strategies.sort_by{|strategy, count| count}.reverse.each_with_index do |(strategy, activity_count), i|
+          %tr
+            %td.l= i + 1
+            %td.c= short_strategy strategy
+            %td.c= number_with_percentage activity_count, @report.total_activities
+
+- if @report.total_activities > 0
+  %br/
+  .row
+    .col-md-12
+      #activity-chart{data: {title: 'Strategy Breakdown', series: @report.strategies.reject{|s,c| c == 0}.map{|s, count| [short_strategy(s), (count / @report.total_activities.to_f)] }}}

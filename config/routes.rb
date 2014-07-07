@@ -20,6 +20,8 @@ SJYABackOffice::Application.routes.draw do
   end
   get 'dashboard', to: 'measures#index', as: :dashboard
 
+  resources :reports, only: [:index, :show]
+
   resources :sessions, only: [:new, :create, :destroy]
   resources :password_resets, only: [:new, :create, :edit, :update]
 

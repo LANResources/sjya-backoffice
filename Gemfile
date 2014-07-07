@@ -29,7 +29,7 @@ gem 'newrelic_rpm'
 gem 'pundit'
 
 # Theme
-gem 'lr-simpliq' #, git: 'https://github.com/LANResources/backoffice-theme.git', branch: 'simpliq-2.1.1'
+gem 'lr-simpliq', git: 'https://github.com/LANResources/backoffice-theme.git', branch: 'simpliq-2.1.1'
 
 # JavaScript
 gem 'jquery-rails'
@@ -37,6 +37,7 @@ gem 'turbolinks'
 gem 'dropzonejs-rails'
 gem 'select2-rails'
 gem 'best_in_place', git: 'https://github.com/bernat/best_in_place.git', branch: 'rails-4'
+gem 'highcharts-rails'
 
 # JSON
 gem 'jbuilder', '~> 1.2'
@@ -56,6 +57,7 @@ gem 'letter_opener', group: :development
 
 # Surveys
 gem 'rapidfire', git: 'https://github.com/LANResources/rapidfire.git', branch: 'master'
+gem 'rails_engine_decorators'
 
 # Tagging
 gem 'acts-as-taggable-on'

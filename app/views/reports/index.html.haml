@@ -1,0 +1,10 @@
+- title 'Available Reports'
+
+.row
+  .col-md-12
+    .list-group
+      = link_to 'User/Coalition Report', report_path('coalitions'), class: 'list-group-item'
+      = link_to 'Coalition Meeting Report', report_path('coalition-meetings'), class: 'list-group-item'
+      = link_to 'Activity Summary', report_path('activity-summary'), class: 'list-group-item'
+      = link_to 'Major Matrix Report', report_path('major-matrix'), class: 'list-group-item'
+      = link_to 'Strategy Report', report_path('strategy'), class: 'list-group-item'

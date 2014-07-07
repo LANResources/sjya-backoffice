@@ -83,3 +83,18 @@ blockquote.pull-right {
 .bs-callout-info h4 {
   color: #2E568A;
 }
+
+// Table Typography
+.small-text-table {
+  font-size: 12px;
+  thead tr th, tbody tr td {
+    &.lg {
+      font-size: 15px;
+    }
+  }
+}
+thead tr th, tbody tr td {
+  &.lg {
+    font-size: 16px;
+  }
+}

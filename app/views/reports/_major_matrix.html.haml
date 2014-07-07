@@ -1,0 +1,20 @@
+.row
+  .col-md-12
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th.l.lg Rank
+          %th.c.lg Matrix Box
+          %th.c.lg Activities
+      %tbody
+        - @report.matrix_boxes.sort_by{|mb, count| count}.reverse.each_with_index do |(matrix_box, activity_count), i|
+          %tr
+            %td.l.lg= i + 1
+            %td.c.lg= matrix_box
+            %td.c.lg= number_with_percentage activity_count, @report.total_activities
+
+- if @report.total_activities > 0
+  %br/
+  .row
+    .col-md-12
+      #activity-chart{data: {title: 'Major Matrix Report', series: @report.matrix_boxes.reject{|mb,count| count == 0}.map{|mb, count| [mb, (count / @report.total_activities.to_f)] }}}

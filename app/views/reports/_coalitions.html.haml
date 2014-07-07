@@ -1,0 +1,21 @@
+%br/
+
+.row
+  .col-md-12
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th.l Sector
+          %th.c Coalition Members
+          %th.c Average Level of Involvement
+      %tbody
+        - @report.sectors.sort_by{|sector, sector_data| sector_data[:name] }.each do |sector, sector_data|
+          %tr
+            %td.l= sector_data[:name]
+            %td.c= sector_data[:members]
+            %td.c= number_to_percentage sector_data[:average_involvement], precision: 0
+
+
+
+
+

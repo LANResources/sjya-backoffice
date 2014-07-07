@@ -1,0 +1,11 @@
+.row
+  .col-md-12
+    %form
+      .form-group
+        .controls.row
+          .input-group.col-md-4.pull-right
+            %span.input-group-addon
+              %i.fa.fa-calendar
+            = date_range_picker @report
+
+%br/

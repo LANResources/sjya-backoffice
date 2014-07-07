@@ -1,0 +1,3 @@
+= render partial: 'report_header', locals: { active_title: @report.title, active_id: params[:id], date_range: (@report.title != 'User/Coalition Report') }
+
+= render partial: @builder.view_template
