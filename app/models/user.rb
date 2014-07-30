@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   before_create :check_password
   before_save { self.email = email.present? ? email.downcase : nil }
   after_save :clear_cache
+  after_destroy :remove_from_activities
 
   def authenticate(unencrypted_password)
     if status == 'registered'
@@ -70,4 +71,15 @@ class User < ActiveRecord::Base
     Rails.cache.delete 'sectors-by-user'
   end
   
+  def remove_from_activities
+    Rapidfire::Questions::UserMultiSelect.all.each do |question|
+      question.answers.pluck(:id, :answer_text).each do |(answer_id, answer_text)|
+        user_array = answer_text.split(',,,').map(&:to_i)
+        if id.in? user_array
+          user_array.delete id 
+          Rapidfire::Answer.find(answer_id).update_attributes answer_text: user_array.join(',,,')
+        end
+      end
+    end
+  end
 end
