@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/LANResources/rapidfire.git
-  revision: 86d1bfdf4d64559761a01c6afcb0d7ff15e703a6
+  revision: 791509335fbd59e1656a290f903197d77b761c14
   branch: master
   specs:
     rapidfire (1.2.0)
@@ -153,7 +153,7 @@ GEM
       railties (>= 3.1)
     hike (1.2.3)
     hirb (0.7.1)
-    i18n (0.6.9)
+    i18n (0.6.11)
     jbuilder (1.5.2)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -306,7 +306,7 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (2.1.0)
       coffee-rails
-    tzinfo (0.3.39)
+    tzinfo (0.3.40)
     uglifier (2.2.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
