@@ -40,5 +40,5 @@
             - @report.sectors.sort_by{|sector, sector_data| sector_data[:name] }.each do |sector, sector_data|
               %tr
                 %td.l= sector_data[:name]
-                %td.c= number_with_percentage sector_data[:meetings_attended], sector_data[:average_involvement]
+                %td.c= number_with_percentage sector_data[:meetings_attended], @report.meeting_count
 
