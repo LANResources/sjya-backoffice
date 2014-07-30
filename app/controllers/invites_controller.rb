@@ -13,7 +13,7 @@ class InvitesController < ApplicationController
         format.html { redirect_to @user, notice: "Successfully sent an invitation to #{@user.full_name}." }
         format.json { head :no_content }
       else
-        format.html { redirect_to @user, error: 'Unable to invite user.' }
+        format.html { redirect_to @user, { flash: { error: 'Unable to invite user.' }} }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -61,7 +61,7 @@ class InvitesController < ApplicationController
   def verify_invitation
     deny_access if signed_in?
     unless User.where(id: params[:id], invite_token: params[:invite_code]).exists?
-      redirect_to login_path, error: "The invitation link you're attempting to use is not valid."
+      redirect_to login_path, { flash: { error: "The invitation link you're attempting to use is not valid." }}
     end
   end
 

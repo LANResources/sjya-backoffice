@@ -18,11 +18,15 @@ module Invitable
   end
 
   def send_invite(invitee)
-    invitee.update_attributes!  role: invitee.contact? ? 'registered_user' : invitee.role,
-                                invite_token: User.generate_token(:invite_token),
-                                invited_by: self.id,
-                                invited_at: Time.zone.now
-    UserMailer.invitation(invitee).deliver
+    if invitee.email.present?
+      invitee.update_attributes!  role: invitee.contact? ? 'registered_user' : invitee.role,
+                                  invite_token: User.generate_token(:invite_token),
+                                  invited_by: self.id,
+                                  invited_at: Time.zone.now
+      UserMailer.invitation(invitee).deliver
+    else
+      false
+    end
   end
 
   def uninvite(invitee)

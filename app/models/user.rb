@@ -16,9 +16,10 @@ class User < ActiveRecord::Base
 
   validates :first_name,            presence: true
   validates :last_name,             presence: true
-  validates :email,                 presence: true,
-                                    format: { with: VALID_EMAIL_REGEX },
-                                    uniqueness: { case_sensitive: false }
+  validates :email,                 presence: { unless: lambda { |u| u.role == 'contact' } }
+  validates :email,                 format: { with: VALID_EMAIL_REGEX },
+                                    uniqueness: { case_sensitive: false },
+                                    if: lambda { |u| u.email.present? }             
   validates :password,              presence: { on: :create },
                                     confirmation: { if: lambda { |m| m.password.present? } },
                                     length: { minimum: 6, if: lambda { |m| m.password.present? } },
@@ -28,7 +29,7 @@ class User < ActiveRecord::Base
   validates :organization_id,       presence: true
 
   before_create :check_password
-  before_save { self.email = email.downcase }
+  before_save { self.email = email.present? ? email.downcase : nil }
   after_save :clear_cache
 
   def authenticate(unencrypted_password)
