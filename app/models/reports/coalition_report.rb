@@ -16,7 +16,7 @@ class Reports::CoalitionReport < Reports::Report
 
       participant_list_question = Rapidfire::Question.participant_list_question
 
-      Rapidfire::Attempt.all.each do |attempt|
+      Rapidfire::Attempt.date_range(@start_date, @end_date).each do |attempt|
         @activity_count += 1
 
         attempt.sectors_involved.each do |attempt_sector_id|
