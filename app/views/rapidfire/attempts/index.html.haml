@@ -47,3 +47,8 @@
     = link_to rapidfire.new_activity_path, class: 'btn btn-primary' do
       %i.fa.fa-plus
       = "&nbsp;New Activity".html_safe
+
+.row
+  .col-md-12
+    %h2 Additional Filters
+    = link_to 'With Incomplete Match Data', activities_path(@scope_params.merge({incomplete_match_data: true})), disabled: @scope_params.has_key?(:incomplete_match_data), class: 'btn btn-sm btn-primary'

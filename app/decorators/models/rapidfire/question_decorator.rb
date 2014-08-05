@@ -56,6 +56,18 @@ Rapidfire::Question.class_eval do
     cached_question :strategies, :checkbox, 'strategy'
   end
 
+  def self.match_amount_question
+    cached_question :match_amount, :checkbox, %w[match amount]
+  end
+
+  def self.cash_match_amount_question
+    cached_question :cash_match_amount, :short, 'cash', :match_amount_question
+  end
+
+  def self.in_kind_match_amount_question
+    cached_question :in_kind_match_amount, :short, 'in-kind', :match_amount_question
+  end
+
   private 
 
   def clear_cache

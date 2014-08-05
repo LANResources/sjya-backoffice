@@ -11,6 +11,28 @@ Rapidfire::Attempt.class_eval do
     end
   }
 
+  scope :with_incomplete_match_data, -> {
+    with_match_amount_answered = Rapidfire::Question.match_amount_question.answers.to_a.group_by(&:answer_text)
+    with_cash_data = Rapidfire::Question.cash_match_amount_question.answers.pluck(:attempt_id)
+    with_in_kind_data = Rapidfire::Question.in_kind_match_amount_question.answers.pluck(:attempt_id)
+
+    incomplete_attempt_ids = []
+
+    with_match_amount_answered.each do |answer_text, answers|
+      attempt_ids = answers.map(&:attempt_id)
+      case answer_text 
+      when /,,,/i
+        incomplete_attempt_ids += ((attempt_ids - with_cash_data) + (attempt_ids - with_in_kind_data)).uniq
+      when /cash/i
+        incomplete_attempt_ids += attempt_ids - with_cash_data
+      when /in-kind/i
+        incomplete_attempt_ids += attempt_ids - with_in_kind_data
+      end
+    end
+
+    incomplete_attempt_ids.any? ? where(id: incomplete_attempt_ids.uniq) : none
+  }
+
   after_save :clear_cache
 
   def self.last_updated
