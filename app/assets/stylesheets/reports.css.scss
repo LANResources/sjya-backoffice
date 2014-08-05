@@ -11,3 +11,14 @@
 .pieLabel {
   padding: 5px;
 }
+#activity-table-modal {
+  .modal-body {
+    padding: 0;
+    .table {
+      margin-bottom: 0;
+    }
+  }
+  .modal-footer {
+    margin-top: 0;
+  }
+}

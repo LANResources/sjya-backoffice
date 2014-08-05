@@ -21,7 +21,9 @@
           - @report.activity_types.sort_by{|k,v| k}.each do |type, type_data|
             %tr
               %td.l{rowspan: 3}= type
-              %td.c.lg{rowspan: 3}= type_data[:count]
+              %td.c.lg{rowspan: 3}
+                %a.btn-link.activity-table-modal-trigger{href: '#', data: {title: type, content: (render partial: 'modal_activity_table', locals: { data: type_data}).html_safe}}
+                  = type_data[:count]
               - Rapidfire::Attempt::COMPLETED_FOR_OPTIONS.each do |option|
                 %td.c.lg{rowspan: 3}= number_to_percentage (type_data[:completed_for_count][option] / type_data[:count].to_f) * 100, precision: 0
               %td.c.lg{rowspan: 3}= type_data[:total_participants]
@@ -35,3 +37,15 @@
               %tr
                 %td.c= success_rate_category_icon category
                 %td.c= number_with_percentage type_data[:success_rate][category], type_data[:count]
+
+.modal.fade#activity-table-modal{role: 'dialog', aria: {labelledby: "activity-table-modal-label", hidden: 'true'}}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{type: 'button', data: {dismiss: 'modal'}, aria: {hidden: 'true'}} &times;
+        %h4.modal-title{id: "activity-table-modal-label"} Activities
+
+      .modal-body
+            
+      .modal-footer
+        %button.btn.btn-default{type: 'button', data: {dismiss: 'modal'}} Close

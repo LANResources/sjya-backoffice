@@ -16,6 +16,7 @@ class Reports::ActivitySummaryReport < Reports::Report
 
       activities_by_type.each do |type, activities|
         @activity_types[type] = {
+          activities: activities,
           count: activities.count,
           completed_for_count: Hash[Rapidfire::Attempt::COMPLETED_FOR_OPTIONS.map{|opt| [opt, 0] }],
           total_participants: 0,

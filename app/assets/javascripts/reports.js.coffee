@@ -8,6 +8,7 @@ initPage = ->
   if pageIs 'reports', 'show'
     initDateRangePicker()
     initMatrixChart()
+    initActivityTableModal()
 
 initDateRangePicker = ->
   $element = $('#daterange')
@@ -72,3 +73,16 @@ initMatrixChart = ->
         name: 'Activity Share'
         data: data
       }]
+
+initActivityTableModal = ->
+  if $modal = $('#activity-table-modal')
+    $modal.appendTo $('body')
+    $(document.body).on 'click', '.activity-table-modal-trigger', (e) ->
+      e.preventDefault()
+      content = $(this).data 'content'
+      title = "#{$(this).data('title')} Activities"
+      $modal = $('#activity-table-modal')
+      $modal.find('.modal-title').text title
+      $modal.find('.modal-body').html content
+      $modal.modal()
+

@@ -1,0 +1,29 @@
+%table.table.table-condensed.table-striped.table-bordered.small-text-table
+  %thead
+    %tr
+      %th{rowspan: 2} Date
+      %th{rowspan: 2} Description
+      %th.c{rowspan: 2} Participants
+      %th.c{colspan: 2} Volunteer Hours
+      %th.c{rowspan: 2}
+    %tr
+      %th.c Adult
+      %th.c Youth
+  %tbody
+    - data[:activities].sort_by{|a| a.activity_date || a.updated_at }.reverse.each do |activity|
+      %tr
+        %td= (activity.activity_date || activity.updated_at).strftime('%-m.%-d.%y')
+        %td= activity.description
+        %td.c= activity.participant_count
+        %td.c= activity.adult_volunteer_hours
+        %td.c= activity.youth_volunteer_hours
+        %td.c
+          = link_to rapidfire.activity_path(activity), class: 'btn btn-xs btn-info' do
+            %i.fa.fa-eye
+  %tfoot
+    %tr
+      %th{colspan: 2}
+      %th.c.info= data[:total_participants]
+      %th.c.info= data[:total_volunteer_hours][:adult]
+      %th.c.info= data[:total_volunteer_hours][:youth]
+      %th

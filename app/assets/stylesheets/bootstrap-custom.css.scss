@@ -84,6 +84,20 @@ blockquote.pull-right {
   color: #2E568A;
 }
 
+// Table Info Context
+.table {
+  thead, tbody, tfoot {
+    tr.info, tr td.info, tr th.info {
+      background-color: #d9edf7;
+    }
+  }
+}
+.table-hover tbody {
+  tr.info:hover th, tr.info:hover td, tr th.info:hover, tr td.info:hover {
+    background-color: #c4e3f3; 
+  }
+}
+
 // Table Typography
 .small-text-table {
   font-size: 12px;
