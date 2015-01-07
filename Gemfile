@@ -36,7 +36,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'dropzonejs-rails'
 gem 'select2-rails'
-gem 'best_in_place', git: 'https://github.com/bernat/best_in_place.git', branch: 'rails-4'
+gem 'best_in_place', git: 'https://github.com/bernat/best_in_place.git', ref: '366413be357d65cdf47031e928aea969f72e3659'
 gem 'highcharts-rails'
 
 # JSON
