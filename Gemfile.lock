@@ -8,15 +8,6 @@ GIT
       acts_as_list (>= 0.3.0)
       rails (>= 3.2.13)
 
-GIT
-  remote: https://github.com/bernat/best_in_place.git
-  revision: 366413be357d65cdf47031e928aea969f72e3659
-  ref: 366413be357d65cdf47031e928aea969f72e3659
-  specs:
-    best_in_place (2.0.3)
-      jquery-rails
-      rails (~> 4)
-
 GEM
   remote: https://rubygems.org/
   remote: https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/lanresources/
@@ -55,6 +46,9 @@ GEM
     arel (4.0.2)
     awesome_print (1.2.0)
     bcrypt-ruby (3.1.2)
+    best_in_place (3.0.2)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
     bootstrap-will_paginate (0.0.10)
       will_paginate
     builder (3.1.4)
@@ -329,7 +323,7 @@ DEPENDENCIES
   acts-as-taggable-on
   awesome_print
   bcrypt-ruby (~> 3.1.2)
-  best_in_place!
+  best_in_place
   bootstrap-will_paginate
   capybara (= 2.1.0)
   carrierwave
