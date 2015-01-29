@@ -4,7 +4,7 @@ $ ->
 
 initPage = ->
   if pageIs 'attempts', 'index'
-    initDescriptionPopovers()
+    initDateRangePicker()
 
   else if pageIs 'attempts', ['new', 'create', 'edit', 'update']
     initSelect2()
@@ -12,6 +12,25 @@ initPage = ->
     initDatepicker()
     initActivityTypeSelect()
     initMultiObjectQuestions()
+
+initDateRangePicker = ->
+  $element = $('#daterange')
+  minDate = $element.data 'mindate'
+  maxDate = $element.data 'maxdate'
+
+  $element.daterangepicker
+    opens: 'left'
+    minDate: minDate
+    maxDate: maxDate
+  .on 'apply.daterangepicker', (ev, picker) ->
+    start_date = picker.startDate.format('YYYY-MM-DD')
+    end_date = picker.endDate.format('YYYY-MM-DD')
+
+    url = $('#daterangepicker-container').data('url') or window.location.href
+    [url, path] = url.split('?')
+    path = if path? then "&#{path}" else ""
+    url = "#{url}?start_date=#{start_date}&end_date=#{end_date}#{path}"
+    Turbolinks.visit url
 
 initSelect2 = ->
   $('.select2').select2()
@@ -43,12 +62,6 @@ initDatepicker = ->
   $ad.datepicker().on 'changeDate', ->
     $ad.datepicker 'hide'
 
-initDescriptionPopovers = ->
-  $('.description-popover').each ->
-    $(this).popover
-      placement: 'left'
-      trigger: 'hover'
-
 initActivityTypeSelect = ->
   $(document.body).on 'change', '#activity_type_select', ->
     if $(this).val() is ''
@@ -64,7 +77,6 @@ initActivityTypeSelect = ->
       $activityTypeInput.val $('#activity_type_custom').val()
     else
       $activityTypeInput.val selectVal
-
 
 initMultiObjectQuestions = ->
   $(document.body).on 'click', '.add-object-btn', ->

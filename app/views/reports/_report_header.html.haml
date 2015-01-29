@@ -14,4 +14,4 @@
 - breadcrumbs ['Reports', reports_path], yield(:breadcrumb_dropdown).html_safe
 
 - if defined?(date_range) && date_range
-  = render partial: 'date_range_picker'
+  = render partial: 'shared/date_range_picker', locals: { date_range_object: @report }

@@ -1,5 +1,8 @@
 
-- title "Activities", true, @scopes.values.join(" ")
+- title [params[:type], 'Activities'].compact.join(" "), true, @scopes.reject{|k,_| k == :type }.values.join(" ")
+
+%span#daterangepicker-container{data: {url: activities_url(@scope_params.reject{|k,_| k.in? [:start_date, :end_date] })}}
+  = render partial: 'shared/date_range_picker', locals: { date_range_object: @daterange }
 
 = render partial: 'shared/scope_tags', locals: { scopes: @scopes, scope_params: @scope_params }
 
@@ -8,24 +11,22 @@
     %table.table.table-striped.table-responsive
       %thead
         %tr
-          %th= sortable 'activity_date', 'Activity Date', 'desc'
-          - unless @scopes.has_key? :user
-            %th.c= sortable 'users.last_name', 'Completed By'
-          %th.c Completed For
+          %th= sortable 'id', '#'
+          %th.nowrap= sortable 'activity_date', 'Activity Date', 'desc'
+          - unless @scopes.has_key? :type
+            %th.c.nowrap= sortable 'activity_type', 'Type'
           %th.c Description
           %th
       %tbody
         - if @attempts.any?
           - @attempts.each do |attempt|
             %tr
-              %td= link_to (attempt.activity_date || attempt.updated_at).strftime('%B %-d, %Y'), activity_path(attempt)
-              - unless @scopes.has_key? :user
-                %td.c= link_to attempt.user.full_name, activities_path(@scope_params.merge({user: attempt.user.id}))
-              %td.c= attempt.completed_for.map{|cf| link_to cf, @scope_params.merge({for: cf})}.join('<br/>').html_safe
-              %td.c
-                %a.btn-link.description-popover{role: 'button', title: 'Description', data: {content: attempt.description}}
-                  %i.fa.fa-ellipsis-h.fa-lg.fa-border
-              %td.r
+              %td= link_to attempt.id, activity_path(attempt)
+              %td.nowrap= link_to (attempt.activity_date || attempt.updated_at).strftime('%B %-d, %Y'), activity_path(attempt)
+              - unless @scopes.has_key? :type
+                %td.c.nowrap= link_to attempt.activity_type, activities_path(@scope_params.merge({type: attempt.activity_type}))
+              %td.c= attempt.description
+              %td.r.nowrap
                 - if policy(attempt).edit?
                   = link_to edit_activity_path(attempt), title: "Edit Activity", class: "btn btn-sm btn-warning" do
                     %i.fa.fa-pencil

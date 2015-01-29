@@ -24,6 +24,9 @@ td, th {
   &.left {
     text-align: left;
   }
+  &.nowrap {
+    white-space: nowrap;
+  }
 }
 
 // Darker blockquote border
@@ -94,7 +97,7 @@ blockquote.pull-right {
 }
 .table-hover tbody {
   tr.info:hover th, tr.info:hover td, tr th.info:hover, tr td.info:hover {
-    background-color: #c4e3f3; 
+    background-color: #c4e3f3;
   }
 }
 
