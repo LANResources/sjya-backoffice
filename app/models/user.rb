@@ -14,12 +14,14 @@ class User < ActiveRecord::Base
   has_many :documents
   has_many :attempts, class_name: 'Rapidfire::Attempt'
 
+  delegate :sector, to: :organization, allow_nil: true
+
   validates :first_name,            presence: true
   validates :last_name,             presence: true
   validates :email,                 presence: { unless: lambda { |u| u.role == 'contact' } }
   validates :email,                 format: { with: VALID_EMAIL_REGEX },
                                     uniqueness: { case_sensitive: false },
-                                    if: lambda { |u| u.email.present? }             
+                                    if: lambda { |u| u.email.present? }
   validates :password,              presence: { on: :create },
                                     confirmation: { if: lambda { |m| m.password.present? } },
                                     length: { minimum: 6, if: lambda { |m| m.password.present? } },
@@ -70,13 +72,13 @@ class User < ActiveRecord::Base
   def clear_cache
     Rails.cache.delete 'sectors-by-user'
   end
-  
+
   def remove_from_activities
     Rapidfire::Questions::UserMultiSelect.all.each do |question|
       question.answers.pluck(:id, :answer_text).each do |(answer_id, answer_text)|
         user_array = answer_text.split(',,,').map(&:to_i)
         if id.in? user_array
-          user_array.delete id 
+          user_array.delete id
           Rapidfire::Answer.find(answer_id).update_attributes answer_text: user_array.join(',,,')
         end
       end

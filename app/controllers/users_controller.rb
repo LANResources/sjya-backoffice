@@ -103,7 +103,12 @@ class UsersController < ApplicationController
       @scope_cache_key = ''
       @users = User.includes(:organization)
 
-      if params[:org] and Organization.exists?(params[:org])
+      if params[:sector] and Sector.exists?(params[:sector])
+        @scopes[:sector] = "members of #{(sector = Sector.find(params[:sector])).name} sector"
+        @scope_params[:sector] = params[:sector]
+        @scope_cache_key += "sector-#{params[:sector]}"
+        @users = @users.where organization_id: sector.organization_ids
+      elsif params[:org] and Organization.exists?(params[:org])
         @scopes[:org] = "members of #{Organization.find(params[:org]).name}"
         @scope_params[:org] = params[:org]
         @scope_cache_key += "org-#{params[:org]}"

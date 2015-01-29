@@ -12,7 +12,7 @@
         - @report.sectors.sort_by{|sector, sector_data| sector_data[:name] }.each do |sector, sector_data|
           %tr
             %td.l= sector_data[:name]
-            %td.c= sector_data[:members]
+            %td.c= link_to sector_data[:members], users_path(sector: sector)
             %td.c= number_to_percentage sector_data[:average_involvement], precision: 0
 
 
