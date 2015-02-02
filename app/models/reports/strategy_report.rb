@@ -8,7 +8,7 @@ class Reports::StrategyReport < Reports::Report
       activities = Rapidfire::Attempt.includes(:answers).date_range(@start_date, @end_date)
       @total_activities = activities.count
 
-      strategy_answers = Rapidfire::Answer.where(attempt_id: activities.pluck(:id), question_id: Rapidfire::Question.strategies_question.id).pluck(:answer_text)
+      strategy_answers = Rapidfire::Answer.where(attempt_id: activities.pluck(:id).uniq, question_id: Rapidfire::Question.strategies_question.id).pluck(:answer_text)
       strategy_answers.each do |strategy_answer|
         strategy_answer.split(',,,').each do |strategy|
           @strategies[strategy] += 1
