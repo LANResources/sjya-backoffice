@@ -11,6 +11,7 @@ initPage = ->
     initFollowUps()
     initDatepicker()
     initActivityTypeSelect()
+    initFloatValidator()
     initMultiObjectQuestions()
 
 initDateRangePicker = ->
@@ -77,6 +78,11 @@ initActivityTypeSelect = ->
       $activityTypeInput.val $('#activity_type_custom').val()
     else
       $activityTypeInput.val selectVal
+
+initFloatValidator = ->
+  $(document.body).on 'keypress', '.float-input', (e) ->
+    charCode = if e.which then e.which else e.keyCode
+    !(charCode isnt 46 && charCode > 31 && (charCode < 48 || charCode > 57))
 
 initMultiObjectQuestions = ->
   $(document.body).on 'click', '.add-object-btn', ->

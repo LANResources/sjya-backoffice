@@ -57,6 +57,12 @@
           = f.check_box :answer_presence
 
     .form-group
+      = f.label :answer_only_integer, 'Only Allow Integers? (Numeric only)', class: 'control-label col-sm-2'
+      .col-sm-6
+        .checkbox
+          = f.check_box :answer_only_integer
+
+    .form-group
       = f.label :answer_minimum_length, class: 'control-label col-sm-2'
       .col-sm-6
         = f.text_field :answer_minimum_length, class: 'form-control'

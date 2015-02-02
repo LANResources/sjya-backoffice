@@ -4,6 +4,8 @@
       %th{rowspan: 2} Date
       %th{rowspan: 2} Description
       %th.c{rowspan: 2} Participants
+      %th.c{rowspan: 2} Impressions
+      %th.c{rowspan: 2} In Kind
       %th.c{colspan: 2} Volunteer Hours
       %th.c{rowspan: 2}
     %tr
@@ -14,16 +16,20 @@
       %tr
         %td= (activity.activity_date || activity.updated_at).strftime('%-m.%-d.%y')
         %td= activity.description
-        %td.c= activity.participant_count
-        %td.c= activity.adult_volunteer_hours
-        %td.c= activity.youth_volunteer_hours
+        %td.c= number_with_delimiter activity.participant_count
+        %td.c= number_with_delimiter activity.impressions_count
+        %td.c= activity.in_kind_match_amount || '---'
+        %td.c= number_with_precision activity.adult_volunteer_hours, strip_insignificant_zeros: true
+        %td.c= number_with_precision activity.youth_volunteer_hours, strip_insignificant_zeros: true
         %td.c
           = link_to rapidfire.activity_path(activity), class: 'btn btn-xs btn-info' do
             %i.fa.fa-eye
   %tfoot
     %tr
       %th{colspan: 2}
-      %th.c.info= data[:total_participants]
-      %th.c.info= data[:total_volunteer_hours][:adult]
-      %th.c.info= data[:total_volunteer_hours][:youth]
+      %th.c.info= number_with_delimiter data[:total_participants]
+      %th.c.info= number_with_delimiter data[:total_impressions]
+      %th
+      %th.c.info= number_with_precision data[:total_volunteer_hours][:adult], strip_insignificant_zeros: true
+      %th.c.info= number_with_precision data[:total_volunteer_hours][:youth], strip_insignificant_zeros: true
       %th

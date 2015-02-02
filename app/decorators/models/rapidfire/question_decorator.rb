@@ -12,6 +12,17 @@ Rapidfire::Question.class_eval do
     end
   end
 
+  def self.cached_questions(cache_name, type, question_text, follow_up_to_question = nil)
+    Rails.cache.fetch "rapidfire/#{cache_name.to_s.dasherize}-questions" do
+      if follow_up_to_question && respond_to?(follow_up_to_question)
+        follow_up_to_question = send(follow_up_to_question)
+      end
+      (follow_up_to_question.try(:follow_up_questions) || self)
+        .where(type: "Rapidfire::Questions::#{type.to_s.camelize}")
+        .where('question_text ILIKE ?', "%#{Array(question_text).join('%')}%")
+    end
+  end
+
   def self.attendance_question
     cached_question :attendance, :numeric, %w[how many people involved]
   end
@@ -32,7 +43,7 @@ Rapidfire::Question.class_eval do
     cached_question :adult_volunteer_hours_prelim, :radio, %w[adult volunteer hours]
   end
 
-  def self.adult_volunteer_hours_question 
+  def self.adult_volunteer_hours_question
     cached_question :adult_volunteer_hours, :numeric, 'hours', :adult_volunteer_hours_prelim_question
   end
 
@@ -40,7 +51,7 @@ Rapidfire::Question.class_eval do
     cached_question :youth_volunteer_hours_prelim, :radio, %w[youth volunteer hours]
   end
 
-  def self.youth_volunteer_hours_question 
+  def self.youth_volunteer_hours_question
     cached_question :youth_volunteer_hours, :numeric, 'hours', :youth_volunteer_hours_prelim_question
   end
 
@@ -68,7 +79,15 @@ Rapidfire::Question.class_eval do
     cached_question :in_kind_match_amount, :short, 'in-kind', :match_amount_question
   end
 
-  private 
+  def self.media_question
+    cached_question :media, :checkbox, %w[what media was used]
+  end
+
+  def self.impressions_questions
+    cached_questions :impressions, :numeric, %w[how many impressions], :media_question
+  end
+
+  private
 
   def clear_cache
     Rails.cache.delete 'rapidfire/participant-question'

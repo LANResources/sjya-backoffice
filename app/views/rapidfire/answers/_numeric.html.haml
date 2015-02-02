@@ -1,1 +1,4 @@
-= f.number_field :answer_text, class: 'form-control'
+- if f.object.question.validation_rules[:only_integer] == "1"
+  = f.number_field :answer_text, class: 'form-control'
+- else
+  = f.text_field :answer_text, class: 'form-control float-input'

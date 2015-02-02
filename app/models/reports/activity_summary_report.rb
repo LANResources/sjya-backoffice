@@ -20,6 +20,7 @@ class Reports::ActivitySummaryReport < Reports::Report
           count: activities.count,
           completed_for_count: Hash[Rapidfire::Attempt::COMPLETED_FOR_OPTIONS.map{|opt| [opt, 0] }],
           total_participants: 0,
+          total_impressions: 0,
           total_volunteer_hours: {
             adult: 0,
             youth: 0
@@ -34,6 +35,7 @@ class Reports::ActivitySummaryReport < Reports::Report
           end
 
           @activity_types[type][:total_participants] += activity.participant_count
+          @activity_types[type][:total_impressions] += activity.impressions_count
           @activity_types[type][:total_volunteer_hours][:adult] += activity.adult_volunteer_hours
           @activity_types[type][:total_volunteer_hours][:youth] += activity.youth_volunteer_hours
           @activity_types[type][:sectors_served] += activity.sectors_served.count

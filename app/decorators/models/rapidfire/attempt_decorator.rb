@@ -1,5 +1,5 @@
 Rapidfire::Attempt.class_eval do
-  scope :date_range, ->(start_date, end_date) { 
+  scope :date_range, ->(start_date, end_date) {
     if start_date && end_date
       where(activity_date: start_date..end_date)
     elsif start_date
@@ -20,7 +20,7 @@ Rapidfire::Attempt.class_eval do
 
     with_match_amount_answered.each do |answer_text, answers|
       attempt_ids = answers.map(&:attempt_id)
-      case answer_text 
+      case answer_text
       when /,,,/i
         incomplete_attempt_ids += ((attempt_ids - with_cash_data) + (attempt_ids - with_in_kind_data)).uniq
       when /cash/i
@@ -66,14 +66,19 @@ Rapidfire::Attempt.class_eval do
     cached_answers.select{|a| a.question_id == question_id }.first.try(:answer_text).try(:to_i) || 0
   end
 
+  def impressions_count
+    question_ids = Rapidfire::Question.impressions_questions.map(&:id)
+    cached_answers.select{|a| a.question_id.in? question_ids }.map{|a| a.try(:answer_text).try(:to_i) || 0 }.reduce(&:+) || 0
+  end
+
   def adult_volunteer_hours
     question_id = Rapidfire::Question.adult_volunteer_hours_question.id
-    cached_answers.select{|a| a.question_id == question_id }.first.try(:answer_text).try(:to_i) || 0
+    cached_answers.select{|a| a.question_id == question_id }.first.try(:answer_text).try(:to_f) || 0.0
   end
 
   def youth_volunteer_hours
     question_id = Rapidfire::Question.youth_volunteer_hours_question.id
-    cached_answers.select{|a| a.question_id == question_id }.first.try(:answer_text).try(:to_i) || 0
+    cached_answers.select{|a| a.question_id == question_id }.first.try(:answer_text).try(:to_f) || 0.0
   end
 
   def how_successful
@@ -83,6 +88,12 @@ Rapidfire::Attempt.class_eval do
     when /moderately/i then :moderately
     else :not_at_all
     end
+  end
+
+  def in_kind_match_amount
+    question_id = Rapidfire::Question.in_kind_match_amount_question.id
+    answer = cached_answers.select{|a| a.question_id == question_id }.first.try(:answer_text)
+    answer.blank? ? nil : answer
   end
 
   private
