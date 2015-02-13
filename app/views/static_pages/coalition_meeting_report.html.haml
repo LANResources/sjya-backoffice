@@ -1,0 +1,63 @@
+- title "Coalition Meeting Report"
+
+.row
+  %br
+  .col-md-2
+    %strong Select Date Range
+  .col-md-4
+    .form-group
+      .col-md-2
+        %label From
+      .col-md-10
+        %input(id ='activity_date' class= 'form-control' data-date-format= "yyyy-mm-dd")
+  .col-md-4
+    .form-group
+      .col-md-2
+        %label To
+      .col-md-10
+        %input{id: 'activity_date1', class: 'form-control'}
+
+
+
+.row
+  %br
+  .col-md-12
+    %fieldset
+      %legend Average Attendance
+      .panel.panel-primary.form-group.question-panel
+        .panel-heading How many people were involved in the activity?
+        .panel-body
+          10 People
+
+    %fieldset
+      %legend Sector Involvement
+      .panel.panel-primary.form-group.question-panel
+        .panel-heading What sectors were served by this activity?
+        .panel-body
+          .col-md-8
+            .col-md-2 IT
+            .col-md-6 - 20%
+          .col-md-8
+            .col-md-2 Retail
+            .col-md-6 - 30%
+          .col-md-8
+            .col-md-2 Banking
+            .col-md-6 - 40%
+
+    %fieldset
+      %legend Coalition Member Attendance
+      .panel.panel-primary.form-group.question-panel
+        .panel-heading Were any of the participants members of the coalition?
+        .panel-body
+          .col-md-8
+            80%
+
+    %fieldset
+      %legend Coalition Member Involvement
+      .panel.panel-primary.form-group.question-panel
+        .panel-heading Calculation of coalition member attendance to the total attendance in (%).
+        .panel-body
+          .col-md-8
+            .col-md-2 60-70%
+            .col-md-6 - High
+

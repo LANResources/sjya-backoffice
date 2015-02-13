@@ -85,4 +85,17 @@ module ApplicationHelper
     end
     links
   end
+
+  def display_answer_content ans
+    if ans.question.id == 5
+      Sector.find(ans.answer_text.to_i).name
+    else
+      ans.answer_text.to_i
+    end
+  end
+
+  def display_in_percent(val, p)
+   val.nonzero? ? "#{((val * 100) / p.to_f).round(2)} %" : "0%".html_safe
+  end
+
 end

@@ -1,0 +1,22 @@
+- title "User/Coalition Report"
+.row
+  .col-md-12
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th.c Sector
+          %th.c # of Members/Users
+          %th.c # Involvement (%)
+      %tbody
+        - @report.each_key do |sector|
+          - next if sector == :involvement_total
+          %tr
+            %td.c= sector
+            %td.c= @report[sector][:members]
+            %td.c= "#{display_in_percent(@report[sector][:involvement], @report[:involvement_total])}"
+
+
+
+
+
+

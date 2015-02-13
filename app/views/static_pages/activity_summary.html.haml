@@ -1,0 +1,101 @@
+- title "Activity Summary"
+
+= form_tag activity_summary_path, method: :get do
+  .row
+    .col-md-12
+      .form-group
+        .col-md-10
+          %table{style: 'width: 100%'}
+            %tr
+              %td.c{style: 'width: 15%'}
+                %strong Search :
+              %td{style: 'width: 35%'}
+                = text_field_tag :start_date, '', class: 'form-control', data: { 'date-format' => 'yyyy-mm-dd' }, placeholder: 'Date From'
+              %td{style: 'width: 35%'}
+                = text_field_tag :end_date, '', class: 'form-control', data: { 'date-format' => 'yyyy-mm-dd' }, placeholder: 'Date To'
+              %td.c{style: 'width: 15%'}
+                = submit_tag('Search', class: 'btn btn-primary')
+
+
+
+.row
+  %br
+  .col-md-12
+    %table.table.table-striped.table-condensed
+      %thead
+        %tr
+          %th.c Activity Type
+          %th.c # in Period
+          %th.c Completed for
+          %th.c Total Participants
+          %th.c Volunteer Hours
+          %th.c Sectors
+          %th.c Successfulness
+      %tbody
+        %tr
+          %td.c
+          %td.c
+          %td.c
+            %table
+              %tr
+                %th.c % for Stop Act
+                %th.c % Drug Free Community
+          %td.c
+          %td.c
+            %table{style: 'width: 100%;'}
+              %tr
+                %th.c Adults
+                %th.c Youth
+          %td.c
+            %table{style: 'width: 100%;'}
+              %tr
+                %th.c{style: 'width: 50%'} Count
+                %th.c{style: 'width: 50%'} %
+          %td.c
+            %table
+              %tr
+                %td.c{colspan: 2} Very Successful
+                %td.c{colspan: 2} Moderately Successful
+                %td.c{colspan: 2} Not at All Successful
+              %tr
+                %th.c #
+                %th.c %
+                %th.c #
+                %th.c %
+                %th.c #
+                %th.c %
+
+        - @summary.each_key do |activity|
+          %tr
+            %td.c= activity
+            %td.c= @summary[activity][:period]
+            %td.c
+              %table{style: 'width: 80%;'}
+                %tr
+                  %td.c{style: 'width: 50%;'}= display_in_percent @summary[activity][:stop_act], @summary[activity][:period]
+                  %td.c{style: 'width: 50%;'}= display_in_percent @summary[activity][:drug_free], @summary[activity][:period]
+            %td.c= pluralize(@summary[activity][:participants], 'Person')
+
+            %td.c
+              %table{style: 'width: 100%;'}
+                %tr
+                  %td.c= @summary[activity][:adult]
+                  %td.c= @summary[activity][:youth]
+
+            %td.c
+              %table{style: 'width: 100%;'}
+                %tr
+                  %td.c{style: 'width: 50%'} 3
+                  %td.c{style: 'width: 50%'} 60%
+            %td.c
+              %table{style: 'width: 100%'}
+                %tr
+                  %td.c{style: 'width: 15%'}= @summary[activity][:very]
+                  %td.c{style: 'width: 15%'}= display_in_percent @summary[activity][:very], @summary[activity][:period]
+                  %td.c{style: 'width: 17%'}= @summary[activity][:moderate]
+                  %td.c{style: 'width: 17%'}= display_in_percent @summary[activity][:moderate], @summary[activity][:period]
+                  %td.c{style: 'width: 16%'}= @summary[activity][:not_successful]
+                  %td.c{style: 'width: 17%'}= display_in_percent @summary[activity][:not_successful], @summary[activity][:period]
+
+
+

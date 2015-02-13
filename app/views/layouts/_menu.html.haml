@@ -39,3 +39,8 @@
           %i.fa.fa-file-text.fa-fw
           %span.hidden-sm Documents
 
+      %li{class: ('active' if controller.controller_name == 'static_pages' && params[:action] == 'reports')}
+        = link_to reports_url do
+          %i.fa.fa-info.fa-fw
+          %span.hidden-sm Reports
+
