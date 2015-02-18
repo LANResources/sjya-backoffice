@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 source 'https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/lanresources/'
 
-ruby '2.0.0'
+ruby '2.1.0'
 
 gem 'rails', '4.0.2'
 
@@ -88,7 +88,6 @@ group :development, :test do
   gem 'guard-spork', '1.5.1'
   gem 'childprocess', '0.3.9'
   gem 'terminal-notifier-guard'
-  gem 'debugger'
 end
 
 group :test do
