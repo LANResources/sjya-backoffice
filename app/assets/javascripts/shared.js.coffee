@@ -19,13 +19,17 @@
   @page().action in action
 
 $ ->
+  highlightActiveMenuItem()
   initPopstate()
   initializeNProgress()
   removeFooterLogoOnIE()
   initBestInPlace()
+
   $(document).on 'page:load', ->
+    highlightActiveMenuItem()
     removeFooterLogoOnIE()
     initBestInPlace()
+  .on 'page:restore', highlightActiveMenuItem
 
 initPopstate = ->
   if @browserSupportsPushState
@@ -50,3 +54,12 @@ removeFooterLogoOnIE = ->
 
 initBestInPlace = ->
   $('.best_in_place').best_in_place()
+
+highlightActiveMenuItem = ->
+  $mainMenu = $('.main-menu')
+  $mainMenu.find('li.active').removeClass 'active'
+
+  if ($specificMatch = $mainMenu.find('li[data-active~="' + page().to_s() + '"]')).length > 0
+    $specificMatch.addClass 'active'
+  else
+    $mainMenu.find('li[data-active~="' + page().controller + '"]').addClass 'active'

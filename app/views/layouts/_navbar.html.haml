@@ -1,9 +1,9 @@
-%header.navbar
+%header.navbar#main-navbar{data: {'turbolinks-permanent' => true}}
   .container
     %button.navbar-toggle{type: 'button', "data-target" => ".sidebar-nav.nav-collapse", "data-toggle" => "collapse", style: 'color: white;'}
       %i.fa.fa-bars
       %span{style: 'font-variant: small-caps;'}= "&nbsp;MENU".html_safe
-    %a#main-menu-toggle.hidden-xs.open
+    %a#main-menu-toggle.hidden-xs
       %i.fa.fa-bars
     = link_to main_app.root_path, class: "navbar-brand col-lg-2 col-sm-1 col-xs-12" do
       %span.hidden-xs.hidden-sm Youth Alliance

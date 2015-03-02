@@ -1,40 +1,40 @@
-#sidebar-left.col-lg-2.col-sm-1
+#sidebar-left.col-lg-2.col-sm-1{data: {'turbolinks-permanent' => true}}
   -# .row-fluid.actions
   -#   %input.search.span12{placeholder: "...", type: "text"}/
   .nav-collapse.sidebar-nav.collapse.navbar-collapse.bs-navbar-collapse
     %ul.nav.nav-tabs.nav-stacked.main-menu
-      %li{class: ('active' if controller.controller_name == 'measures' && params[:action] == 'index')}
+      %li{data: {active: 'measures#index'}}
         = link_to main_app.root_url do
           %i.fa.fa-dashboard.fa-fw
           %span.hidden-sm Dashboard
 
-      %li{class: ('active' if controller.controller_name == 'static_pages' && params[:action] == 'about')}
+      %li{data: {active: 'static_pages#about'}}
         = link_to about_url do
           %i.fa.fa-info.fa-fw
           %span.hidden-sm About Us
 
-      %li{class: ('active' if controller.controller_name.in? ['surveys', 'attempts', 'questions'])}
+      %li{data: {active: 'surveys attempts questions'}}
         = link_to rapidfire.activities_url do
           %i.fa.fa-bullhorn.fa-fw
           %span.hidden-sm Activities
 
       - if policy(Reports::Report).index?
-        %li{class: ('active' if controller.controller_name == 'reports')}
+        %li{data: {active: 'reports'}}
           = link_to reports_url do
             %i.fa.fa-bar-chart-o.fa-fw
             %span.hidden-sm Reports
 
-      %li{class: ('active' if controller.controller_name == 'users')}
+      %li{data: {active: 'users'}}
         = link_to users_path do
           %i.fa.fa-group.fa-fw
           %span.hidden-sm Users
 
-      %li{class: ('active' if controller.controller_name == 'organizations')}
+      %li{data: {active: 'organizations'}}
         = link_to organizations_path do
           %i.fa.fa-globe.fa-fw
           %span.hidden-sm Organizations
 
-      %li{class: ('active' if controller.controller_name == 'documents')}
+      %li{data: {active: 'documents'}}
         = link_to documents_url do
           %i.fa.fa-file-text.fa-fw
           %span.hidden-sm Documents

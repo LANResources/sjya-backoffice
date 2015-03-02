@@ -3,7 +3,7 @@ source 'https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/lanresources/'
 
 ruby '2.1.0'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.0.13'
 
 # Database
 gem 'pg'
@@ -33,7 +33,7 @@ gem 'lr-simpliq'
 
 # JavaScript
 gem 'jquery-rails'
-gem 'turbolinks'
+gem 'turbolinks', git: 'https://github.com/rails/turbolinks.git'
 gem 'dropzonejs-rails'
 gem 'select2-rails'
 gem 'best_in_place'
