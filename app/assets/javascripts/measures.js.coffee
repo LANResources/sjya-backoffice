@@ -4,9 +4,9 @@ $ ->
 
 initPage = ->
   if pageIs 'measures', 'index'
+    initAdminMode()
     initNewMeasurements()
     initPopovers()
-    initAdminMode()
 
 initNewMeasurements = ->
   $(document.body).on 'click', '.no-measurement', ->
