@@ -10,12 +10,12 @@
             %th.c Source
             - @years.each do |year|
               %th.c= year
-            - if show_new_year_column = !@years.include?(Date.today.year) && policy(Measurement).create?
+            - if show_new_year_column = !@years.include?(Date.today.year) && cached_measure_permissions[:create_measure]
               %th.c.modifiers.new-year= Date.today.year
         %tbody
-          = render partial: 'measure', collection: @measures, locals: {years: @years, measurements: @measurements, show_new_year_column: show_new_year_column}
+          = render partial: 'measure', collection: @measures, locals: {years: @years, measurements: @measurements, show_new_year_column: show_new_year_column }
 
-- if policy(Measure).update?
+- if cached_measure_permissions[:update_measure]
   .row
     .col-md-12
       %button.btn.btn-primary#admin-mode-toggle{data: {toggle: 'button'}}
@@ -23,7 +23,7 @@
         = p_space 'Admin Mode:'
         %span.state= p_space 'Off'
 
-      - if policy(Measure).create?
+      - if cached_measure_permissions[:create_measure]
         = link_to new_measure_path, class: 'btn btn-primary', remote: true do
           %i.fa.fa-plus
           = p_space 'New Measure'

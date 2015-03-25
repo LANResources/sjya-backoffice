@@ -1,9 +1,9 @@
 .btn-group-vertical
   = measurement_popover_link measurement
   = measurement_popover_document_link measurement
-  - if policy(measurement).edit?
+  - if cached_measure_permissions[:edit_measurement]
     = link_to edit_measure_measurement_path(measure, measurement), remote: true, title: "Edit Measurement", class: "btn btn-xs btn-warning" do
       %i.fa.fa-pencil
-  - if policy(measurement).destroy?
+  - if cached_measure_permissions[:destroy_measurement]
     = link_to [measure, measurement], title: "Remove", class: "btn btn-xs btn-danger", data: { confirm: 'Are you sure?' }, remote: true, method: :delete do
       %i.fa.fa-trash-o

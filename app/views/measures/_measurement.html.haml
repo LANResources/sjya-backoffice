@@ -1,19 +1,18 @@
 - if measurement
-  - cache [policy(measurement).update?, measurement] do
-    - if policy(measurement).update?
-      %td.c.measurement{data: {year: year, measure: measure.id, measurement: measurement.id }}
-        %span.popovers{data: {content: render(partial: 'measures/popover', locals: { measure: measure, measurement: measurement }).html_safe}}
-          = measurement.value
-    - else
-      %td.c
+  - if cached_measure_permissions[:update_measurement]
+    %td.c.measurement{data: {year: year, measure: measure.id, measurement: measurement.id }}
+      %span.popovers{data: {content: render(partial: 'measures/popover', locals: { measure: measure, measurement: measurement }).html_safe}}
         = measurement.value
-        - if measurement.link || measurement.document
-          %br/
-          = p_space measure_link(measurement)
-          = p_space measure_document_link(measurement)
+  - else
+    %td.c
+      = measurement.value
+      - if measurement.link || measurement.document
+        %br/
+        = p_space measure_link(measurement)
+        = p_space measure_document_link(measurement)
 
 - else
-  - if policy(Measurement).create?
+  - if cached_measure_permissions[:create_measurement]
     %td.c.no-measurement{class: ('modifiers new-year' if modifiers), data: {year: year, measure: measure.id, path: new_measure_measurement_path(measure, {year: year})}}
       = '-'
   - else

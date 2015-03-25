@@ -14,4 +14,18 @@ module MeasuresHelper
       end.html_safe
     end
   end
+
+  def cached_measure_permissions
+    @measure_permissions ||= begin
+      measure_policy = policy(Measure)
+      measurement_policy = policy(Measurement)
+      {
+        update_measure: measure_policy.update?,
+        create_measurement: measurement_policy.create?,
+        edit_measurement: measurement_policy.edit?,
+        update_measurement: measurement_policy.update?,
+        destroy_measurement: measurement_policy.destroy?
+      }
+    end
+  end
 end
