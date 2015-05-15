@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
-source 'https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/lanresources/'
 
-ruby '2.1.0'
+ruby '2.2.1'
 
 gem 'rails', '4.0.13'
 
@@ -29,7 +28,7 @@ gem 'newrelic_rpm'
 gem 'pundit'
 
 # Theme
-gem 'lr-simpliq'
+gem 'lr-simpliq', source: 'https://2gzsjvsxbBG9UWWXiJQx@gem.fury.io/lanresources/'
 
 # JavaScript
 gem 'jquery-rails'
