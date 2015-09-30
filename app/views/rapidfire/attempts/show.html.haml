@@ -73,7 +73,7 @@
                     %i No Response Given
 
             - answer.question.follow_up_questions.each do |follow_up|
-              - if answer.answer_text == follow_up.follow_up_for_condition && @attempt.answers.exists?(question_id: follow_up.id)
+              - if answer.answer_text.split(',,,').include?(follow_up.follow_up_for_condition) && @attempt.answers.exists?(question_id: follow_up.id)
                 - follow_up_answer = @attempt.answers.where(question_id: follow_up.id).first
                 .row
                   .col-md-6
