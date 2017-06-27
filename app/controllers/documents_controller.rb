@@ -9,7 +9,7 @@ class DocumentsController < ApplicationController
   end
 
   def download
-    send_data @document.item.file.download,
+    send_data (open @document.item.url).read,
       type: @document.content_type,
       filename: @document.filename,
       disposition: 'attachment'

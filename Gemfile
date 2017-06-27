@@ -48,7 +48,7 @@ gem 'bootstrap-will_paginate'
 
 # Files
 gem "carrierwave"
-gem "carrierwave-dropbox"
+gem "carrierwave-dropbox", git: 'https://github.com/LANResources/carrierwave-dropbox.git', branch: 'master'
 gem 'mini_magick'
 
 # Mail
