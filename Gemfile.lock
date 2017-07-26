@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/LANResources/carrierwave-dropbox.git
-  revision: 1b576464debd022ea322d19676029d7099d625a9
+  revision: 36fee1e9eaa5e72f17c7f1f9b5e406679669a740
   branch: master
   specs:
-    carrierwave-dropbox (2.0.0)
+    carrierwave-dropbox (2.0.1)
       carrierwave (~> 0.10)
       dropbox-sdk-v2
 
@@ -58,7 +58,8 @@ GEM
       rails (>= 3, < 5)
     acts_as_list (0.4.0)
       activerecord (>= 3.0)
-    addressable (2.3.5)
+    addressable (2.5.1)
+      public_suffix (~> 2.0, >= 2.0.2)
     arel (4.0.2)
     awesome_print (1.2.0)
     bcrypt-ruby (3.1.2)
@@ -168,7 +169,7 @@ GEM
       domain_name (~> 0.5)
     http-form_data (1.0.3)
     http_parser.rb (0.6.0)
-    i18n (0.8.4)
+    i18n (0.8.6)
     jbuilder (1.5.2)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -201,7 +202,7 @@ GEM
       railties
     method_source (0.8.2)
     methodfinder (1.2.5)
-    mime-types (2.4.3)
+    mime-types (2.99.3)
     mimemagic (0.3.2)
     mini_magick (3.7.0)
       subexec (~> 0.2.1)
@@ -217,6 +218,7 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    public_suffix (2.0.5)
     pundit (0.2.1)
       activesupport (>= 3.0.0)
     rack (1.5.3)
