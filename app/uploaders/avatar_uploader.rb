@@ -10,7 +10,19 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    "https://dl.dropboxusercontent.com/u/#{DropboxConfig::USER_ID}/SJYABackOffice/#{DropboxConfig::SUBFOLDER}/users/default/#{version_name}/missing.png"
+    url_string = case version_name.try(:to_sym)
+    when :small
+      "azaaqahnaghggux"
+    when :thumb
+      "gwhawv8faekvxwx"
+    when :medium
+      "xywd9p1jymxk35j"
+    when :tiny
+      "4xm8er1u5f6hece"
+    else
+      "1u7l698f31tgcsf"
+    end
+    "https://www.dropbox.com/s/#{url_string}/missing.png?dl=1"
   end
 
   # Process files as they are uploaded:

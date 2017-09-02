@@ -1,11 +1,19 @@
 GIT
   remote: https://github.com/LANResources/carrierwave-dropbox.git
-  revision: 36fee1e9eaa5e72f17c7f1f9b5e406679669a740
+  revision: 2a36d70b5f38f7f5e8dbb92ec1fc43a47138e23d
   branch: master
   specs:
-    carrierwave-dropbox (2.0.1)
+    carrierwave-dropbox (2.1.0)
       carrierwave (~> 0.10)
-      dropbox-sdk-v2
+      dropbox-sdk-v2 (>= 0.0.4)
+
+GIT
+  remote: https://github.com/LANResources/dropbox-sdk-ruby.git
+  revision: 24be527e3ffec12adc01f1941a01420b7b500adc
+  branch: master
+  specs:
+    dropbox-sdk-v2 (0.0.4)
+      http (~> 2.0)
 
 GIT
   remote: https://github.com/LANResources/rapidfire.git
@@ -58,8 +66,8 @@ GEM
       rails (>= 3, < 5)
     acts_as_list (0.4.0)
       activerecord (>= 3.0)
-    addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     arel (4.0.2)
     awesome_print (1.2.0)
     bcrypt-ruby (3.1.2)
@@ -112,8 +120,6 @@ GEM
     diff-lcs (1.2.4)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
-    dropbox-sdk-v2 (0.0.3)
-      http (~> 2.0)
     dropzonejs-rails (0.4.10)
       rails (> 3.1)
     erubis (2.7.0)
@@ -218,7 +224,7 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
-    public_suffix (2.0.5)
+    public_suffix (3.0.0)
     pundit (0.2.1)
       activesupport (>= 3.0.0)
     rack (1.5.3)
@@ -351,6 +357,7 @@ DEPENDENCIES
   cucumber-rails (= 1.4.0)
   dalli
   database_cleaner
+  dropbox-sdk-v2!
   dropzonejs-rails
   exception_notification
   factory_girl_rails (= 4.2.1)

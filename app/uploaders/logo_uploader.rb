@@ -10,7 +10,19 @@ class LogoUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    "https://dl.dropboxusercontent.com/u/#{DropboxConfig::USER_ID}/SJYABackOffice/#{DropboxConfig::SUBFOLDER}/organizations/default/#{version_name}/missing_organization.png"
+    url_string = case version_name.try(:to_sym)
+    when :small
+      "zhxsrm4b2kmjnmv"
+    when :thumb
+      "m3cwlnhps80uk9v"
+    when :medium
+      "2klo0tsnwhbqg2n"
+    when :tiny
+      "ipvdugpsar4owza"
+    else
+      "9b982ctad6dbfi7"
+    end
+    "https://www.dropbox.com/s/#{url_string}/missing_organization.png?dl=1"
   end
 
   # Process files as they are uploaded:
