@@ -10,7 +10,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    "https://#{S3Config::BUCKET}.s3.us-east-3.amazonaws.com/#{S3Config::SUBFOLDER}/users/default/#{version_name}/missing.png"
+    "https://#{S3Config::BUCKET}.s3.#{S3Config::REGION}.amazonaws.com/#{S3Config::SUBFOLDER}/users/default/#{version_name}/missing.png"
   end
 
   # Process files as they are uploaded:

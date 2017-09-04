@@ -10,7 +10,7 @@ class LogoUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    "https://#{S3Config::BUCKET}.s3.us-east-3.amazonaws.com/#{S3Config::SUBFOLDER}/organizations/default/#{version_name}/missing_organization.png"
+    "https://#{S3Config::BUCKET}.s3.#{S3Config::REGION}.amazonaws.com/#{S3Config::SUBFOLDER}/organizations/default/#{version_name}/missing_organization.png"
   end
 
   # Process files as they are uploaded:
